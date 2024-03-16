@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+	<title>Inclinotifier</title>
+	<! base href="https://skorpi0n.github.io/inclinotifier/">
+	<link rel="manifest" href="manifest.json"/>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+
+	<link id="styles.css-no-cache" href="styles.css?s=1" rel="stylesheet">
+
+	<script src="frontend.js?s=1"></script>
+
+	<script id="push.js-no-cache" src="push.js?s=1"></script>
+	<script id="speech.js-no-cache" src="speech.js?s=1"></script>
+	<script id="touch.js-no-cache" src="touch.js?s=1"></script>
+	<script id="motion.js-no-cache" src="motion.js?s=1"></script>
+
+	<script type="text/javascript">
+
+
+//need to enable this ts= thing
+		ts=new Date().getTime();
+		document.getElementById('styles.css-no-cache').href = 'styles.css?v=' + ts;
+		document.getElementById('push.js-no-cache').src = 'push.js?v=' + ts;
+		document.getElementById('speech.js-no-cache').src = 'speech.js?v=' + ts;
+		document.getElementById('touch.js-no-cache').src = 'touch.js?v=' + ts;
+		document.getElementById('motion.js-no-cache').src = 'motion.js?v=' + ts;
+/*
+		var scr = document.createElement("script");
+		scr.src = "frontend.js" + "?ts=" + ts;
+		document.getElementsByTagName("head")[0].appendChild(scr);
+*/
+	</script>
+
+	<link rel="apple-touch-icon" href="images/favicon.png">
+	<script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
+</head>
+<body>
+<div class="wrapper">
+	<h1>Inclinotifier</h1>
+	<h2></h2>
+
+	<div id="debug"></div>
+
+	<div id="scan-qr-code">
+		Looks like you're not on an mobile device!<br>
+		Scan this QR code to open it in your mobile device
+		<img src="images/qrcode_skorpi0n.github.io.png" alt="qrCode"><br><br>
+	</div>
+
+	<div id="not-a-valid-device">
+		Looks like you're neither on a IOS or Android device<br>
+		If this is incorrect, report issue at <a href="https://github.com/skorpi0n/inclinotifier/issues">https://github.com/skorpi0n/inclinotifier/issues</a>
+		<span class="fa-stack fa-2x">
+			<i class="fa-brands fa-android"></i>
+			<! i class="fa-solid fa-ban fa-stack-2x" style="color:Tomato"></i>
+		</span>
+		<span class="fa-stack fa-2x">
+			<i class="fa-brands fa-apple"></i>
+			<! i class="fa-solid fa-ban fa-stack-2x" style="color:Tomato"></i>
+		</span>
+	</div>
+
+	<div id="add-to-home-screen">
+		For Inclinotifier to work, you need to add it to your Home Screen.
+		<img src="images/webpush-add-to-home-screen.jpg" alt="webpush add to some screen">
+	</div>
+
+	<button id="subscribe-to-notifications-btn" onclick="subscribeToPush()">Subscribe to notifications</button>
+	<div id="sub-info"></div>
+	<button id="test-send-btn" onclick="sendPush('Push notification test', 'Push notification is working if you can read this')">Send test notification</button>
+
+	<div id="motion-info"></div>
+	<button id="request-perm-for-motion-btn" onclick="requestPermForMotion()">Request permissions for motion</button>
+
+
+	<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub!</a>
+
+	<div id="orientation">
+		<div class="p-3 mb-2 bg-secondary" id="demo-div">
+		<span id="front-view"><i class="fac fa-caravan-front fa-rotate-90"></i></span>
+		<div id="front-motion">
+			<ul>
+				<li>Z-axis: <span id="z-axis">0</span><span>&deg;</span></li>
+				<li>Z-Distance: <span id="z-distance">0</span><span>mm</span></li>
+			</ul>
+		</div>
+
+		<span id="side-view" class="fa-flip-horizontal"><i class="fas fa-caravan fa-rotate-270"></i></span>
+		<div id="side-motion">
+			<ul>
+				<li>X-axis: <span id="x-axis">0</span><span>&deg;</span></li>
+				<li>X-Distance: <span id="x-distance">0</span><span>mm</span></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<div id="settings">
+		<i class="fa-solid fa-gear"></i>
+		<i class="fa-solid fa-bars"></i>
+		<i class="fa-solid fa-ear-listen"></i>
+		<i class="fa-solid fa-headphones"></i>
+		<i class="fa-solid fa-volume-low"></i>
+
+
+		<div id="speech">
+		  <h1>Web Speech Synthesis Demo</h1>
+		  
+		  <p id="msg"></p>
+		
+		  <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
+		
+			<div class="option">
+				<label for="voice">Voice</label>
+				<select name="voice" id="voice"></select>
+			</div>
+			<div class="option">
+				<label for="volume">Volume</label>
+				<input type="range" min="0" max="1" step="0.1" name="volume" id="volume" value="1">
+			</div>
+			<div class="option">
+				<label for="rate">Rate</label>
+				<input type="range" min="0.1" max="10" step="0.1" name="rate" id="rate" value="1">
+			</div>
+			<div class="option">
+				<label for="pitch">Pitch</label>
+				<input type="range" min="0" max="2" step="0.1" name="pitch" id="pitch" value="1">
+			</div>
+		
+			<button id="speak">Speak</button>
+		</div>
+	</div>
+</div>
+
+<script>
+/*
+	ts=new Date().getTime();
+	var scr = document.createElement("script");
+	scr.src = "frontend.js" + "?ts=" + ts;
+	document.getElementsByTagName("head")[0].appendChild(scr);
+
+
+	document.getElementsByTagName("head")[0].appendChild(scr);
+	var scr = document.createElement("script");
+	scr.src = "push.js" + "?ts=" + ts;
+	document.getElementsByTagName("head")[0].appendChild(scr);
+	var scr = document.createElement("script");
+	scr.src = "speech.js" + "?ts=" + ts;
+	document.getElementsByTagName("head")[0].appendChild(scr);
+	var scr = document.createElement("script");
+	scr.src = "touch.js" + "?ts=" + ts;
+	document.getElementsByTagName("head")[0].appendChild(scr);
+	var scr = document.createElement("script");
+	scr.src = "motion.js" + "?ts=" + ts;
+	document.getElementsByTagName("head")[0].appendChild(scr);
+*/
+</script>
+<script src="https://kit.fontawesome.com/90764c67a5.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

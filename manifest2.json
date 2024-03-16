@@ -1,0 +1,36 @@
+{
+	"name": "Inclinotifier",
+	"short_name": "Inclinotifier",
+	"display": "standalone",
+	"description": "An app which gives push or speech notification to help level things",
+	"start_url": "/index.html",
+	"background_color": "#FFFFFF",
+	"theme_color": "#FFFFFF",
+	"icons": [
+		{
+			"src": "images/icons/72.png",
+			"sizes": "72x72",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icons/120.png",
+			"sizes": "120x120",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icons/144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icons/180.png",
+			"sizes": "180x180",
+			"type": "image/png"
+		},
+		{
+			"src": "images/icons/1024.png",
+			"sizes": "1024x1024",
+			"type": "image/png"
+		}
+	],
+}
