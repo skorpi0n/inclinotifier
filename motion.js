@@ -31,12 +31,12 @@ function handleOrientation(event) {
 			}
 			circumference = localStorage.getItem("wheelTrackDistanceMM")*2*Math.PI;
 			degreeDistance = Math.ceil((circumference/360)*event.gamma);
-			if(Math.abs(degreeDistance) < 500){
+//			if(Math.abs(degreeDistance) < 500){
 				zDist.innerHTML = degreeDistance;
-			}
-			else{
-				zDist.innerHTML = ">500";
-			}
+//			}
+//			else{
+//				zDist.innerHTML = ">500";
+//			}
 	
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
@@ -83,23 +83,23 @@ function handleOrientation(event) {
 			}
 			circumference = localStorage.getItem("axleToJockeyWheelMM")*2*Math.PI;
 			degreeDistance = Math.ceil((circumference/360)*event.beta);
-			if(Math.abs(degreeDistance) < 500){
+//			if(Math.abs(degreeDistance) < 500){
 				xDist.innerHTML = degreeDistance;
-			}
-			else{
-				xDist.innerHTML = ">500";
-			}
+//			}
+//			else{
+//				xDist.innerHTML = ">500";
+//			}
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
 				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
 //					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.beta < 0){
 	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+						debugView.innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
 					}
 					else{
 	//					sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+						debugView.innerHTML += "<span>&gt;Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
 					lastXangle=event.beta;

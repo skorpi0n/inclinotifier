@@ -55,7 +55,7 @@ const maxAngle = 30;	//IS THIS USED?
 var lastXangle = 180;	//Set it to something big initially
 var lastZangle = 180;	//Set it to something big initially
 
-const xzUpdateIntervalMS = 1000;	//200 is too fast, 400 is good
+const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
 
