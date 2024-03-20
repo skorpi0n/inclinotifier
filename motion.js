@@ -8,7 +8,7 @@ function handleOrientation(event) {
 		frontView.children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
-			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
+//			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
 	//		lastZupdateTS=Date.now();
 			zAxis.innerHTML = Math.ceil(event.gamma*10)/10;
 			if(Math.abs(event.gamma) >= 5){
@@ -30,7 +30,6 @@ function handleOrientation(event) {
 				frontView.style.color = "lime";
 			}
 			circumference = localStorage.getItem("wheelTrackDistanceMM")*2*Math.PI;
-	//		circumference = 3000*2*Math.PI;
 			degreeDistance = Math.ceil((circumference/360)*event.gamma);
 			if(Math.abs(degreeDistance) < 500){
 				zDist.innerHTML = degreeDistance;
@@ -42,11 +41,10 @@ function handleOrientation(event) {
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
 				if(Math.abs(lastZangle-event.gamma)>=localStorage.getItem("angleStepsForPush")){
-					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+event.gamma+" ("+Math.abs(lastZangle-event.gamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+//					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+event.gamma+" ("+Math.abs(lastZangle-event.gamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.gamma > 0){
 	//					sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
 						debugView.innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
-	//					debugView.innerHTML += "<span>Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
 					}
 					else{
 	//					sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
@@ -56,7 +54,6 @@ function handleOrientation(event) {
 				}
 			}
 
-			debugView.innerHTML += "<span>__lastXupdateTS</span>";
 			lastZupdateTS=Date.now();
 			lastZangle=event.gamma;
 		}
@@ -65,7 +62,6 @@ function handleOrientation(event) {
 		sideView.children[0].style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
-			debugView.innerHTML += "<span>b"+lastXupdateTS+"</span>";
 			xAxis.innerHTML = Math.ceil(event.beta*10)/10;
 			if(Math.abs(event.beta) >= 5){
 				sideView.classList.remove("beatFlipH");
@@ -96,7 +92,7 @@ function handleOrientation(event) {
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
 				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
-					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+//					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.beta < 0){
 	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
 						debugView.innerHTML += "<span>&gt;Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
