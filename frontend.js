@@ -53,7 +53,7 @@ const axleToJockeyWheelMM = 3000;
 
 const maxAngle = 30;	//IS THIS USED?
 var lastXangle = 180;	//Set it to something big initially
-var lastZangl = 180;	//Set it to something big initially
+var lastZangle = 180;	//Set it to something big initially
 
 const xzUpdateIntervalMS = 1000;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
