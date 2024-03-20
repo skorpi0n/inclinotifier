@@ -1,6 +1,7 @@
 {
 	"name": "Inclinotifier",
 	"display": "standalone",
+	"start_URL": "index.html",
 	"icons": [
 		{
 			"src": "images/icons/72.png",

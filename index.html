@@ -1,4 +1,4 @@
-<html lang="en">
+<html>
 <head>
 	<title>Inclinotifier</title>
 	<! base href="https://skorpi0n.github.io/inclinotifier/">
@@ -11,49 +11,41 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<link rel="icon" type="image/png" href="images/favicon.png">
 
-	<link id="styles.css-no-cache" href="styles.css?s=1" rel="stylesheet">
-
-	<script src="frontend.js?s=1"></script>
-
-	<script id="push.js-no-cache" src="push.js?s=1"></script>
-	<script id="speech.js-no-cache" src="speech.js?s=1"></script>
-	<script id="touch.js-no-cache" src="touch.js?s=1"></script>
-	<script id="motion.js-no-cache" src="motion.js?s=1"></script>
-
-	<script type="text/javascript">
+	<link id="styles.css-no-cache" href="" rel="stylesheet">
+	<script id="push.js-no-cache" src=""></script>
+	<script id="touch.js-no-cache" src=""></script>
+	<script id="motion.js-no-cache" src=""></script>
+	<script id="frontend.js-no-cache" src=""></script>
 
 
-//need to enable this ts= thing
-		ts=new Date().getTime();
-		document.getElementById('styles.css-no-cache').href = 'styles.css?v=' + ts;
-		document.getElementById('push.js-no-cache').src = 'push.js?v=' + ts;
-		document.getElementById('speech.js-no-cache').src = 'speech.js?v=' + ts;
-		document.getElementById('touch.js-no-cache').src = 'touch.js?v=' + ts;
-		document.getElementById('motion.js-no-cache').src = 'motion.js?v=' + ts;
-/*
-		var scr = document.createElement("script");
-		scr.src = "frontend.js" + "?ts=" + ts;
-		document.getElementsByTagName("head")[0].appendChild(scr);
-*/
-	</script>
 
 	<link rel="apple-touch-icon" href="images/favicon.png">
 	<script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
 </head>
 <body>
 <div class="wrapper">
-	<h1>Inclinotifier</h1>
-	<h2></h2>
+	<div id="header">
+		<span id="show-home"><i class="fas fa-home fa-2x"></i></span>
+		<span id="show-settings"><i class="fas fa-gear fa-2x"></i></span>
+		<span id="show-qr-code"><i class="fa-solid fa-qrcode fa-2x"></i></span>
+		<span id="show-debug"><i class="fa-solid fa-code fa-2x"></i></span>
+	</div>
 
-	<div id="debug"></div>
+	<div id="debug" class="views"></div>
 
-	<div id="scan-qr-code">
+	<div id="scan-qr-code" class="views">
 		Looks like you're not on an mobile device!<br>
 		Scan this QR code to open it in your mobile device
 		<img src="images/qrcode_skorpi0n.github.io.png" alt="qrCode"><br><br>
 	</div>
 
-	<div id="not-a-valid-device">
+	<div id="distribute-qr-code" class="views">
+		If you like this app, Please share it<br>
+		by letting other scan this QR-code
+		<img src="images/qrcode_skorpi0n.github.io.png" alt="qrCode"><br><br>
+	</div>
+
+	<div id="not-a-valid-device" class="views">
 		Looks like you're neither on a IOS or Android device<br>
 		If this is incorrect, report issue at <a href="https://github.com/skorpi0n/inclinotifier/issues">https://github.com/skorpi0n/inclinotifier/issues</a>
 		<span class="fa-stack fa-2x">
@@ -66,23 +58,14 @@
 		</span>
 	</div>
 
-	<div id="add-to-home-screen">
+	<div id="add-to-home-screen" class="views">
 		For Inclinotifier to work, you need to add it to your Home Screen.
 		<img src="images/webpush-add-to-home-screen.jpg" alt="webpush add to some screen">
 	</div>
 
-	<button id="subscribe-to-notifications-btn" onclick="subscribeToPush()">Subscribe to notifications</button>
-	<div id="sub-info"></div>
-	<button id="test-send-btn" onclick="sendPush('Push notification test', 'Push notification is working if you can read this')">Send test notification</button>
-
-	<div id="motion-info"></div>
-	<button id="request-perm-for-motion-btn" onclick="requestPermForMotion()">Request permissions for motion</button>
 
 
-	<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub!</a>
-
-	<div id="orientation">
-		<div class="p-3 mb-2 bg-secondary" id="demo-div">
+	<div id="orientation" class="views">
 		<span id="front-view"><i class="fac fa-caravan-front fa-rotate-90"></i></span>
 		<div id="front-motion">
 			<ul>
@@ -100,42 +83,36 @@
 		</div>
 	</div>
 
+	<div id="settings" class="views">
 
+		<button id="subscribe-to-notifications-btn" onclick="subscribeToPush()" disabled >Subscribe to notifications</button>
+		<div id="sub-info"></div>
+		<button id="test-send-btn" onclick="sendPush("Push notification test", "Push notification is working if you can read this")">Send test notification</button>
+	
 
-	<div id="settings">
-		<i class="fa-solid fa-gear"></i>
-		<i class="fa-solid fa-bars"></i>
-		<i class="fa-solid fa-ear-listen"></i>
-		<i class="fa-solid fa-headphones"></i>
-		<i class="fa-solid fa-volume-low"></i>
+		<button id="request-perm-for-motion-btn" onclick="requestPermForMotion()" disabled>Request permissions for motion</button>
+		<div id="motion-info"></div>
 
-
-		<div id="speech">
-		  <h1>Web Speech Synthesis Demo</h1>
-		  
-		  <p id="msg"></p>
-		
-		  <input type="text" name="speech-msg" id="speech-msg" x-webkit-speech>
-		
-			<div class="option">
-				<label for="voice">Voice</label>
-				<select name="voice" id="voice"></select>
-			</div>
-			<div class="option">
-				<label for="volume">Volume</label>
-				<input type="range" min="0" max="1" step="0.1" name="volume" id="volume" value="1">
-			</div>
-			<div class="option">
-				<label for="rate">Rate</label>
-				<input type="range" min="0.1" max="10" step="0.1" name="rate" id="rate" value="1">
-			</div>
-			<div class="option">
-				<label for="pitch">Pitch</label>
-				<input type="range" min="0" max="2" step="0.1" name="pitch" id="pitch" value="1">
-			</div>
-		
-			<button id="speak">Speak</button>
+		<div class="option">
+			<label for="pushIntervalMS">Push Interval</label>
+			<input type="range" min="5000" max="15000" step="1000" name="pushIntervalMS" id="pushIntervalMS" value=""><output></output>
 		</div>
+		<div class="option">
+			<label for="angleStepsForPush">Min Angle Change Before Push</label>
+			<input type="range" min="3" max="10" step="1" name="angleStepsForPush" id="angleStepsForPush" value=""><output></output>
+		</div>
+		<div class="option">
+			<label for="wheelTrackDistanceMM">Wheel Track Distance (width)</label>
+			<input type="range" min="1500" max="3000" step="100" name="wheelTrackDistanceMM" id="wheelTrackDistanceMM" value=""><output></output>
+		</div>
+		<div class="option">
+			<label for="axleToJockeyWheelMM">Wheel To JockeyWheel</label>
+			<input type="range" min="1000" max="5000" step="100" name="axleToJockeyWheelMM" id="axleToJockeyWheelMM" value=""><output></output>
+		</div>
+
+		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub</a>
+		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/issues">Report issue at GitHub</a>
+		<button id="reset-btn">Reset to defaults</button>
 	</div>
 </div>
 
@@ -150,9 +127,7 @@
 	document.getElementsByTagName("head")[0].appendChild(scr);
 	var scr = document.createElement("script");
 	scr.src = "push.js" + "?ts=" + ts;
-	document.getElementsByTagName("head")[0].appendChild(scr);
-	var scr = document.createElement("script");
-	scr.src = "speech.js" + "?ts=" + ts;
+
 	document.getElementsByTagName("head")[0].appendChild(scr);
 	var scr = document.createElement("script");
 	scr.src = "touch.js" + "?ts=" + ts;
@@ -162,6 +137,19 @@
 	document.getElementsByTagName("head")[0].appendChild(scr);
 */
 </script>
+
+	<script type="text/javascript">
+		//Dynamically load javascripts to prvent caching
+		ts=new Date().getTime();
+		scripts = ["push.js","touch.js","motion.js","frontend.js"];
+		scripts.forEach(jsfile =>{
+			script = document.createElement("script");
+			script.src = jsfile+"?v=" + ts;
+			document.head.appendChild(script)
+		});
+		document.getElementById("styles.css-no-cache").href = "styles.css?v=" + ts;
+	</script>
+
 <script src="https://kit.fontawesome.com/90764c67a5.js" crossorigin="anonymous"></script>
 
 </body>

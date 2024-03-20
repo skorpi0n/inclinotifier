@@ -1,165 +1,168 @@
-//iOS device orientation
-function deviceOrientation() {
-	var body = document.body;
-	switch(window.orientation) {
-	case 90:
-		body.classList = '';
-		body.classList.add('rotation90');
-		break;
-	case -90:
-		body.classList = '';
-		body.classList.add('rotation-90');
-		break;
-	default:
-		body.classList = '';
-		body.classList.add('portrait');
-		break;
-	}
-}
+
 
 
 //Caravan angle
 function handleOrientation(event) {
-//	document.getElementById('debug').innerHTML += "handleOrientation is running";
-	//X-axis (jockey wheel up/down)
-	document.getElementById("side-view").children[0].style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
-	//Update only on a specified interval to prevent fast switching numbers
-	if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){
-		document.getElementById("x-axis").innerHTML = Math.ceil(event.beta*10)/10;
-		if(Math.abs(event.beta) >= 5){
-			document.getElementById("side-view").classList.remove("beatFlipH");
-			document.getElementById("side-view").style.color = "red";
-		}
-		else if(Math.abs(event.beta) >= 2){
-			document.getElementById("side-view").classList.remove("beatFlipH");
-			document.getElementById("side-view").style.color = "orange";
-		}
-		else if(Math.abs(event.beta) >= 1){
-			document.getElementById("side-view").classList.remove("beatFlipH");
-			document.getElementById("side-view").style.color = "green";
-		}
-		else{
-			if(!document.getElementById("side-view").classList.contains("beatFlipH")){
-				document.getElementById("side-view").classList.add("beatFlipH");
+	try{
+		//Z-axis gamma (right/left wheel up/down)
+		frontView.children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+		//Update only on a specified interval to prevent fast switching numbers
+		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
+			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
+	//		lastZupdateTS=Date.now();
+			zAxis.innerHTML = Math.ceil(event.gamma*10)/10;
+			if(Math.abs(event.gamma) >= 5){
+				frontView.classList.remove("beat");
+				frontView.style.color = "red";
 			}
-			document.getElementById("side-view").style.color = "lime";
-		}
-		circumference = axleToJockeyWheelMM*2*Math.PI;
-		degreeDistance = Math.ceil((circumference/360)*event.beta);
-		if(degreeDistance < 500){
-			document.getElementById('x-distance').innerHTML = degreeDistance;
-		}
-		else{
-			document.getElementById('x-distance').innerHTML = "Over 500";
-		}
-
-//		document.getElementById('debug').innerHTML += '<br>Send push?';
-		if((Date.now()-lastPushTS) > pushIntervalMS){
-			document.getElementById('debug').innerHTML += '<br>Send push?';
-
-			//Send push
-			if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
-				document.getElementById('debug').innerHTML += '<br>Send push?'+lastXangle+'-'+event.beta+' ('+Math.ceil(Math.abs(lastXangle-event.beta))+') >='+angleStepsForPush;
-				if(event.beta > 0){
-					sendPush('Side to side','Right wheel up by '+Math.abs(degreeDistance)+'mm ('+Math.ceil(event.gamma)+'&deg;)');
-				}
-				else{
-					sendPush('Side to side','Left wheel up by '+Math.abs(degreeDistance)+'mm ('+Math.ceil(event.gamma)+'&deg;)');
-				}
-				lastPushTS = Date.now();
-				lastXangle=event.beta;
+			else if(Math.abs(event.gamma) >= 2){
+				frontView.classList.remove("beat");
+				frontView.style.color = "orange";
 			}
-		}
-		lastXupdateTS=Date.now();
+			else if(Math.abs(event.gamma) >= 1){
+				frontView.classList.remove("beat");
+				frontView.style.color = "green";
+			}
+			else{
+				if(!frontView.classList.contains("beat")){
+					frontView.classList.add("beat");
+				}
+				frontView.style.color = "lime";
+			}
+			circumference = localStorage.getItem("wheelTrackDistanceMM")*2*Math.PI;
+	//		circumference = 3000*2*Math.PI;
+			degreeDistance = Math.ceil((circumference/360)*event.gamma);
+			if(Math.abs(degreeDistance) < 500){
+				zDist.innerHTML = degreeDistance;
+			}
+			else{
+				zDist.innerHTML = ">500";
+			}
+	
+			if((Date.now()-lastPushTS) > pushIntervalMS){
+				//Send push
+				if(Math.abs(lastZangle-event.gamma)>=localStorage.getItem("angleStepsForPush")){
+					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+event.gamma+" ("+Math.abs(lastZangle-event.gamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+					if(event.gamma > 0){
+	//					sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
+	//					debugView.innerHTML += "<span>Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
+					}
+					else{
+	//					sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Side to side: Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
+					}
+					lastPushTS = Date.now();
+				}
+			}
 
+			debugView.innerHTML += "<span>__lastXupdateTS</span>";
+			lastZupdateTS=Date.now();
+			lastZangle=event.gamma;
+		}
+	
+		//X-axis beta (jockey wheel up/down)
+		sideView.children[0].style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
+		//Update only on a specified interval to prevent fast switching numbers
+		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
+			debugView.innerHTML += "<span>b"+lastXupdateTS+"</span>";
+			xAxis.innerHTML = Math.ceil(event.beta*10)/10;
+			if(Math.abs(event.beta) >= 5){
+				sideView.classList.remove("beatFlipH");
+				sideView.style.color = "red";
+			}
+			else if(Math.abs(event.beta) >= 2){
+				sideView.classList.remove("beatFlipH");
+				sideView.style.color = "orange";
+			}
+			else if(Math.abs(event.beta) >= 1){
+				sideView.classList.remove("beatFlipH");
+				sideView.style.color = "green";
+			}
+			else{
+				if(!sideView.classList.contains("beatFlipH")){
+					sideView.classList.add("beatFlipH");
+				}
+				sideView.style.color = "lime";
+			}
+			circumference = localStorage.getItem("axleToJockeyWheelMM")*2*Math.PI;
+			degreeDistance = Math.ceil((circumference/360)*event.beta);
+			if(Math.abs(degreeDistance) < 500){
+				xDist.innerHTML = degreeDistance;
+			}
+			else{
+				xDist.innerHTML = ">500";
+			}
+			if((Date.now()-lastPushTS) > pushIntervalMS){
+				//Send push
+				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
+					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+					if(event.beta < 0){
+	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+					}
+					else{
+	//					sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+					}
+					lastPushTS = Date.now();
+					lastXangle=event.beta;
+				}
+			}
+			lastXupdateTS=Date.now();
+			lastXangle=event.beta;
+		}
 	}
-
-	//Z-axis (right/left wheel up/down)
-	document.getElementById("front-view").children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
-	//Update only on a specified interval to prevent fast switching numbers
-	if(event.beta != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
-		document.getElementById("z-axis").innerHTML = Math.ceil(event.gamma*10)/10;
-		if(Math.abs(event.gamma) >= 5){
-			document.getElementById("front-view").classList.remove("beat");
-			document.getElementById("front-view").style.color = "red";
-		}
-		else if(Math.abs(event.gamma) >= 2){
-			document.getElementById("front-view").classList.remove("beat");
-			document.getElementById("front-view").style.color = "orange";
-		}
-		else if(Math.abs(event.gamma) >= 1){
-			document.getElementById("front-view").classList.remove("beat");
-			document.getElementById("front-view").style.color = "green";
-		}
-		else{
-			if(!document.getElementById("front-view").classList.contains("beat")){
-				document.getElementById("front-view").classList.add("beat");
-			}
-			document.getElementById("front-view").style.color = "lime";
-		}
-		circumference = wheelTrackDistance*2*Math.PI;
-		degreeDistance = Math.ceil((circumference/360)*event.gamma);
-		if(degreeDistance < 500){
-			document.getElementById('z-distance').innerHTML = degreeDistance;
-		}
-		else{
-			document.getElementById('z-distance').innerHTML = "Over 500";
-		}
-/*
-		if((Date.now()-lastPushTS) > pushIntervalMS){
-			//Send push
-			if(Math.abs(lastZangle-event.gamma)>=angleStepsForPush){
-				document.getElementById('debug').innerHTML += '<br>Send push?'+lastZangle+'-'+event.gamma+' ('+Math.ceil(Math.abs(lastZangle-event.gamma))+') >='+angleStepsForPush;
-				if(event.beta < 0){
-					sendPush('Jockey Up/down','Jockey wheel up by '+degreeDistance+'mm ('+Math.ceil(event.beta)+'&deg;)');
-				}
-				else{
-					sendPush('Jockey Up/down','Jockey wheel down by '+degreeDistance+'mm ('+Math.ceil(event.beta)+'&deg;)');
-				}
-				lastPushTS = Date.now();
-			}
-		}
-*/
-		lastZupdateTS=Date.now();
-		lastZangle=event.gamma;
+	catch(err){
+			debugView.innerHTML = "<span>"+err.message+"</span>";
 	}
 }
 
 async function requestPermForMotion() {
-//	e.preventDefault();
-	// Request permission for iOS 13+ devices
-	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		document.getElementById('debug').innerHTML += '<br>DeviceMotion True AND reqMotion = function';
-
-		const permissionState = await DeviceOrientationEvent.requestPermission();
-		
-		if (permissionState === "granted") {
-			document.getElementById('debug').innerHTML += "<br>Device motion was Granted__";
-			document.getElementById('request-perm-for-motion-btn').style.display = 'none';
-			document.getElementById('orientation').style.display = 'block';
+	try{
+	//	e.preventDefault();
+		// Request permission for iOS 13+ devices
+		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
+			debugView.innerHTML += "<span>&gt;DeviceMotion True AND reqMotion = function</span>";
+	
+			const permissionState = await DeviceOrientationEvent.requestPermission();
+			
+			if (permissionState === "granted") {
+				debugView.innerHTML += "<span>&gt;Device motion was Granted__</span>";
+	//			reqMotionPermBtn.style.display = "none";
+				reqMotionPermBtn.disabled = true;
+				motionInfo.innerHTML = "Motion was Granted";
+	//			orientView.style.display = "block";
+	pushHashAndFixTargetSelector("#orientation");
+			}
+			else{
+				debugView.innerHTML += "<span>&gt;Device motion was Denied</span>";
+				//Permission was denied
+				motionInfo.innerHTML = "Device motion was Denied";
+	//			reqMotionPermBtn.style.display = "none";
+				reqMotionPermBtn.disabled = true;
+				motionInfo.innerHTML = "Motion was Granted";
+				orientView.style.display = "none";
+			}
 		}
 		else{
-			document.getElementById('debug').innerHTML += "<br>Device motion was Denied";
-			//Permission was denied
-			document.getElementById('motion-info').innerHTML = "Device motion was Denied";
-			document.getElementById('request-perm-for-motion-btn').style.display = 'none';
-			document.getElementById('orientation').style.display = 'none';
+			debugView.innerHTML += "<span>&gt;Device motion not asked yet</span>";
+			motionInfo.innerHTML = "Device motion not asked yet";
+		}
+	
+		//Here we only process while motion is running/or not
+		if (is_running){
+			//debugView.innerHTML += "<br>Device motion is running";
+			window.removeEventListener("deviceorientation", handleOrientation);
+			is_running = false;
+		}
+		else{
+			//debugView.innerHTML += "<br>Device motion is not running";
+			window.addEventListener("deviceorientation", handleOrientation);
+			is_running = true;
 		}
 	}
-	else{
-		document.getElementById('debug').innerHTML += '<br>Device motion not asked yet';
-		document.getElementById('motion-info').innerHTML = "Device motion not asked yet";
-	}
-
-	//Here we only process while motion is running/or not
-	if (is_running){
-		//document.getElementById('debug').innerHTML += '<br>Device motion is running';
-		window.removeEventListener("deviceorientation", handleOrientation);
-		is_running = false;
-	}
-	else{
-		//document.getElementById('debug').innerHTML += '<br>Device motion is not running';
-		window.addEventListener("deviceorientation", handleOrientation);
-		is_running = true;
+	catch(err){
+			debugView.innerHTML = "<span>"+err.message+"</span>";
 	}
 };

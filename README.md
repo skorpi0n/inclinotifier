@@ -8,6 +8,10 @@ UNDER DEVELOPMENT!
 # Milestones already reached
 1. Proof of concept with working caravan X/Z tilt visualization (build 3e385b8)
 
+# Not working (not possible at the moment)
+1. Audio notifications / SpeechSynthesis
+	For SpeechSynthesis to work, it needs user interactionin the form of a click or similar
+
 # Milestones to reach
 1. Toggle Push / Audio notification (when smartwatch is not available)
 	Text to speech
