@@ -91,6 +91,7 @@ body {
 #settings .option {
 //	display: flex;
 	margin: 1em 0;
+	padding: 15px;
 }
 #settings .option output {
 	width: 80px;
