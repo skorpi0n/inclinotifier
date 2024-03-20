@@ -51,11 +51,11 @@ function handleOrientation(event) {
 						debugView.innerHTML += "<span>&gt;Side to side: Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
+					lastZangle=event.gamma;
 				}
 			}
 
 			lastZupdateTS=Date.now();
-			lastZangle=event.gamma;
 		}
 	
 		//X-axis beta (jockey wheel up/down)
@@ -108,7 +108,6 @@ function handleOrientation(event) {
 				}
 			}
 			lastXupdateTS=Date.now();
-			lastXangle=event.beta;
 		}
 	}
 	catch(err){
