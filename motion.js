@@ -90,7 +90,7 @@ function handleOrientation(event) {
 //				xDist.innerHTML = ">500";
 //			}
 //			if((Date.now()-lastPushTS) > pushIntervalMS){
-			if((Date.now() >= lastPushTS+pushIntervalMS){
+			if(Date.now() >= lastPushTS+pushIntervalMS){
 				//Send push
 				debugView.innerHTML += "<span>&gt;Send Push?</span>";
 				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
