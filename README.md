@@ -24,10 +24,15 @@ UNDER DEVELOPMENT!
 3. Add ability to change icon to RV, car, spirit level. Anything more?
 
 # TODO list
-Add grass in footer
+NOPE Add grass in footer
+
+Calibrate motion with click-hold?
+
+Add to settings
+	if degree <= x, send push with level completed message
 
 When should push be sent?
-	Send push only on +/-1 change and max every 5?s
+	Send push only on +/-1 change and max every 5s?
 	On every change 1 degree, check if currentTS is greater than timerStartTS+5s, then do a push?
 
 Add ability to change axleToJockeyWheel distance by clicking on the caravan image

@@ -95,6 +95,9 @@ function handleOrientation(event) {
 			if(Date.now() >= lastPushTS+pushIntervalMS){
 				//Send push
 //				debugView.innerHTML += "<span>&gt;Send Push?</span>";
+				
+				angleStepsForPush = Math.max(0.5,Math.abs(lastXangle-event.beta));
+
 				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
 //					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.beta < 0){
