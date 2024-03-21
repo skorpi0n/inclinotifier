@@ -85,10 +85,11 @@ var sleepSetTimeout_ctrl;
 	subInfo = document.getElementById("sub-info");
 	subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
 
+
+	zAxis = document.getElementById("z-axis");
+	zDist = document.getElementById("z-distance");
 	xAxis = document.getElementById("x-axis");
 	xDist = document.getElementById("x-distance");
-	zDist = document.getElementById("z-distance");
-	zAxis = document.getElementById("z-axis");
 
 	//Event listeners
 	//Header button

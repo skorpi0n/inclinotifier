@@ -206,7 +206,7 @@ button:disabled {
 }
 #front-view {
 	display: block;
-	font-size: 10em;
+	font-size: 8em;
 	text-align: center;
 }
 #front-text{
@@ -221,7 +221,6 @@ button:disabled {
 	display: block;
 	font-size: 10em;
 	text-align: center;
-//	transform: scaleX(-1);	//fix for iOS where fa-flip-horizontal doesnt work together with rotate
 }
 #side-text{
 	position: relative;
@@ -229,9 +228,6 @@ button:disabled {
 	font-size:14px;
 	top: -60px;
 	left: -90px;
-}
-#side-view span{
-//	transform: scaleX(-1);	//fix for iOS where fa-flip-horizontal doesnt work together with rotate	
 }
 
 #subscribe-to-notifications-btn, #request-perm-for-motion-btn, #test-send-btn, #reset-btn{
