@@ -6,7 +6,7 @@ function handleOrientation(event) {
 	try{
 		//Z-axis gamma (right/left wheel up/down)
 
-		frontBlock.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 			if(calibrationStart){
