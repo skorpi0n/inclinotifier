@@ -45,11 +45,59 @@ function pushHashAndFixTargetSelector(hash) {
 	history.back(); //go back to trigger the above function
 }
 
+function calibrate(){
+	var counterS = calibrationWaitS;
+	const calibrationHoldS = 2;
+	document.getElementById("calibration-timer").style.display = "block";
+	var calibrationTimer = setInterval(function(){
+		console.log("timer running "+counterS);
+		if(counterS + calibrationHoldS + 1 <= 0){
+//calculate average and save to localstorage
+
+			document.getElementById("calibration-timer").innerText = "";
+			document.getElementById("calibration-timer").style.display = "none";
+			calibrationStart = true;
+			console.log("stop");
+			clearInterval(calibrationTimer);
+		}
+		else if(counterS + calibrationHoldS <= 0){
+//calculate average and save to localstorage
+//			clearInterval(calibrationTimer);
+			document.getElementById("calibration-timer").innerText = "DONE";
+			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
+			console.log("done");
+			sum = calibrationX.reduce((a, b) => a + b, 0);
+			avg = (sum / calibrationX.length) || 0;
+			debugView.innerHTML += "<span>&gt;"+sum+"_</span>";
+			//stop fadein fadeout
+		}
+		else if(counterS <= 0){
+			calibrationStart = true;
+			document.getElementById("calibration-timer").innerText = "WAIT";
+			document.getElementById("calibration-timer").classList.add("calibrate-wait");
+			console.log("wait");
+			console.log(calibrationX);
+			debugView.innerHTML += "<span>&gt;"+calibrationX[calibrationX.length - 1]+"__</span>";
+
+			//fadein fadeout
+//here we should record beta gamma values.
+// when done, we take average and save to localstorage
+		}
+
+		else{
+			console.log("counting");
+			document.getElementById("calibration-timer").innerText = counterS;
+		}
+
+		counterS -= 1;
+	}, 1000);
+}
+
 var lastPushTS = Date.now();
 const pushIntervalMS = 5000;
-var angleStepsForPush=5;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
+var angleStepsForPush;
 
 const maxAngle = 30;	//IS THIS USED?
 var lastXangle = 180;	//Set it to something big initially
@@ -59,6 +107,10 @@ const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
 
+var calibrationStart = false;
+const calibrationWaitS = 5;
+var calibrationZ = [];
+var calibrationX = [];
 
 let is_running = false;
 var sleepSetTimeout_ctrl;
@@ -68,7 +120,7 @@ var sleepSetTimeout_ctrl;
 	addToHomeScreen = document.getElementById("add-to-home-screen");
 	debugBtn = document.getElementById("show-debug");
 	debugView = document.getElementById("debug");
-	frontView = document.getElementById("front-view");
+	frontIcon = document.getElementById("front-icon");
 	motionInfo = document.getElementById("motion-info");
 	notValidDeviceView = document.getElementById("not-a-valid-device");
 	orientView = document.getElementById("orientation");
@@ -80,11 +132,13 @@ var sleepSetTimeout_ctrl;
 	homeBtn = document.getElementById("show-home");
 	settingsBtn = document.getElementById("show-settings");
 	qrCodeBtn = document.getElementById("show-qr-code");
-	sideView = document.getElementById("side-view");
+	sideIcon = document.getElementById("side-icon");
 	speakButton = document.getElementById("speak");
 	subInfo = document.getElementById("sub-info");
 	subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
 
+	frontView = document.getElementById("front-view");
+	sideView = document.getElementById("front-view");
 
 	zAxis = document.getElementById("z-axis");
 	zDist = document.getElementById("z-distance");
@@ -137,11 +191,13 @@ var sleepSetTimeout_ctrl;
 		e.target.nextElementSibling.value=Math.ceil(this.value)/1000+"s";
 	});
 
+/*
 	document.getElementById("angleStepsForPush").addEventListener("input", function(e) {
 		localStorage.setItem("angleStepsForPush", e.target.value);
 		document.getElementById("angleStepsForPush").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
+*/
 
 	document.getElementById("wheelTrackDistanceMM").addEventListener("input", function(e) {
 		localStorage.setItem("wheelTrackDistanceMM", e.target.value);
@@ -150,10 +206,23 @@ var sleepSetTimeout_ctrl;
 	});
 
 	document.getElementById("axleToJockeyWheelMM").addEventListener("input", function(e) {
-
 		localStorage.setItem("axleToJockeyWheelMM", e.target.value);
 		document.getElementById("axleToJockeyWheelMM").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+"mm";
+	});
+
+	document.getElementById("calibrate-btn").addEventListener("click", function(e) {
+		calibrate();
+	});
+	document.getElementById("calibratedZ").addEventListener("input", function(e) {
+		localStorage.setItem("calibratedZ", e.target.value);
+		document.getElementById("calibratedZ").value = e.target.value;
+		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
+	});
+	document.getElementById("calibratedX").addEventListener("input", function(e) {
+		localStorage.setItem("calibratedX", e.target.value);
+		document.getElementById("calibratedX").value = e.target.value;
+		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
 	resetButton.addEventListener("click", function(e){
@@ -162,14 +231,20 @@ var sleepSetTimeout_ctrl;
 		document.getElementById("pushIntervalMS").value = pushIntervalMS;
 		document.getElementById("pushIntervalMS").dispatchEvent(new Event('input'));
 
-		document.getElementById("angleStepsForPush").value = angleStepsForPush;
-		document.getElementById("angleStepsForPush").dispatchEvent(new Event('input'));
+//		document.getElementById("angleStepsForPush").value = angleStepsForPush;
+//		document.getElementById("angleStepsForPush").dispatchEvent(new Event('input'));
 
 		document.getElementById("wheelTrackDistanceMM").value = wheelTrackDistanceMM;
 		document.getElementById("wheelTrackDistanceMM").dispatchEvent(new Event('input'));
 
-		document.getElementById("axleToJockeyWheelMM").value = axleToJockeyWheelMM;		document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
+		document.getElementById("axleToJockeyWheelMM").value = axleToJockeyWheelMM;
+		document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
+		document.getElementById("calibratedZ").value = 0;
+		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
+
+		document.getElementById("calibratedX").value = 0;
+		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 	});
 
 
@@ -187,6 +262,7 @@ var sleepSetTimeout_ctrl;
 	}
 	document.getElementById("pushIntervalMS").dispatchEvent(new Event('input'));
 
+/*
 	if(localStorage.getItem("angleStepsForPush")!==null){
 		document.getElementById("angleStepsForPush").setAttribute("value",localStorage.getItem("angleStepsForPush"));
 	}
@@ -194,6 +270,7 @@ var sleepSetTimeout_ctrl;
 		document.getElementById("angleStepsForPush").setAttribute("value",angleStepsForPush);
 	}
 	document.getElementById("angleStepsForPush").dispatchEvent(new Event('input'));
+*/
 
 	if(localStorage.getItem("wheelTrackDistanceMM")!==null){
 		document.getElementById("wheelTrackDistanceMM").setAttribute("value",localStorage.getItem("wheelTrackDistanceMM"));
@@ -211,6 +288,21 @@ var sleepSetTimeout_ctrl;
 	}
 	document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
+	if(localStorage.getItem("calibratedZ")!==null){
+		document.getElementById("calibratedZ").setAttribute("value",localStorage.getItem("calibratedZ"));
+	}
+	else{
+		document.getElementById("calibratedZ").setAttribute("value",calibratedZ);
+	}
+	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+	if(localStorage.getItem("calibratedX")!==null){
+		document.getElementById("calibratedX").setAttribute("value",localStorage.getItem("calibratedX"));
+	}
+	else{
+		document.getElementById("calibratedX").setAttribute("value",calibratedX);
+	}
+	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+
 
 	//Custom Fontawesome icon - Caravan front view
 	var faCaravanFront = {
@@ -226,19 +318,6 @@ var sleepSetTimeout_ctrl;
 	FontAwesome.library.add(faCaravanFront)
 
 	debugView.innerHTML += "<span>"+new Date(document.lastModified).toLocaleString()+"</span>";
-
-/*
-	//retrieve localstorage variables
-	if(localStorage.getItem("volume")!==null){
-		volumeInput.value = localStorage.getItem("volume");
-	}
-	if(localStorage.getItem("rate")!==null){
-		rateInput.value = localStorage.getItem("rate");
-	}
-	if(localStorage.getItem("pitch")!==null){
-		pitchInput.value = localStorage.getItem("pitch");
-	}
-*/
 
 	//Touch Events
 //	document.body.addEventListener("touchstart", function(e){ e.preventDefault(); });

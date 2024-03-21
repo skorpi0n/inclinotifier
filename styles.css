@@ -100,7 +100,7 @@ body {
 #settings .option {
 //	display: flex;
 	margin: 1em 0;
-	padding: 15px;
+//	padding: 15px;
 }
 #settings .option output {
 	width: 80px;
@@ -151,6 +151,15 @@ body {
 	position: relative;
 }
 
+#calibration-timer{
+	display: none;
+	position: absolute;
+	font-size: 40px;
+	font-weight: bold;
+	top: 50vh;
+	left: 50vw;
+}
+
 button {
 	display: inline-block;
 	border-radius: 3px;
@@ -167,11 +176,6 @@ button {
 	text-align: center;
 }
 
-
-_button:active {
-	opacity: 1;
-	box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
-}
 button:disabled {
 	background: #A0A0A0;
 }
@@ -213,7 +217,7 @@ button:disabled {
 #orientation {
 	padding: 20px;
 }
-#front-view {
+#front-icon {
 	display: block;
 	font-size: 8em;
 	text-align: center;
@@ -226,7 +230,7 @@ button:disabled {
 	left: -100px;
 }
 
-#side-view {
+#side-icon {
 	display: block;
 	font-size: 10em;
 	text-align: center;
@@ -239,7 +243,7 @@ button:disabled {
 	left: -90px;
 }
 
-#subscribe-to-notifications-btn, #request-perm-for-motion-btn, #test-send-btn, #reset-btn{
+#subscribe-to-notifications-btn, #request-perm-for-motion-btn, #test-send-btn, #reset-btn, #calibrate-btn{
 //	display: none;
 	width: 100%;
 	line-height: 2;
@@ -297,6 +301,11 @@ button:disabled {
 .beatFlipH{
 	-webkit-animation: pulseFlipH 0.5s 3 ease;
 	animation: pulseFlipH 0.5s 3 ease;
+}
+
+.calibrate-wait{
+	-webkit-animation: pulse 1s linear infinite forwards;
+	animation: pulse 1s linear infinite forwards;
 }
 
 

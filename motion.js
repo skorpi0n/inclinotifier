@@ -5,30 +5,34 @@
 function handleOrientation(event) {
 	try{
 		//Z-axis gamma (right/left wheel up/down)
-//		frontView.children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
-		document.getElementById("front-block").style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+
+		frontBlock.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
+			if(calibrationStart){
+				calibrationZ.push(event.gamma);
+			}
+
 //			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
 	//		lastZupdateTS=Date.now();
 			zAxis.innerHTML = Math.ceil(event.gamma*10)/10;
 			if(Math.abs(event.gamma) >= 5){
-				frontView.classList.remove("beat");
-				frontView.style.color = "red";
+				frontIcon.classList.remove("beat");
+				frontIcon.style.color = "red";
 			}
 			else if(Math.abs(event.gamma) >= 2){
-				frontView.classList.remove("beat");
-				frontView.style.color = "orange";
+				frontIcon.classList.remove("beat");
+				frontIcon.style.color = "orange";
 			}
 			else if(Math.abs(event.gamma) >= 1){
-				frontView.classList.remove("beat");
-				frontView.style.color = "green";
+				frontIcon.classList.remove("beat");
+				frontIcon.style.color = "green";
 			}
 			else{
-				if(!frontView.classList.contains("beat")){
-					frontView.classList.add("beat");
+				if(!frontIcon.classList.contains("beat")){
+					frontIcon.classList.add("beat");
 				}
-				frontView.style.color = "lime";
+				frontIcon.style.color = "lime";
 			}
 			circumference = localStorage.getItem("wheelTrackDistanceMM")*2*Math.PI;
 			degreeDistance = Math.ceil((circumference/360)*event.gamma);
@@ -41,7 +45,7 @@ function handleOrientation(event) {
 	
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
-				if(Math.abs(lastZangle-event.gamma)>=localStorage.getItem("angleStepsForPush")){
+				if(Math.abs(lastZangle-event.gamma)>=Math.max(0.5,Math.abs(lastZangle-event.gamma))){
 //					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+event.gamma+" ("+Math.abs(lastZangle-event.gamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.gamma > 0){
 	//					sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
@@ -60,28 +64,31 @@ function handleOrientation(event) {
 		}
 	
 		//X-axis beta (jockey wheel up/down)
-//		sideView.children[0].style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
-		document.getElementById("side-block").style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
+		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
+			if(calibrationStart){
+				calibrationX.push(event.beta);
+			}
+
 			xAxis.innerHTML = Math.ceil(event.beta*10)/10;
 			if(Math.abs(event.beta) >= 5){
-				sideView.classList.remove("beatFlipH");
-				sideView.style.color = "red";
+				sideIcon.classList.remove("beatFlipH");
+				sideIcon.style.color = "red";
 			}
 			else if(Math.abs(event.beta) >= 2){
-				sideView.classList.remove("beatFlipH");
-				sideView.style.color = "orange";
+				sideIcon.classList.remove("beatFlipH");
+				sideIcon.style.color = "orange";
 			}
 			else if(Math.abs(event.beta) >= 1){
-				sideView.classList.remove("beatFlipH");
-				sideView.style.color = "green";
+				sideIcon.classList.remove("beatFlipH");
+				sideIcon.style.color = "green";
 			}
 			else{
-				if(!sideView.classList.contains("beatFlipH")){
-					sideView.classList.add("beatFlipH");
+				if(!sideIcon.classList.contains("beatFlipH")){
+					sideIcon.classList.add("beatFlipH");
 				}
-				sideView.style.color = "lime";
+				sideIcon.style.color = "lime";
 			}
 			circumference = localStorage.getItem("axleToJockeyWheelMM")*2*Math.PI;
 			degreeDistance = Math.ceil((circumference/360)*event.beta);
@@ -95,10 +102,7 @@ function handleOrientation(event) {
 			if(Date.now() >= lastPushTS+pushIntervalMS){
 				//Send push
 //				debugView.innerHTML += "<span>&gt;Send Push?</span>";
-				
-				angleStepsForPush = Math.max(0.5,Math.abs(lastXangle-event.beta));
-
-				if(Math.abs(lastXangle-event.beta)>=angleStepsForPush){
+				if(Math.abs(lastXangle-event.beta)>=Math.max(0.5,Math.abs(lastXangle-event.beta))){
 //					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
 					if(event.beta < 0){
 	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");

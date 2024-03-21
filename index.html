@@ -64,10 +64,9 @@
 	</div>
 
 
-
 	<div id="orientation" class="views">
-		<div id="front-block">
-			<span id="front-view">
+		<div id="front-view">
+			<span id="front-icon">
 				<i class="fac fa-caravan-front fa-rotate-90"></i>
 			</span>
 			<div id="front-motion">
@@ -78,8 +77,8 @@
 			</div>
 		</div>
 
-		<div id="side-block">
-			<span id="side-view" class="fa-flip-horizontal">
+		<div id="side-view">
+			<span id="side-icon" class="fa-flip-horizontal">
 				<i class="fas fa-caravan fa-rotate-270"></i>
 			</span>
 			<div id="side-motion">
@@ -89,10 +88,11 @@
 				</ul>
 			</div>
 		</div>
-
 	</div>
 
 	<div id="settings" class="views">
+
+		<div id="calibration-timer"></div>
 
 		<button id="subscribe-to-notifications-btn" onclick="subscribeToPush()" disabled >Subscribe to notifications</button>
 		<div id="sub-info"></div>
@@ -117,6 +117,17 @@
 		<div class="option">
 			<label for="axleToJockeyWheelMM">Wheel To JockeyWheel</label>
 			<input type="range" min="1000" max="5000" step="100" name="axleToJockeyWheelMM" id="axleToJockeyWheelMM" value=""><output></output>
+		</div>
+
+		<button id="calibrate-btn">Calibrate</button>
+		<div class="option">
+			<label for="calibratedZ">Calibrated Z</label>
+			<input type="range" min="-2" max="2" step="0.1" name="calibratedZ" id="calibratedZ" value="" disabled><output></output>
+		</div>
+
+		<div class="option">
+			<label for="calibratedX">Calibrated X</label>
+			<input type="range" min="-2" max="2" step="0.1" name="calibratedX" id="calibratedX" value="" disabled><output></output>
 		</div>
 
 		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub</a>
