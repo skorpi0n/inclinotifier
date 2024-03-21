@@ -209,12 +209,12 @@ button:disabled {
 	font-size: 8em;
 	text-align: center;
 }
-#front-text{
-	position: absolute;
+#front-motion{
+	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
-	top: 60px;
-	left: -30px;
+	top: -40px;
+	left: -100px;
 }
 
 #side-view {
@@ -222,7 +222,7 @@ button:disabled {
 	font-size: 10em;
 	text-align: center;
 }
-#side-text{
+#side-motion{
 	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
@@ -247,7 +247,7 @@ button:disabled {
 	word-wrap: break-word;
 	font-style: italic
 }
-#front-motion, #side-motion{
+#front-motion_, #side-motion_{
 //	display: block;
 	background-color: #e7e7ff;
 	padding: 20px;
