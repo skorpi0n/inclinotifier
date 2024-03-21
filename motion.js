@@ -60,7 +60,7 @@ function handleOrientation(event) {
 	
 		//X-axis beta (jockey wheel up/down)
 //		sideView.children[0].style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
-		document.getElementById("side-block").style.transform = "rotate("+(270+Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
+		document.getElementById("side-block").style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
 			xAxis.innerHTML = Math.ceil(event.beta*10)/10;

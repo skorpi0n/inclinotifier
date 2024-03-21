@@ -62,13 +62,6 @@ var lastZupdateTS = Date.now();
 
 let is_running = false;
 var sleepSetTimeout_ctrl;
-/*
-var debugView;
-var frontView;
-var sideView;
-var orientView;
-var debugBtn;
-*/
 //document.addEventListener("DOMContentLoaded", () => {		//No need when we laod script in the HTML end
 
 	//Simplify getElement
