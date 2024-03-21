@@ -66,9 +66,15 @@ function calibrate(){
 			document.getElementById("calibration-timer").innerText = "DONE";
 			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
 			console.log("done");
+			sum = calibrationZ.reduce((a, b) => a + b, 0);
+			avg = (sum / calibrationZ.length) || 0;
+			debugView.innerHTML += "<span>&gt;Z Avg: "+avg+"_</span>";
+			debugView.innerHTML += "<span>&gt;Z lngth"+calibrationZ.length+"_</span>";
 			sum = calibrationX.reduce((a, b) => a + b, 0);
 			avg = (sum / calibrationX.length) || 0;
-			debugView.innerHTML += "<span>&gt;"+sum+"_</span>";
+			debugView.innerHTML += "<span>&gt;X Avg: "+avg+"_</span>";
+			debugView.innerHTML += "<span>&gt;X lngth"+calibrationX.length+"_</span>";
+
 			//stop fadein fadeout
 		}
 		else if(counterS <= 0){
@@ -138,7 +144,7 @@ var sleepSetTimeout_ctrl;
 	subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
 
 	frontView = document.getElementById("front-view");
-	sideView = document.getElementById("front-view");
+	sideView = document.getElementById("side-view");
 
 	zAxis = document.getElementById("z-axis");
 	zDist = document.getElementById("z-distance");
