@@ -54,6 +54,7 @@ body {
 	justify-content: space-around;
 	background: #fff;
 	padding: 10px;
+	font-size: 24px;
 	z-index: 9999;
 }
 
@@ -213,7 +214,7 @@ button:disabled {
 	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
-	top: -40px;
+	top: -60px;
 	left: -100px;
 }
 
@@ -226,7 +227,7 @@ button:disabled {
 	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
-	top: -60px;
+	top: -100px;
 	left: -90px;
 }
 
