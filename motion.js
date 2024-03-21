@@ -5,7 +5,8 @@
 function handleOrientation(event) {
 	try{
 		//Z-axis gamma (right/left wheel up/down)
-		frontView.children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+//		frontView.children[0].style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+		document.getElementById("front-block").style.transform = "rotate("+(90+Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 //			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
