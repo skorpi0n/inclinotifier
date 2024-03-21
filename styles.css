@@ -202,7 +202,7 @@ button:disabled {
 
 /* ORIENTATION VIEW */
 #orientation {
-//	display: none;
+	padding: 20px;
 }
 #front-view {
 	display: block;
