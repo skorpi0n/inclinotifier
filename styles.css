@@ -209,12 +209,31 @@ button:disabled {
 	font-size: 10em;
 	text-align: center;
 }
+#front-text{
+	position: absolute;
+	transform: rotate(90deg);
+	font-size:14px;
+	top: 60px;
+	left: -30px;
+}
+
 #side-view {
 	display: block;
 	font-size: 10em;
 	text-align: center;
 //	transform: scaleX(-1);	//fix for iOS where fa-flip-horizontal doesnt work together with rotate
 }
+#side-text{
+	position: relative;
+	transform: rotate(90deg);
+	font-size:14px;
+	top: -60px;
+	left: -90px;
+}
+#side-view span{
+//	transform: scaleX(-1);	//fix for iOS where fa-flip-horizontal doesnt work together with rotate	
+}
+
 #subscribe-to-notifications-btn, #request-perm-for-motion-btn, #test-send-btn, #reset-btn{
 //	display: none;
 	width: 100%;
