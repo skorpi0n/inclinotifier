@@ -47,7 +47,7 @@ function pushHashAndFixTargetSelector(hash) {
 
 var lastPushTS = Date.now();
 const pushIntervalMS = 5000;
-const angleStepsForPush=5;
+var angleStepsForPush=5;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 
