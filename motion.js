@@ -175,14 +175,14 @@ async function requestPermForMotion() {
 		//Here we only process while motion is running/or not
 		if (is_running){
 			//debugView.innerHTML += "<br>Device motion is running";
-//			window.removeEventListener("deviceorientation", handleOrientation);
-			window.removeEventListener("deviceorientation", calibrate);
+			window.removeEventListener("deviceorientation", handleOrientation);
+//			window.removeEventListener("deviceorientation", calibrate);
 			is_running = false;
 		}
 		else{
 			//debugView.innerHTML += "<br>Device motion is not running";
-//			window.addEventListener("deviceorientation", handleOrientation);
-			window.addEventListener("deviceorientation", calibrate);
+			window.addEventListener("deviceorientation", handleOrientation);
+//			window.addEventListener("deviceorientation", calibrate);
 			is_running = true;
 		}
 	}
