@@ -5,8 +5,8 @@
 function handleOrientation(event) {
 	try{
 /*
-		b = lastBeepTS + Math.max(250, Math.min(4000, (event.beta / 0.004 )));
-		if(event.beta != null && Date.now() >= b){
+		b = lastBeepTS + Math.max(250, Math.min(4000, (calibratedBeta / 0.004 )));
+		if(calibratedBeta != null && Date.now() >= b){
 			beep(200,1);
 			lastBeepTS=Date.now();
 		}
@@ -17,8 +17,8 @@ function handleOrientation(event) {
 //calibratedGamma = event.gamma - localStorage.getItem("calibratedZOffset");
 //calibratedBeta = event.beta - localStorage.getItem("calibratedXOffset") || 0;
 
-calibratedGamma = event.gamma - calibratedZOffsetVal;
-calibratedBeta = event.beta - calibratedXOffsetVal;
+		calibratedGamma = event.gamma - calibratedZOffsetVal;
+		calibratedBeta = event.beta - calibratedXOffsetVal;
 
 		//Z-axis gamma (right/left wheel up/down)
 		if(calibratedGamma>=0){
@@ -27,9 +27,9 @@ calibratedBeta = event.beta - calibratedXOffsetVal;
 		else{
 			frontView.style.transformOrigin = "23% 65%";
 		}
-		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedGamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
-		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
+		if(calibratedGamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 
 
@@ -40,15 +40,15 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 //			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
 	//		lastZupdateTS=Date.now();
 			zAxis.innerHTML = Math.ceil(calibratedBeta*10)/10;
-			if(Math.abs(event.gamma) >= 5){
+			if(Math.abs(calibratedGamma) >= 5){
 				frontIcon.classList.remove("beat");
 				frontIcon.style.color = "red";
 			}
-			else if(Math.abs(event.gamma) >= 2){
+			else if(Math.abs(calibratedGamma) >= 2){
 				frontIcon.classList.remove("beat");
 				frontIcon.style.color = "orange";
 			}
-			else if(Math.abs(event.gamma) >= 1){
+			else if(Math.abs(calibratedGamma) >= 1){
 				frontIcon.classList.remove("beat");
 				frontIcon.style.color = "green";
 			}
@@ -59,7 +59,7 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 				frontIcon.style.color = "lime";
 			}
 			circumference = localStorage.getItem("wheelTrackDistanceMM")*2*Math.PI;
-			degreeDistance = Math.ceil((circumference/360)*event.gamma);
+			degreeDistance = Math.ceil((circumference/360)*calibratedGamma);
 //			if(Math.abs(degreeDistance) < 500){
 				zDist.innerHTML = degreeDistance;
 //			}
@@ -69,18 +69,18 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 	
 			if((Date.now()-lastPushTS) > pushIntervalMS){
 				//Send push
-				if(Math.abs(lastZangle-event.gamma)>=Math.max(0.5,Math.abs(lastZangle-event.gamma))){
-//					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+event.gamma+" ("+Math.abs(lastZangle-event.gamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
-					if(event.gamma > 0){
-	//					sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
+				if(Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
+//					debugView.innerHTML += "<span>&gt;Send?"+lastZangle+"-"+calibratedGamma+" ("+Math.abs(lastZangle-calibratedGamma).toFixed(2)+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+					if(calibratedGamma > 0){
+	//					sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)</span>";
 					}
 					else{
-	//					sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Side to side: Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(event.gamma)+"&deg;)</span>";
+	//					sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Side to side: Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
-					lastZangle=event.gamma;
+					lastZangle=calibratedGamma;
 				}
 			}
 
@@ -89,25 +89,25 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 	
 		//X-axis beta (jockey wheel up/down)
 		sideView.style.transformOrigin = "28% 60%";
-		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedBeta*-1))))+"deg)";
+		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedBeta*1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
-		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
+		if(calibratedBeta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
 debugView.innerHTML += "<span>&gt;Calibrated beta: "+calibratedBeta+"</span>";
 debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</span>";
 			if(calibrationStart){
 				calibrationXArr.push(event.beta);
 			}
 
-			xAxis.innerHTML = Math.ceil(event.beta*10)/10;
-			if(Math.abs(event.beta) >= 5){
+			xAxis.innerHTML = Math.ceil(calibratedBeta*10)/10;
+			if(Math.abs(calibratedBeta) >= 5){
 				sideIcon.classList.remove("beatFlipH");
 				sideIcon.style.color = "red";
 			}
-			else if(Math.abs(event.beta) >= 2){
+			else if(Math.abs(calibratedBeta) >= 2){
 				sideIcon.classList.remove("beatFlipH");
 				sideIcon.style.color = "orange";
 			}
-			else if(Math.abs(event.beta) >= 1){
+			else if(Math.abs(calibratedBeta) >= 1){
 				sideIcon.classList.remove("beatFlipH");
 				sideIcon.style.color = "green";
 			}
@@ -118,7 +118,7 @@ debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</sp
 				sideIcon.style.color = "lime";
 			}
 			circumference = localStorage.getItem("axleToJockeyWheelMM")*2*Math.PI;
-			degreeDistance = Math.ceil((circumference/360)*event.beta);
+			degreeDistance = Math.ceil((circumference/360)*calibratedBeta);
 //			if(Math.abs(degreeDistance) < 500){
 				xDist.innerHTML = degreeDistance;
 //			}
@@ -129,18 +129,18 @@ debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</sp
 			if(Date.now() >= lastPushTS+pushIntervalMS){
 				//Send push
 //				debugView.innerHTML += "<span>&gt;Send Push?</span>";
-				if(Math.abs(lastXangle-event.beta)>=Math.max(0.5,Math.abs(lastXangle-event.beta))){
-//					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
-					if(event.beta < 0){
-	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+				if(Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
+//					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+calibratedBeta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-calibratedBeta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
+					if(calibratedBeta < 0){
+	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)</span>";
 					}
 					else{
-	//					sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
-						debugView.innerHTML += "<span>&gt;Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
+	//					sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)");
+						debugView.innerHTML += "<span>&gt;Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
-					lastXangle=event.beta;
+					lastXangle=calibratedBeta;
 				}
 			}
 			lastXupdateTS=Date.now();
