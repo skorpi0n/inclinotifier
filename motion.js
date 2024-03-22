@@ -14,8 +14,8 @@ function handleOrientation(event) {
 
 //localStorage.setItem("calibratedZOffset");
 
-calibratedGamma = event.gamma - localStorage.setItem("calibratedZOffset");
-calibratedBeta = event.beta - localStorage.setItem("calibratedXOffset");
+calibratedGamma = event.gamma - localStorage.getItem("calibratedZOffset") || 0;
+calibratedBeta = event.beta - localStorage.getItem("calibratedXOffset") || 0;
 
 		//Z-axis gamma (right/left wheel up/down)
 		if(calibratedGamma>=0){
