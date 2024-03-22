@@ -104,10 +104,10 @@ function calibrate(event){
 
 		document.getElementById("calibratedZ").value = avgZ;
 		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZ").nextElementSibling.value=avgZ+this.value+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedZ").nextElementSibling.value=avgZ+String.fromCharCode(176);	//176 = degree symbol
 		document.getElementById("calibratedX").value = avgX;
 		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedX").nextElementSibling.value=avgX+this.value+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedX").nextElementSibling.value=avgX;	//176 = degree symbol
 
 		calibrationZArr = [];
 		calibrationXArr = [];

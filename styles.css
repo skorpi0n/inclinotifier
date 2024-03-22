@@ -156,7 +156,7 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 80px;
+	font-size: 100px;
 	font-weight: bold;
 //	width:100px;
 	text-align: center;
@@ -314,7 +314,7 @@ button:disabled {
 	animation: pulse 1s linear infinite forwards;
 	left: -50% !important;
 	right: -50% !important;
-	margin-top:-40px;
+	margin-top:-50px;
 }
 
 
