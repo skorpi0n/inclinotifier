@@ -112,8 +112,6 @@ function handleOrientation(event) {
 //				debugView.innerHTML += "<span>&gt;Send Push?</span>";
 				if(Math.abs(lastXangle-event.beta)>=Math.max(0.5,Math.abs(lastXangle-event.beta))){
 //					debugView.innerHTML += "<span>&gt;Send push?"+lastXangle.toFixed(2)+"-"+event.beta.toFixed(2)+" ("+Math.ceil(Math.abs(lastXangle-event.beta))+") >="+localStorage.getItem("angleStepsForPush")+"</span>";
-			beep(200,1);
-
 					if(event.beta < 0){
 	//					sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)");
 						debugView.innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(event.beta)+"&deg;)</span>";
