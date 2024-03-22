@@ -4,16 +4,22 @@
 //Caravan angle
 function handleOrientation(event) {
 	try{
-
+/*
 		b = lastBeepTS + Math.max(250, Math.min(4000, (event.beta / 0.004 )));
 		if(event.beta != null && Date.now() >= b){
 			beep(200,1);
 			lastBeepTS=Date.now();
 		}
-
+*/
 
 
 		//Z-axis gamma (right/left wheel up/down)
+		if(event.gamma>=0){
+			frontView.style.transformOrigin = "bottom left";
+		}
+		else{
+			frontView.style.transformOrigin = "bottom right";
+		}
 		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
