@@ -12,14 +12,19 @@ function handleOrientation(event) {
 		}
 */
 
+//localStorage.setItem("calibratedZOffset");
+
+calibratedGamma = event.gamma - localStorage.setItem("calibratedZOffset");
+calibratedBeta = event.beta - localStorage.setItem("calibratedXOffset");
+
 		//Z-axis gamma (right/left wheel up/down)
-		if(event.gamma>=0){
+		if(calibratedGamma>=0){
 			frontView.style.transformOrigin = "23% 13%";
 		}
 		else{
 			frontView.style.transformOrigin = "23% 65%";
 		}
-		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
+		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedGamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 			if(calibrationStart){
@@ -78,7 +83,7 @@ function handleOrientation(event) {
 	
 		//X-axis beta (jockey wheel up/down)
 		sideView.style.transformOrigin = "28% 60%";
-		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
+		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedBeta*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
 			if(calibrationStart){

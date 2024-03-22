@@ -102,12 +102,12 @@ function calibrate(event){
 		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
 		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
 
-		document.getElementById("calibratedZ").value = avgZ;
-		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZ").nextElementSibling.value=avgZ+String.fromCharCode(176);	//176 = degree symbol
-		document.getElementById("calibratedX").value = avgX;
-		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedX").nextElementSibling.value=avgX;	//176 = degree symbol
+		document.getElementById("calibratedZOffset").value = avgZ;
+		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedZOffset").nextElementSibling.value=avgZ+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedXOffset").value = avgX;
+		document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedXOffset").nextElementSibling.value=avgX+String.fromCharCode(176);	//176 = degree symbol
 
 		calibrationZArr = [];
 		calibrationXArr = [];
@@ -271,14 +271,14 @@ console.log(location.hash);
 
 	//Even though no input is possible from user, we use this when calibration sets this value, thus triggering the eventListener
 
-	document.getElementById("calibratedZ").addEventListener("input", function(e) {
-		localStorage.setItem("calibratedZ", e.target.value);
-		document.getElementById("calibratedZ").value = e.target.value;
+	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
+		localStorage.setItem("calibratedZOffset", e.target.value);
+		document.getElementById("calibratedZOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
-	document.getElementById("calibratedX").addEventListener("input", function(e) {
-		localStorage.setItem("calibratedX", e.target.value);
-		document.getElementById("calibratedX").value = e.target.value;
+	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
+		localStorage.setItem("calibratedXOffset", e.target.value);
+		document.getElementById("calibratedXOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
@@ -297,13 +297,13 @@ console.log(location.hash);
 		document.getElementById("axleToJockeyWheelMM").value = axleToJockeyWheelMM;
 		document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
-		document.getElementById("calibratedZ").value = 0;
-		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZ").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedZOffset").value = 0;
+		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedZOffset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 
-		document.getElementById("calibratedX").value = 0;
-		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedX").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedXOffset").value = 0;
+		document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedXOffset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
 
@@ -347,20 +347,20 @@ console.log(location.hash);
 	}
 	document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
-	if(localStorage.getItem("calibratedZ")!==null){
-		document.getElementById("calibratedZ").setAttribute("value",localStorage.getItem("calibratedZ"));
+	if(localStorage.getItem("calibratedZOffset")!==null){
+		document.getElementById("calibratedZOffset").setAttribute("value",localStorage.getItem("calibratedZOffset"));
 	}
 	else{
-		document.getElementById("calibratedZ").setAttribute("value",0);
+		document.getElementById("calibratedZOffset").setAttribute("value",0);
 	}
-	document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
-	if(localStorage.getItem("calibratedX")!==null){
-		document.getElementById("calibratedX").setAttribute("value",localStorage.getItem("calibratedX"));
+	document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
+	if(localStorage.getItem("calibratedXOffset")!==null){
+		document.getElementById("calibratedXOffset").setAttribute("value",localStorage.getItem("calibratedXOffset"));
 	}
 	else{
-		document.getElementById("calibratedX").setAttribute("value",0);
+		document.getElementById("calibratedXOffset").setAttribute("value",0);
 	}
-	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+	document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
 
 
 	//Custom Fontawesome icon - Caravan front view
