@@ -150,6 +150,8 @@ const calibrationWaitS = 5;
 var calibrationZArr = [];
 var calibrationXArr = [];
 
+var event;
+
 let is_running = false;
 var sleepSetTimeout_ctrl;
 //document.addEventListener("DOMContentLoaded", () => {		//No need when we laod script in the HTML end
