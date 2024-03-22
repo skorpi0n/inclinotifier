@@ -40,7 +40,7 @@ async function initServiceWorker() {
 		}
 	}
 	catch(error){
-		console.error("Error initializing serviceworker: "+error);
+			debugView.innerHTML = "<span>"+err+"</span>";
 	}
 }
 
@@ -109,7 +109,7 @@ async function subscribeToPush() {
 		}
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML = "<span>"+err+"</span>";
 	}
 }
 
