@@ -99,8 +99,13 @@ function calibrate(event){
 		avgX = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 //		localStorage.setItem("calibratedZ", avgZ);
 //		localStorage.setItem("calibratedX", avgX);
+		calibratedZOffsetVal = localStorage.getItem("calibratedZOffset");
+		calibratedXOffsetVal = localStorage.getItem("calibratedXOffset");
+
 		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
 		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
+
+//verify values are saved to localstorage!
 
 		document.getElementById("calibratedZOffset").value = avgZ;
 		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
@@ -150,6 +155,10 @@ var calibrationStart = false;
 const calibrationWaitS = 5;
 var calibrationZArr = [];
 var calibrationXArr = [];
+
+var calibratedZOffsetVal;
+var calibratedXOffsetVal;
+
 
 //var event;
 
@@ -273,11 +282,13 @@ console.log(location.hash);
 
 	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZOffset", e.target.value);
+		console.log(localStorage.getItem("calibratedZOffset"));
 		document.getElementById("calibratedZOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedXOffset", e.target.value);
+		console.log(localStorage.getItem("calibratedXOffset"));
 		document.getElementById("calibratedXOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
