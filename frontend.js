@@ -49,6 +49,7 @@ function pushHashAndFixTargetSelector(hash) {
 
 
 function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
+	try{
 	audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
 	var oscillator = audioCtx.createOscillator();
@@ -65,18 +66,18 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	oscillator.frequency.value = 1500;
 	oscillator.type = "triangle";
 
-
-	
-	oscillator.start();
-	console.log(oscillator);
-	
+	oscillator.start();	
 	setTimeout(
 		function() {
 			oscillator.stop();
 		},
 		duration
 	);
-};
+	}
+	catch(err){
+			debugView.innerHTML = "<span>"+err.message+"</span>";
+	}
+}
 
 
 function calibrate(){
