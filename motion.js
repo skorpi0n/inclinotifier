@@ -30,7 +30,7 @@ function handleOrientation(event) {
 		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedGamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(calibratedGamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
-debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
+//debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 
 
 			if(calibrationStart){
@@ -92,8 +92,8 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedBeta*1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(calibratedBeta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
-debugView.innerHTML += "<span>&gt;Calibrated beta: "+calibratedBeta+"</span>";
-debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</span>";
+//debugView.innerHTML += "<span>&gt;Calibrated beta: "+calibratedBeta+"</span>";
+//debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</span>";
 			if(calibrationStart){
 				calibrationXArr.push(event.beta);
 			}
