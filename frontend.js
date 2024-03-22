@@ -95,15 +95,15 @@ function calibrate(event){
 		document.getElementById("calibration-timer").classList.remove("calibrate-wait");
 		sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
 		sumX = calibrationXArr.reduce((a, b) => a + b, 0);
-		avgZ = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
-		avgX = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
+		calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
+		calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 //		localStorage.setItem("calibratedZ", avgZ);
 //		localStorage.setItem("calibratedX", avgX);
-		calibratedZOffsetVal = avgZ;
-		calibratedXOffsetVal = avgX;
+//		calibratedZOffsetVal = avgZ;
+//		calibratedXOffsetVal = avgX;
 
-		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
-		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
+		debugView.innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
+		debugView.innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
 
 //verify values are saved to localstorage!
 
@@ -156,8 +156,8 @@ const calibrationWaitS = 5;
 var calibrationZArr = [];
 var calibrationXArr = [];
 
-var calibratedZOffsetVal;
-var calibratedXOffsetVal;
+var calibratedZOffsetVal = 0;
+var calibratedXOffsetVal = 0;
 
 
 //var event;
@@ -282,13 +282,14 @@ console.log(location.hash);
 
 	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZOffset", e.target.value);
-		console.log(localStorage.getItem("calibratedZOffset"));
+debugView.innerHTML += "<span>&gt;localstoragteZ: "+e.target.value+"</span>";
+
 		document.getElementById("calibratedZOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedXOffset", e.target.value);
-		console.log(localStorage.getItem("calibratedXOffset"));
+debugView.innerHTML += "<span>&gt;localstoragteX: "+e.target.value+"</span>";
 		document.getElementById("calibratedXOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
