@@ -95,20 +95,20 @@ function calibrate(event){
 		document.getElementById("calibration-timer").classList.remove("calibrate-wait");
 		sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
 		sumX = calibrationXArr.reduce((a, b) => a + b, 0);
-		avgZ = (sumZ / calibrationZArr.length) || 0;
-		avgX = (sumX / calibrationXArr.length) || 0;
+		avgZ = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
+		avgX = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 //		localStorage.setItem("calibratedZ", avgZ);
 //		localStorage.setItem("calibratedX", avgX);
 		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
 		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
-/*
+
 		document.getElementById("calibratedZ").value = avgZ;
 		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
 		document.getElementById("calibratedZ").nextElementSibling.value=avgZ+this.value+String.fromCharCode(176);	//176 = degree symbol
 		document.getElementById("calibratedX").value = avgX;
 		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 		document.getElementById("calibratedX").nextElementSibling.value=avgX+this.value+String.fromCharCode(176);	//176 = degree symbol
-*/
+
 		calibrationZArr = [];
 		calibrationXArr = [];
 
