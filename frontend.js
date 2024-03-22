@@ -81,56 +81,51 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 
 
 function calibrate(event){
-try{
-//	debugView.innerHTML += "<span>&gt;Gamma: "+event.gamma+"</span>";
-	document.getElementById("calibrate-btn").disabled = true;
-	if(counterS + calibrationHoldS + 1 <= 0){
-		document.getElementById("calibration-timer").innerText = "";
-		document.getElementById("calibration-timer").style.display = "none";
-		calibrationStart = true;
-		document.getElementById("calibrate-btn").disabled = false;
-		clearInterval(calibrationTimer);
-	}
-	else if(counterS + calibrationHoldS <= 0){
-		document.getElementById("calibration-timer").innerText = "DONE";
-		document.getElementById("calibration-timer").classList.remove("calibrate-wait");
-		sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
-		sumX = calibrationXArr.reduce((a, b) => a + b, 0);
-		calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
-		calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
-//		localStorage.setItem("calibratedZ", avgZ);
-//		localStorage.setItem("calibratedX", avgX);
-//		calibratedZOffsetVal = avgZ;
-//		calibratedXOffsetVal = avgX;
+	try{
+	//	debugView.innerHTML += "<span>&gt;Gamma: "+event.gamma+"</span>";
+		document.getElementById("calibrate-btn").disabled = true;
+		if(counterS + calibrationHoldS + 1 <= 0){
+			document.getElementById("calibration-timer").innerText = "";
+			document.getElementById("calibration-timer").style.display = "none";
+			calibrationStart = true;
+			document.getElementById("calibrate-btn").disabled = false;
+			clearInterval(calibrationTimer);
+		}
+		else if(counterS + calibrationHoldS <= 0){
+			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
+			sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
+			sumX = calibrationXArr.reduce((a, b) => a + b, 0);
+			calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
+			calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 
-		debugView.innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
-		debugView.innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
-
-//verify values are saved to localstorage!
-
-		document.getElementById("calibratedZOffset").value = calibratedZOffsetVal;
-		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZOffset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
-		document.getElementById("calibratedXOffset").value = calibratedXOffsetVal;
-		document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedXOffset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol
-
-		calibrationZArr = [];
-		calibrationXArr = [];
-
-//Compensate for these localstorage values in orientation
-//Prevent double tap by disabling button until calibration finished
-	}
-	else if(counterS <= 0){
-		calibrationStart = true;
-		document.getElementById("calibration-timer").innerText = "WAIT";
-		document.getElementById("calibration-timer").classList.add("calibrate-wait");
-	}
-	else{
-		document.getElementById("calibration-timer").innerText = counterS;
-	}
-
-	counterS -= 1;
+			if(Math.abs(calibratedZOffsetVal)<5 || Math.abs(calibratedXOffsetVal)<5){
+				document.getElementById("calibration-timer").innerText = "DONE";
+				debugView.innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
+				debugView.innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
+		
+				document.getElementById("calibratedZOffset").value = calibratedZOffsetVal;
+				document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
+				document.getElementById("calibratedZOffset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
+				document.getElementById("calibratedXOffset").value = calibratedXOffsetVal;
+				document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
+				document.getElementById("calibratedXOffset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
+			}
+			else{
+				document.getElementById("calibration-timer").innerText = "ERROR";
+			}
+			calibrationZArr = [];
+			calibrationXArr = [];
+		}
+		else if(counterS <= 0){
+			calibrationStart = true;
+			document.getElementById("calibration-timer").innerText = "WAIT";
+			document.getElementById("calibration-timer").classList.add("calibrate-wait");
+		}
+		else{
+			document.getElementById("calibration-timer").innerText = counterS;
+		}
+	
+		counterS -= 1;
 	}
 	catch(err){
 			debugView.innerHTML = "<span>"+err.message+"</span>";
@@ -287,14 +282,14 @@ console.log(location.hash);
 
 	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZOffset", e.target.value);
-debugView.innerHTML += "<span>&gt;localstoragteZ: "+e.target.value+"</span>";
+//debugView.innerHTML += "<span>&gt;localstoragteZ: "+e.target.value+"</span>";
 
 		document.getElementById("calibratedZOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedXOffset", e.target.value);
-debugView.innerHTML += "<span>&gt;localstoragteX: "+e.target.value+"</span>";
+//debugView.innerHTML += "<span>&gt;localstoragteX: "+e.target.value+"</span>";
 		document.getElementById("calibratedXOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
