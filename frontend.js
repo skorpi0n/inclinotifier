@@ -409,6 +409,9 @@ console.log(location.hash);
 		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
 			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is TRUE</span>";
+				subscribeNotifBtn.disabled = false;
+				reqMotionPermBtn.disabled = false;
+
 			initServiceWorker();
 		}
 		else{
