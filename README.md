@@ -17,6 +17,7 @@ UNDER DEVELOPMENT!
 	Text to speech
 	https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
 	https://codepen.io/matt-west/pen/DpmMgE
+	NOTE: Not possible since it can only be triggered by user interaction.
 
 2. Public Release with caravan X/Z tilt visualization with working push/audio notifications
 	Need to also show how to use it properly
@@ -24,9 +25,8 @@ UNDER DEVELOPMENT!
 3. Add ability to change icon to RV, car, spirit level. Anything more?
 
 # TODO list
-NOPE Add grass in footer
 
-Calibrate motion with click-hold?
+Calibrattion ability in the settings view
 
 Add to settings
 	if degree <= x, send push with level completed message

@@ -99,8 +99,8 @@ body {
 }
 #settings .option {
 //	display: flex;
-	margin: 1em 0;
-//	padding: 15px;
+//	margin: 1em 0;
+	padding: 0px 10px;
 }
 #settings .option output {
 	width: 80px;
@@ -114,6 +114,7 @@ body {
 }
 .views{
 	display: none;
+	position: relative;
 
 }
 :target{
@@ -146,9 +147,7 @@ body {
 
 /* SETTINGS VIEW */
 #settings{
-//	padding:5px;
-//	display: none;
-	position: relative;
+//	position: relative;
 }
 
 #calibration-timer{
@@ -221,7 +220,8 @@ button:disabled {
 
 /* ORIENTATION VIEW */
 #orientation {
-	padding: 20px;
+//	padding: 20px;
+	margin-top: 60px;
 }
 #front-icon {
 	display: block;
@@ -312,6 +312,9 @@ button:disabled {
 .calibrate-wait{
 	-webkit-animation: pulse 1s linear infinite forwards;
 	animation: pulse 1s linear infinite forwards;
+	left: -50% !important;
+	right: -50% !important;
+	margin-top:-40px;
 }
 
 

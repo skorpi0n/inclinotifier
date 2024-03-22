@@ -81,58 +81,46 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 
 
 function calibrate(){
-	var counterS = calibrationWaitS;
-	const calibrationHoldS = 2;
-	document.getElementById("calibration-timer").style.display = "block";
-	var calibrationTimer = setInterval(function(){
-		console.log("timer running "+counterS);
-		if(counterS + calibrationHoldS + 1 <= 0){
-//calculate average and save to localstorage
+	document.getElementById("calibrate-btn").disabled = true;
+	if(counterS + calibrationHoldS + 1 <= 0){
+		document.getElementById("calibration-timer").innerText = "";
+		document.getElementById("calibration-timer").style.display = "none";
+//		calibrationStart = true;
+		document.getElementById("calibrate-btn").disabled = false;
+		clearInterval(calibrationTimer);
+	}
+	else if(counterS + calibrationHoldS <= 0){
+		document.getElementById("calibration-timer").innerText = "DONE";
+		document.getElementById("calibration-timer").classList.remove("calibrate-wait");
+		sumZ = calibrationZ.reduce((a, b) => a + b, 0);
+		sumX = calibrationX.reduce((a, b) => a + b, 0);
+		avgZ = (sumZ / calibrationZ.length) || 0;
+		avgX = (sumX / calibrationX.length) || 0;
+//		localStorage.setItem("calibratedZ", avgZ);
+//		localStorage.setItem("calibratedX", avgX);
+		document.getElementById("calibratedX").value = avgZ;
+		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedX").nextElementSibling.value=avgZ+this.value+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedX").value = avgX;
+		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedX").nextElementSibling.value=avgX+this.value+String.fromCharCode(176);	//176 = degree symbol
 
-			document.getElementById("calibration-timer").innerText = "";
-			document.getElementById("calibration-timer").style.display = "none";
-			calibrationStart = true;
-			console.log("stop");
-			clearInterval(calibrationTimer);
-		}
-		else if(counterS + calibrationHoldS <= 0){
-			document.getElementById("calibration-timer").innerText = "DONE";
-			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
-			console.log("done");
-			sum = calibrationZ.reduce((a, b) => a + b, 0);
-			avg = (sum / calibrationZ.length) || 0;
-			debugView.innerHTML += "<span>&gt;Z Avg: "+avg+"_</span>";
-			debugView.innerHTML += "<span>&gt;Z lngth"+calibrationZ.length+"_</span>";
-			sum = calibrationX.reduce((a, b) => a + b, 0);
-			avg = (sum / calibrationX.length) || 0;
-			debugView.innerHTML += "<span>&gt;X Avg: "+avg+"_</span>";
-			debugView.innerHTML += "<span>&gt;X lngth"+calibrationX.length+"_</span>";
+		calibrationZ = [];
+		calibrationX = [];
 
-//Fix WAIT that is not in correct pos
-//Add avg to localstorage
 //Compensate for these localstorage values in orientation
 //Prevent double tap by disabling button until calibration finished
-		}
-		else if(counterS <= 0){
-			calibrationStart = true;
-			document.getElementById("calibration-timer").innerText = "WAIT";
-			document.getElementById("calibration-timer").classList.add("calibrate-wait");
-			console.log("wait");
-			console.log(calibrationX);
-			debugView.innerHTML += "<span>&gt;"+calibrationX[calibrationX.length - 1]+"__</span>";
+	}
+	else if(counterS <= 0){
+//		calibrationStart = true;
+		document.getElementById("calibration-timer").innerText = "WAIT";
+		document.getElementById("calibration-timer").classList.add("calibrate-wait");
+	}
+	else{
+		document.getElementById("calibration-timer").innerText = counterS;
+	}
 
-			//fadein fadeout
-//here we should record beta gamma values.
-// when done, we take average and save to localstorage
-		}
-
-		else{
-			console.log("counting");
-			document.getElementById("calibration-timer").innerText = counterS;
-		}
-
-		counterS -= 1;
-	}, 1000);
+	counterS -= 1;
 }
 
 var lastPushTS = Date.now();
@@ -151,6 +139,9 @@ const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
 
+var calibrationTimer;
+var counterS;
+const calibrationHoldS = 2;
 var calibrationStart = false;
 const calibrationWaitS = 5;
 var calibrationZ = [];
@@ -257,8 +248,16 @@ var sleepSetTimeout_ctrl;
 	});
 
 	document.getElementById("calibrate-btn").addEventListener("click", function(e) {
+		counterS = calibrationWaitS;
+
 		calibrate();
+		document.getElementById("calibration-timer").style.display = "block";
+		calibrationTimer = setInterval(function(){
+			calibrate();
+		}, 1000);
 	});
+
+	//Even though no input is possible from user, we use this when calibration sets this value, thus triggering the eventListener
 	document.getElementById("calibratedZ").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZ", e.target.value);
 		document.getElementById("calibratedZ").value = e.target.value;
@@ -287,9 +286,11 @@ var sleepSetTimeout_ctrl;
 
 		document.getElementById("calibratedZ").value = 0;
 		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedZ").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 
 		document.getElementById("calibratedX").value = 0;
 		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedX").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
 
@@ -334,17 +335,22 @@ var sleepSetTimeout_ctrl;
 	document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
 	if(localStorage.getItem("calibratedZ")!==null){
+		console.log(0);
 		document.getElementById("calibratedZ").setAttribute("value",localStorage.getItem("calibratedZ"));
 	}
 	else{
 		document.getElementById("calibratedZ").setAttribute("value",calibratedZ);
+		console.log(1);
+		console.log(calibratedZ);
 	}
 	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 	if(localStorage.getItem("calibratedX")!==null){
+		console.log(2);
 		document.getElementById("calibratedX").setAttribute("value",localStorage.getItem("calibratedX"));
 	}
 	else{
 		document.getElementById("calibratedX").setAttribute("value",calibratedX);
+		console.log(calibratedX);
 	}
 	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 

@@ -15,10 +15,10 @@ function handleOrientation(event) {
 
 		//Z-axis gamma (right/left wheel up/down)
 		if(event.gamma>=0){
-			frontView.style.transformOrigin = "20% 0%";
+			frontView.style.transformOrigin = "23% 13%";
 		}
 		else{
-			frontView.style.transformOrigin = "20% 80%";
+			frontView.style.transformOrigin = "23% 65%";
 		}
 		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
