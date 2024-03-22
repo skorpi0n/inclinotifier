@@ -78,6 +78,7 @@ function handleOrientation(event) {
 		}
 	
 		//X-axis beta (jockey wheel up/down)
+		frontView.style.transformOrigin = "28% 60%";
 		sideView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.beta*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
