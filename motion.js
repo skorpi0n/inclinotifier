@@ -24,7 +24,7 @@ calibratedBeta = event.beta - localStorage.getItem("calibratedXOffset") || 0;
 		else{
 			frontView.style.transformOrigin = "23% 65%";
 		}
-		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedGamma*-1))))+"deg)";
+		frontView.style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(event.gamma*-1))))+"deg)";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 			if(calibrationStart){
