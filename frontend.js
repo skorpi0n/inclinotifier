@@ -81,6 +81,7 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 
 
 function calibrate(event){
+try{
 //	debugView.innerHTML += "<span>&gt;Gamma: "+event.gamma+"</span>";
 	document.getElementById("calibrate-btn").disabled = true;
 	if(counterS + calibrationHoldS + 1 <= 0){
@@ -130,6 +131,9 @@ function calibrate(event){
 	}
 
 	counterS -= 1;
+	catch(err){
+			debugView.innerHTML = "<span>"+err.message+"</span>";
+	}
 }
 
 var lastPushTS = Date.now();
