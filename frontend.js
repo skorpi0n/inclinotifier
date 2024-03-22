@@ -108,12 +108,12 @@ try{
 
 //verify values are saved to localstorage!
 
-		document.getElementById("calibratedZOffset").value = avgZ;
+		document.getElementById("calibratedZOffset").value = calibratedZOffsetVal;
 		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZOffset").nextElementSibling.value=avgZ+String.fromCharCode(176);	//176 = degree symbol
-		document.getElementById("calibratedXOffset").value = avgX;
+		document.getElementById("calibratedZOffset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedXOffset").value = calibratedXOffsetVal;
 		document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedXOffset").nextElementSibling.value=avgX+String.fromCharCode(176);	//176 = degree symbol
+		document.getElementById("calibratedXOffset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol
 
 		calibrationZArr = [];
 		calibrationXArr = [];
