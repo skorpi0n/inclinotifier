@@ -93,6 +93,7 @@ debugView.innerHTML += "<span>&gt;Calibrated gamma: "+calibratedGamma+"</span>";
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
 debugView.innerHTML += "<span>&gt;Calibrated beta: "+calibratedBeta+"</span>";
+debugView.innerHTML += "<span>&gt;Calibrated beta2: "+calibratedXOffsetVal+"</span>";
 			if(calibrationStart){
 				calibrationXArr.push(event.beta);
 			}

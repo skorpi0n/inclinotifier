@@ -99,8 +99,8 @@ function calibrate(event){
 		avgX = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 //		localStorage.setItem("calibratedZ", avgZ);
 //		localStorage.setItem("calibratedX", avgX);
-		calibratedZOffsetVal = localStorage.getItem("calibratedZOffset");
-		calibratedXOffsetVal = localStorage.getItem("calibratedXOffset");
+		calibratedZOffsetVal = avgZ;
+		calibratedXOffsetVal = avgX;
 
 		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
 		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
