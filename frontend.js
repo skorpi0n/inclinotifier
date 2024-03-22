@@ -132,39 +132,37 @@ function calibrate(event){
 	}
 }
 
-var lastPushTS = Date.now();
-const pushIntervalMS = 5000;
-const wheelTrackDistanceMM = 2300;
-const axleToJockeyWheelMM = 3000;
-var angleStepsForPush;
+try{
+	var lastPushTS = Date.now();
+	const pushIntervalMS = 5000;
+	const wheelTrackDistanceMM = 2300;
+	const axleToJockeyWheelMM = 3000;
+	var angleStepsForPush;
+	
+	var lastBeepTS = Date.now();
+	
+	const maxAngle = 30;	//IS THIS USED?
+	var lastXangle = 180;	//Set it to something big initially
+	var lastZangle = 180;	//Set it to something big initially
+	
+	const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
+	var lastXupdateTS = Date.now();
+	var lastZupdateTS = Date.now();
+	
+	var calibrationTimer;
+	var counterS;
+	const calibrationHoldS = 2;
+	var calibrationStart = false;
+	const calibrationWaitS = 5;
+	var calibrationZArr = [];
+	var calibrationXArr = [];
+	
+	var calibratedZOffsetVal = 0;
+	var calibratedXOffsetVal = 0;
 
-var lastBeepTS = Date.now();
 
-const maxAngle = 30;	//IS THIS USED?
-var lastXangle = 180;	//Set it to something big initially
-var lastZangle = 180;	//Set it to something big initially
-
-const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
-var lastXupdateTS = Date.now();
-var lastZupdateTS = Date.now();
-
-var calibrationTimer;
-var counterS;
-const calibrationHoldS = 2;
-var calibrationStart = false;
-const calibrationWaitS = 5;
-var calibrationZArr = [];
-var calibrationXArr = [];
-
-var calibratedZOffsetVal = 0;
-var calibratedXOffsetVal = 0;
-
-
-//var event;
-
-let is_running = false;
-var sleepSetTimeout_ctrl;
-//document.addEventListener("DOMContentLoaded", () => {		//No need when we laod script in the HTML end
+	let is_running = false;
+	var sleepSetTimeout_ctrl;
 
 	//Simplify getElement
 	addToHomeScreen = document.getElementById("add-to-home-screen");
@@ -409,8 +407,8 @@ console.log(location.hash);
 		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
 			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is TRUE</span>";
-				subscribeNotifBtn.disabled = false;
-				reqMotionPermBtn.disabled = false;
+//				subscribeNotifBtn.disabled = false;
+//				reqMotionPermBtn.disabled = false;
 
 			initServiceWorker();
 		}
@@ -454,5 +452,7 @@ console.log(location.hash);
 		debugView.innerHTML += "<span>&gt;DeviceMotion False OR reqMotion != function</span>";
 		motionInfo.innerHTML = "DeviceMotion is not accessible";
 	}
-
-//});
+}
+catch(err){
+		debugView.innerHTML = "<span>"+err+"</span>";
+}
