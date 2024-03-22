@@ -23,7 +23,7 @@ function handleOrientation(event) {
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.gamma != null && Date.now() >= (lastZupdateTS+xzUpdateIntervalMS)){
 			if(calibrationStart){
-				calibrationZ.push(event.gamma);
+				calibrationZArr.push(event.gamma);
 			}
 
 //			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
@@ -82,7 +82,7 @@ function handleOrientation(event) {
 		//Update only on a specified interval to prevent fast switching numbers
 		if(event.beta != null && Date.now() >= (lastXupdateTS+xzUpdateIntervalMS)){	
 			if(calibrationStart){
-				calibrationX.push(event.beta);
+				calibrationXArr.push(event.beta);
 			}
 
 			xAxis.innerHTML = Math.ceil(event.beta*10)/10;
