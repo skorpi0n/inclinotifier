@@ -45,6 +45,40 @@ function pushHashAndFixTargetSelector(hash) {
 	history.back(); //go back to trigger the above function
 }
 
+
+
+
+function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
+	audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+	var oscillator = audioCtx.createOscillator();
+	var gainNode = audioCtx.createGain();
+	
+	const stereoNode = new StereoPannerNode(audioCtx, { pan: pan });
+	//oscillator.connect(gainNode);
+	oscillator.connect(gainNode);
+	gainNode.connect(stereoNode);
+	//gainNode.connect(audioCtx.destination);
+	stereoNode.connect(audioCtx.destination);
+	
+	gainNode.gain.value = 0.5;
+	oscillator.frequency.value = 1500;
+	oscillator.type = "triangle";
+
+
+	
+	oscillator.start();
+	console.log(oscillator);
+	
+	setTimeout(
+		function() {
+			oscillator.stop();
+		},
+		duration
+	);
+};
+
+
 function calibrate(){
 	var counterS = calibrationWaitS;
 	const calibrationHoldS = 2;
@@ -61,8 +95,6 @@ function calibrate(){
 			clearInterval(calibrationTimer);
 		}
 		else if(counterS + calibrationHoldS <= 0){
-//calculate average and save to localstorage
-//			clearInterval(calibrationTimer);
 			document.getElementById("calibration-timer").innerText = "DONE";
 			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
 			console.log("done");
@@ -75,7 +107,10 @@ function calibrate(){
 			debugView.innerHTML += "<span>&gt;X Avg: "+avg+"_</span>";
 			debugView.innerHTML += "<span>&gt;X lngth"+calibrationX.length+"_</span>";
 
-			//stop fadein fadeout
+//Fix WAIT that is not in correct pos
+//Add avg to localstorage
+//Compensate for these localstorage values in orientation
+//Prevent double tap by disabling button until calibration finished
 		}
 		else if(counterS <= 0){
 			calibrationStart = true;
@@ -104,6 +139,8 @@ const pushIntervalMS = 5000;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
+
+var lastBeepTS = Date.now();
 
 const maxAngle = 30;	//IS THIS USED?
 var lastXangle = 180;	//Set it to something big initially
@@ -161,6 +198,7 @@ var sleepSetTimeout_ctrl;
 		else{
 			pushHashAndFixTargetSelector("#orientation");
 		}
+		beep();
 	});
 
 	settingsBtn.addEventListener("click", () => {
