@@ -321,3 +321,11 @@ button:disabled {
 
 
 
+/* REMOVE? */
+div.option:has(#angleStepsForPush){
+	display: none;
+}
+
+
+
+

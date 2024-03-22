@@ -92,21 +92,24 @@ function calibrate(){
 	else if(counterS + calibrationHoldS <= 0){
 		document.getElementById("calibration-timer").innerText = "DONE";
 		document.getElementById("calibration-timer").classList.remove("calibrate-wait");
-		sumZ = calibrationZ.reduce((a, b) => a + b, 0);
-		sumX = calibrationX.reduce((a, b) => a + b, 0);
-		avgZ = (sumZ / calibrationZ.length) || 0;
-		avgX = (sumX / calibrationX.length) || 0;
+		sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
+		sumX = calibrationXArr.reduce((a, b) => a + b, 0);
+		avgZ = (sumZ / calibrationZArr.length) || 0;
+		avgX = (sumX / calibrationXArr.length) || 0;
 //		localStorage.setItem("calibratedZ", avgZ);
 //		localStorage.setItem("calibratedX", avgX);
-		document.getElementById("calibratedX").value = avgZ;
-		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedX").nextElementSibling.value=avgZ+this.value+String.fromCharCode(176);	//176 = degree symbol
+		debugView.innerHTML += "<span>&gt;avgZ: "+avgZ+"</span>";
+		debugView.innerHTML += "<span>&gt;avgX: "+avgX+"</span>";
+/*
+		document.getElementById("calibratedZ").value = avgZ;
+		document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
+		document.getElementById("calibratedZ").nextElementSibling.value=avgZ+this.value+String.fromCharCode(176);	//176 = degree symbol
 		document.getElementById("calibratedX").value = avgX;
 		document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 		document.getElementById("calibratedX").nextElementSibling.value=avgX+this.value+String.fromCharCode(176);	//176 = degree symbol
-
-		calibrationZ = [];
-		calibrationX = [];
+*/
+		calibrationZArr = [];
+		calibrationXArr = [];
 
 //Compensate for these localstorage values in orientation
 //Prevent double tap by disabling button until calibration finished
@@ -144,8 +147,8 @@ var counterS;
 const calibrationHoldS = 2;
 var calibrationStart = false;
 const calibrationWaitS = 5;
-var calibrationZ = [];
-var calibrationX = [];
+var calibrationZArr = [];
+var calibrationXArr = [];
 
 let is_running = false;
 var sleepSetTimeout_ctrl;
@@ -181,8 +184,15 @@ var sleepSetTimeout_ctrl;
 	xDist = document.getElementById("x-distance");
 
 	//Event listeners
-	//Header button
 
+	//Listens on hash change to hide previous and show current
+	window.onhashchange = function(e){
+console.log(location.hash);
+		document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
+		document.getElementById(location.hash.replace("#","")).style.display = "block";
+	}
+
+	//Header button
 	homeBtn.addEventListener("click", () => {
 		if(window.location.hash=="#orientation"){
 			history.back();
@@ -190,7 +200,6 @@ var sleepSetTimeout_ctrl;
 		else{
 			pushHashAndFixTargetSelector("#orientation");
 		}
-		beep();
 	});
 
 	settingsBtn.addEventListener("click", () => {
@@ -218,7 +227,6 @@ var sleepSetTimeout_ctrl;
 			pushHashAndFixTargetSelector("#debug");
 		}
 	});
-
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
 	document.getElementById("pushIntervalMS").addEventListener("input", function(e) {
@@ -258,6 +266,7 @@ var sleepSetTimeout_ctrl;
 	});
 
 	//Even though no input is possible from user, we use this when calibration sets this value, thus triggering the eventListener
+
 	document.getElementById("calibratedZ").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZ", e.target.value);
 		document.getElementById("calibratedZ").value = e.target.value;
@@ -335,22 +344,17 @@ var sleepSetTimeout_ctrl;
 	document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
 
 	if(localStorage.getItem("calibratedZ")!==null){
-		console.log(0);
 		document.getElementById("calibratedZ").setAttribute("value",localStorage.getItem("calibratedZ"));
 	}
 	else{
-		document.getElementById("calibratedZ").setAttribute("value",calibratedZ);
-		console.log(1);
-		console.log(calibratedZ);
+		document.getElementById("calibratedZ").setAttribute("value",0);
 	}
-	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
+	document.getElementById("calibratedZ").dispatchEvent(new Event('input'));
 	if(localStorage.getItem("calibratedX")!==null){
-		console.log(2);
 		document.getElementById("calibratedX").setAttribute("value",localStorage.getItem("calibratedX"));
 	}
 	else{
-		document.getElementById("calibratedX").setAttribute("value",calibratedX);
-		console.log(calibratedX);
+		document.getElementById("calibratedX").setAttribute("value",0);
 	}
 	document.getElementById("calibratedX").dispatchEvent(new Event('input'));
 
@@ -413,7 +417,7 @@ var sleepSetTimeout_ctrl;
 		//Need to init serviceworker when device is android
 	}
 	else{
-		window.location.hash = "scan-qr-code";
+		pushHashAndFixTargetSelector("#scan-qr-code");
 		debugView.innerHTML += "<span>&gt;navigator.standalone is undefined and not a iOS or Android device (redirect to QR-code)</span>";
 		subInfo.innerHTML = "Neither Standalone iOS or Android";	//Add to home screen
 		scanQrCodeView.style.display = "block";
