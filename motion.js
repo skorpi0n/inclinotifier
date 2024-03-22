@@ -33,7 +33,7 @@ calibratedBeta = event.beta - localStorage.getItem("calibratedXOffset") || 0;
 
 //			debugView.innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
 	//		lastZupdateTS=Date.now();
-			zAxis.innerHTML = Math.ceil(event.gamma*10)/10;
+			zAxis.innerHTML = Math.ceil(calibratedBeta*10)/10;
 			if(Math.abs(event.gamma) >= 5){
 				frontIcon.classList.remove("beat");
 				frontIcon.style.color = "red";
