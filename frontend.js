@@ -131,6 +131,7 @@ try{
 	}
 
 	counterS -= 1;
+	}
 	catch(err){
 			debugView.innerHTML = "<span>"+err.message+"</span>";
 	}
