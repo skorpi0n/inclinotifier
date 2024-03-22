@@ -80,12 +80,13 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 }
 
 
-function calibrate(){
+function calibrate(event){
+//	debugView.innerHTML += "<span>&gt;Gamma: "+event.gamma+"</span>";
 	document.getElementById("calibrate-btn").disabled = true;
 	if(counterS + calibrationHoldS + 1 <= 0){
 		document.getElementById("calibration-timer").innerText = "";
 		document.getElementById("calibration-timer").style.display = "none";
-//		calibrationStart = true;
+		calibrationStart = true;
 		document.getElementById("calibrate-btn").disabled = false;
 		clearInterval(calibrationTimer);
 	}
@@ -115,7 +116,7 @@ function calibrate(){
 //Prevent double tap by disabling button until calibration finished
 	}
 	else if(counterS <= 0){
-//		calibrationStart = true;
+		calibrationStart = true;
 		document.getElementById("calibration-timer").innerText = "WAIT";
 		document.getElementById("calibration-timer").classList.add("calibrate-wait");
 	}
@@ -150,7 +151,7 @@ const calibrationWaitS = 5;
 var calibrationZArr = [];
 var calibrationXArr = [];
 
-var event;
+//var event;
 
 let is_running = false;
 var sleepSetTimeout_ctrl;
@@ -158,6 +159,7 @@ var sleepSetTimeout_ctrl;
 
 	//Simplify getElement
 	addToHomeScreen = document.getElementById("add-to-home-screen");
+	calibrateBn = document.getElementById("calibrate-btn");
 	debugBtn = document.getElementById("show-debug");
 	debugView = document.getElementById("debug");
 	frontIcon = document.getElementById("front-icon");

@@ -12,7 +12,6 @@ function handleOrientation(event) {
 		}
 */
 
-
 		//Z-axis gamma (right/left wheel up/down)
 		if(event.gamma>=0){
 			frontView.style.transformOrigin = "23% 13%";
@@ -152,6 +151,7 @@ async function requestPermForMotion() {
 				debugView.innerHTML += "<span>&gt;Device motion was Granted__</span>";
 	//			reqMotionPermBtn.style.display = "none";
 				reqMotionPermBtn.disabled = true;
+				calibrateBn.disabled = false;
 				motionInfo.innerHTML = "Motion was Granted";
 	//			orientView.style.display = "block";
 	pushHashAndFixTargetSelector("#orientation");
@@ -162,6 +162,7 @@ async function requestPermForMotion() {
 				motionInfo.innerHTML = "Device motion was Denied";
 	//			reqMotionPermBtn.style.display = "none";
 				reqMotionPermBtn.disabled = true;
+				calibrateBn.disabled = false;
 				motionInfo.innerHTML = "Motion was Granted";
 				orientView.style.display = "none";
 			}
@@ -174,12 +175,14 @@ async function requestPermForMotion() {
 		//Here we only process while motion is running/or not
 		if (is_running){
 			//debugView.innerHTML += "<br>Device motion is running";
-			window.removeEventListener("deviceorientation", handleOrientation);
+//			window.removeEventListener("deviceorientation", handleOrientation);
+			window.removeEventListener("deviceorientation", calibrate);
 			is_running = false;
 		}
 		else{
 			//debugView.innerHTML += "<br>Device motion is not running";
-			window.addEventListener("deviceorientation", handleOrientation);
+//			window.addEventListener("deviceorientation", handleOrientation);
+			window.addEventListener("deviceorientation", calibrate);
 			is_running = true;
 		}
 	}
