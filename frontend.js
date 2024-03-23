@@ -163,7 +163,7 @@ var calibratedXOffsetVal = 0;
 let is_running = false;
 var sleepSetTimeout_ctrl;
 
-try{
+
 	//Simplify getElement
 	addToHomeScreen = document.getElementById("add-to-home-screen");
 	calibrateBn = document.getElementById("calibrate-btn");
@@ -452,7 +452,3 @@ console.log(location.hash);
 		debugView.innerHTML += "<span>&gt;DeviceMotion False OR reqMotion != function</span>";
 		motionInfo.innerHTML = "DeviceMotion is not accessible";
 	}
-}
-catch(err){
-		debugView.innerHTML = "<span>"+err+"</span>";
-}
