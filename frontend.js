@@ -434,6 +434,39 @@ if android
 
 */
 
+	if(is_iOS()){
+		debugView.innerHTML += "<span>&gt;frontend.js is_iOS()</span>";
+		if(window.navigator.standalone){
+			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
+			if(navigator.serviceWorker) {
+				debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
+//					subscribeNotifBtn.disabled = false;
+//					reqMotionPermBtn.disabled = false;
+
+//				initServiceWorker();
+			}
+			else{
+				debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
+				if (location.protocol !== "https:") {
+					debugView.innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
+				}
+				else{
+					debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
+				}
+			}
+		}
+		else{
+			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is FALSE</span>";
+		}
+	}
+	else if(is_Android()){
+			debugView.innerHTML += "<span>&gt;frontend.js is_android()</span>";
+	}
+	else{
+		debugView.innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
+	}
+
+/*
 	if(window.navigator.standalone){
 		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
@@ -474,6 +507,7 @@ if android
 //		qrCodeBtn.classList.add("fa-disabled");
 //		notValidDeviceView.style.display = "block";
 	}
+*/
 
 	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
 		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion is TRUE AND reqMotion = function</span>";

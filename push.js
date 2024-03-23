@@ -1,6 +1,6 @@
 //Push notifications
 async function initServiceWorker() {
-//	try{
+	try{
 		let swRegistration = await navigator.serviceWorker.register("https://skorpi0n.github.io/inclinotifier/serviceworker.js", {scope: "/inclinotifier/"})
 		let pushManager = swRegistration.pushManager;
 
@@ -42,12 +42,11 @@ async function initServiceWorker() {
 				subInfo.innerHTML = "User denied push permission";
 				debugView.innerHTML += "<span>&gt;initServiceWorker() User denied push permission</span>";
 		}
-/*
+
 	}
 	catch(err){
 			debugView.innerHTML += "<span>&gt;initServiceWorker() "+err+"</span>";
 	}
-*/
 }
 
 function isPushManagerActive(pushManager) {
@@ -102,7 +101,7 @@ async function subscribeToPush() {
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 //			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
-//			displaySubscriptionInfo(subscription);
+			displaySubscriptionInfo(subscription);
 		}
 		catch(err) {
 			subInfo.style.display = "block";
