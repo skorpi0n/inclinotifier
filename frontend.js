@@ -135,8 +135,6 @@ function calibrate(event){
 }
 
 
-try{
-
 var lastPushTS = Date.now();
 const pushIntervalMS = 10000;
 const wheelTrackDistanceMM = 2300;
@@ -212,6 +210,12 @@ if (navigator.serviceWorker) {
 	zDist = document.getElementById("z-distance");
 	xAxis = document.getElementById("x-axis");
 	xDist = document.getElementById("x-distance");
+
+
+
+
+try{
+
 
 	//Event listeners
 
