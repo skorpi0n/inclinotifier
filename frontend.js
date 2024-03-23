@@ -169,6 +169,10 @@ let is_running = false;
 var sleepSetTimeout_ctrl;
 
 
+if (navigator.serviceWorker) {
+    initServiceWorker();
+}
+
 	//Simplify getElement
 	addToHomeScreen = document.getElementById("add-to-home-screen");
 	calibrateBn = document.getElementById("calibrate-btn");
@@ -431,7 +435,7 @@ if android
 //				subscribeNotifBtn.disabled = false;
 //				reqMotionPermBtn.disabled = false;
 
-			initServiceWorker();
+//			initServiceWorker();
 		}
 		else{
 			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
