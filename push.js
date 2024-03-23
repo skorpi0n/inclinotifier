@@ -99,7 +99,7 @@ async function subscribeToPush() {
 
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
-			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
+//			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
 //			displaySubscriptionInfo(subscription);
 		}
 		catch(err) {

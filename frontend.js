@@ -427,7 +427,7 @@ if android
 	if(window.navigator.standalone){
 		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
-			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
+			debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
 //				subscribeNotifBtn.disabled = false;
 //				reqMotionPermBtn.disabled = false;
 
@@ -436,27 +436,27 @@ if android
 		else{
 			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
 			if (location.protocol !== "https:") {
-				debugView.innerHTML += "<span>&gt;You need to visit this page with a secure connection (https://)</span>";
+				debugView.innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
 			}
 			else{
-				debugView.innerHTML += "<span>&gt;navigator.serviceWorker failed by unknown reason</span>";
+				debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
 			}
 		}
 	}
 	else if(!window.navigator.standalone && is_iOS()){
-		debugView.innerHTML += "<span>&gt;iOS but not Standalone</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js iOS but not Standalone</span>";
 		subscribeNotifBtn.disabled = true;
 		subInfo.innerHTML = "iOS but not Standalone";
 		addToHomeScreen.style.display = "block";
 	}
 	else if(window.navigator.standalone=="undefined" && is_Android()){
-		debugView.innerHTML += "<span>&gt;navigator.standalone is undefined and is_Android is TRUE, init serviceworker?</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is undefined and is_Android is TRUE, init serviceworker?</span>";
 		subInfo.innerHTML = "Android?";
 		//Need to init serviceworker when device is android
 	}
 	else{
 		pushHashAndFixTargetSelector("#scan-qr-code");
-		debugView.innerHTML += "<span>&gt;navigator.standalone is undefined and not a iOS or Android device (redirect to QR-code)</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is undefined and not a iOS or Android device (redirect to QR-code)</span>";
 		subInfo.innerHTML = "Neither Standalone iOS or Android";	//Add to home screen
 		scanQrCodeView.style.display = "block";
 		homeBtn.classList.add("fa-disabled");
@@ -466,12 +466,12 @@ if android
 	}
 
 	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		debugView.innerHTML += "<span>&gt;DeviceMotion True AND reqMotion = function</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion True AND reqMotion = function</span>";
 		motionInfo.innerHTML = "DeviceMotion function exist";
 		reqMotionPermBtn.disabled = false;
 	}
 	else{
-		debugView.innerHTML += "<span>&gt;DeviceMotion False OR reqMotion != function</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion False OR reqMotion != function</span>";
 		motionInfo.innerHTML = "DeviceMotion is not accessible";
 	}
 
