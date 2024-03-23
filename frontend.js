@@ -425,7 +425,7 @@ if android
 */
 
 	if(window.navigator.standalone){
-		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
 			debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
 //				subscribeNotifBtn.disabled = false;
@@ -466,7 +466,7 @@ if android
 	}
 
 	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion True AND reqMotion = function</span>";
+		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion is TRUE AND reqMotion = function</span>";
 		motionInfo.innerHTML = "DeviceMotion function exist";
 		reqMotionPermBtn.disabled = false;
 	}
