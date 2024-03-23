@@ -75,7 +75,7 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	);
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }
 
@@ -128,7 +128,7 @@ function calibrate(event){
 		counterS -= 1;
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }
 

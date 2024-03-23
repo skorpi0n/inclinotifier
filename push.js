@@ -24,7 +24,6 @@ async function initServiceWorker() {
 				subInfo.innerHTML = "Choose";
 				reqMotionPermBtn.disabled = false;
 				motionInfo.innerHTML = "Choose";
-
 				break;
 			case "granted":
 				debugView.innerHTML += "<span>&gt;User granted push permission</span>";
@@ -33,7 +32,7 @@ async function initServiceWorker() {
 
 				subscribeNotifBtn.disabled = true;
 				subInfo.innerHTML = "Subscribed to Push Notifications";
-				displaySubscriptionInfo(await pushManager.getSubscription())
+//				displaySubscriptionInfo(await pushManager.getSubscription())
 				break;
 			case "denied":
 //				subscribeNotifBtn.style.display = "none";
@@ -41,10 +40,13 @@ async function initServiceWorker() {
 //				subInfo.style.display = "block";
 				subInfo.innerHTML = "User denied push permission";
 				debugView.innerHTML += "<span>&gt;User denied push permission</span>";
+			case "default":
+				subInfo.innerHTML = "User permission is default?";
+				debugView.innerHTML += "<span>&gt;User permission is default?</span>";
 		}
 	}
 	catch(error){
-			debugView.innerHTML = "<span>"+err+"</span>";
+			debugView.innerHTML += "<span>"+err+"</span>";
 	}
 }
 
@@ -57,14 +59,6 @@ function isPushManagerActive(pushManager) {
 	//		reqMotionPermBtn.style.display = "block";
 			subscribeNotifBtn.disabled = false;
 			reqMotionPermBtn.disabled = false;
-	
-	/*
-			if (!window.navigator.standalone) {
-			}
-			else{
-				throw new Error("PushManager is not active");
-			}
-	*/
 			return false;
 		}
 		else {
@@ -73,7 +67,7 @@ function isPushManagerActive(pushManager) {
 		}
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }
 
@@ -99,6 +93,7 @@ async function subscribeToPush() {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC_KEY
 		};
+/*
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 			displaySubscriptionInfo(subscription);
@@ -111,9 +106,10 @@ async function subscribeToPush() {
 	//		subscribeNotifBtn.style.display = "none";
 			subscribeNotifBtn.disabled = true;
 		}
+*/
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err+"</span>";
+			debugView.innerHTML += "<span>"+err+"</span>";
 	}
 }
 
@@ -160,7 +156,7 @@ function displaySubscriptionInfo(subscription) {
 		}
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }
 
@@ -170,8 +166,8 @@ function sendPush(title, body) {
 			body: body,
 			icon: "https://skorpi0n.github.io/inclinotifier/images/favicon.png",
 			renotify: false,
-			silent: true,
-			ID: "inclinotifier",	//Using same ID will replace/overwrite previous notification
+			silent: false,
+			tag: "inclinotifier",	//Using same ID will replace/overwrite previous notification
 	//		image: ?
 		};
 		navigator.serviceWorker.ready.then(async function (serviceWorker) {
@@ -179,6 +175,6 @@ function sendPush(title, body) {
 		});
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }

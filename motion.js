@@ -121,7 +121,7 @@ function handleOrientation(event) {
 		}
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 }
 
@@ -174,6 +174,6 @@ async function requestPermForMotion() {
 		}
 	}
 	catch(err){
-			debugView.innerHTML = "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>"+err.message+"</span>";
 	}
 };
