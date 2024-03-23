@@ -170,7 +170,12 @@ var sleepSetTimeout_ctrl;
 
 
 if (navigator.serviceWorker) {
+	try{
     initServiceWorker();
+}
+catch(err){
+		debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
+}
 }
 
 	//Simplify getElement

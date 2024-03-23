@@ -33,7 +33,7 @@ async function initServiceWorker() {
 
 				subscribeNotifBtn.disabled = true;
 				subInfo.innerHTML = "Subscribed to Push Notifications";
-/				displaySubscriptionInfo(await pushManager.getSubscription())
+				displaySubscriptionInfo(await pushManager.getSubscription());
 				break;
 			case "denied":
 //				subscribeNotifBtn.style.display = "none";
