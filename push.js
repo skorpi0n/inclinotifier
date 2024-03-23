@@ -99,7 +99,8 @@ async function subscribeToPush() {
 
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
-			displaySubscriptionInfo(subscription);
+			debugView.innerHTML += "<span>&gt;subscribeToPush() "+subscription+"</span>";
+//			displaySubscriptionInfo(subscription);
 			// Here you can send fetch request with subscription data to your backend API for next push sends from there
 		}
 		catch (error) {
