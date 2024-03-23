@@ -11,6 +11,7 @@ async function initServiceWorker() {
 		}
 		else{
 			debugView.innerHTML += "<span>&gt;Pushmanager is active3</span>";
+			document.getElementById("test-send-btn").style.display = "block";
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
