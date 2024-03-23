@@ -101,7 +101,8 @@ async function subscribeToPush() {
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 //			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
-			displaySubscriptionInfo(subscription);
+		testSendBtn.disabled = false;
+//			displaySubscriptionInfo(subscription);
 		}
 		catch(err) {
 			subInfo.style.display = "block";
