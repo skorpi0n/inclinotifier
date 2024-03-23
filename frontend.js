@@ -72,7 +72,7 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	);
 	}
 	catch(err){
-			debugView.innerHTML += "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>&gt;beep(): "+err.message+"</span>";
 	}
 }
 
@@ -125,9 +125,12 @@ function calibrate(event){
 		counterS -= 1;
 	}
 	catch(err){
-			debugView.innerHTML += "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>&gt;calibrate(): "+err+"</span>";
 	}
 }
+
+
+try{
 
 var lastPushTS = Date.now();
 const pushIntervalMS = 10000;
@@ -195,7 +198,6 @@ var sleepSetTimeout_ctrl;
 
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
-console.log(location.hash);
 		document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
 		document.getElementById(location.hash.replace("#","")).style.display = "block";
 	}
@@ -403,7 +405,7 @@ console.log(location.hash);
 	if(window.navigator.standalone){
 		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
-			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is TRUE</span>";
+			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
 //				subscribeNotifBtn.disabled = false;
 //				reqMotionPermBtn.disabled = false;
 
@@ -449,3 +451,11 @@ console.log(location.hash);
 		debugView.innerHTML += "<span>&gt;DeviceMotion False OR reqMotion != function</span>";
 		motionInfo.innerHTML = "DeviceMotion is not accessible";
 	}
+
+debugView.innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
+
+}
+catch(err){
+		debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
+}
+

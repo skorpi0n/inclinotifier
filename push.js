@@ -165,6 +165,8 @@ function displaySubscriptionInfo(subscription) {
 }
 
 function sendPush(title, body) {
+	debugView.innerHTML += "<span>&gt;SendPush()</span>";
+
 	try{
 		const options = {
 			body: body,
@@ -179,6 +181,6 @@ function sendPush(title, body) {
 		});
 	}
 	catch(err){
-			debugView.innerHTML += "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>&gt;"+err+"</span>";
 	}
 }
