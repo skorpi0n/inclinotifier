@@ -9,8 +9,12 @@ async function initServiceWorker() {
 			subInfo.innerHTML = "Pushmanager is not active";
 			return;
 		}
+		else{
+			debugView.innerHTML += "<span>&gt;Pushmanager is active3</span>";
+		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
+		debugView.innerHTML += "<span>&gt;permissionState: "+permissionState+"</span>";
 		switch (permissionState) {
 			case "prompt":
 				debugView.innerHTML += "<span>&gt;btns shown by prompt</span>";
