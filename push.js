@@ -4,7 +4,7 @@ async function initServiceWorker() {
 		let swRegistration = await navigator.serviceWorker.register("https://skorpi0n.github.io/inclinotifier/serviceworker.js", {scope: "/inclinotifier/"})
 		let pushManager = swRegistration.pushManager;
 
-		if (!isPushManagerActive(pushManager)) {
+		if(!isPushManagerActive(pushManager)) {
 			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active</span>";
 			subInfo.innerHTML = "Pushmanager is not active";
 			return;
@@ -33,7 +33,7 @@ async function initServiceWorker() {
 
 				subscribeNotifBtn.disabled = true;
 				subInfo.innerHTML = "Subscribed to Push Notifications";
-				displaySubscriptionInfo(await pushManager.getSubscription());f
+				displaySubscriptionInfo(await pushManager.getSubscription());
 				break;
 			case "denied":
 //				subscribeNotifBtn.style.display = "none";
