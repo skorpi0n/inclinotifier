@@ -99,14 +99,13 @@ async function subscribeToPush() {
 
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
-			debugView.innerHTML += "<span>&gt;subscribeToPush() "+subscription+"</span>";
+			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
 //			displaySubscriptionInfo(subscription);
-			// Here you can send fetch request with subscription data to your backend API for next push sends from there
 		}
-		catch (error) {
+		catch(err) {
 			subInfo.style.display = "block";
-			subInfo.innerHTML = "Error: "+error;
-			debugView.innerHTML += "<span>&gt;Error: "+error+"</span>";
+			subInfo.innerHTML = "subscribeToPush() "+err;
+			debugView.innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
 	//		subscribeNotifBtn.style.display = "none";
 			subscribeNotifBtn.disabled = true;
 		}

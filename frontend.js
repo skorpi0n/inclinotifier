@@ -402,6 +402,23 @@ var sleepSetTimeout_ctrl;
 	window.addEventListener("orientationchange", deviceOrientation);
 	deviceOrientation();
 
+/*
+Work to do
+
+Check motion availability?
+
+Check mobile device
+if ios
+	if standalone
+		initServiceWorker
+	else
+		not standalone
+		add to home screen
+if android
+	initServiceWorker()
+
+*/
+
 	if(window.navigator.standalone){
 		debugView.innerHTML += "<span>&gt;navigator.standalone is TRUE</span>";
 		if (navigator.serviceWorker) {
@@ -440,6 +457,7 @@ var sleepSetTimeout_ctrl;
 		homeBtn.classList.add("fa-disabled");
 		settingsBtn.classList.add("fa-disabled");
 //		qrCodeBtn.classList.add("fa-disabled");
+//		notValidDeviceView.style.display = "block";
 	}
 
 	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){

@@ -26,6 +26,10 @@ UNDER DEVELOPMENT!
 
 # TODO list
 
+Replace home icon with tilted caravan icon
+
+Stringify subscription ino object
+
 Calibrattion ability in the settings view
 
 Add to settings
