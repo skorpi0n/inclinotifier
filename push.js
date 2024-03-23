@@ -5,20 +5,20 @@ async function initServiceWorker() {
 		let pushManager = swRegistration.pushManager;
 
 		if (!isPushManagerActive(pushManager)) {
-			debugView.innerHTML += "<span>&gt;Pushmanager is not active1</span>";
+			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active1</span>";
 			subInfo.innerHTML = "Pushmanager is not active";
 			return;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;Pushmanager is active4</span>";
+			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is active4</span>";
 			document.getElementById("test-send-btn").style.display = "block";
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
-		debugView.innerHTML += "<span>&gt;permissionState: "+permissionState+"</span>";
+		debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState: "+permissionState+"</span>";
 		switch (permissionState) {
 			case "prompt":
-				debugView.innerHTML += "<span>&gt;btns shown by prompt</span>";
+				debugView.innerHTML += "<span>&gt;initServiceWorker() btns shown by prompt</span>";
 //				subscribeNotifBtn.style.display = "block";
 //				reqMotionPermBtn.style.display = "block";
 				subscribeNotifBtn.disabled = false;
@@ -27,7 +27,7 @@ async function initServiceWorker() {
 				motionInfo.innerHTML = "Choose";
 				break;
 			case "granted":
-				debugView.innerHTML += "<span>&gt;User granted push permission</span>";
+				debugView.innerHTML += "<span>&gt;initServiceWorker() User granted push permission</span>";
 //				reqMotionPermBtn.style.display = "none";
 //				reqMotionPermBtn.disabled = true;
 
@@ -40,20 +40,17 @@ async function initServiceWorker() {
 				subscribeNotifBtn.disabled = true;
 //				subInfo.style.display = "block";
 				subInfo.innerHTML = "User denied push permission";
-				debugView.innerHTML += "<span>&gt;User denied push permission</span>";
-			case "default":
-				subInfo.innerHTML = "User permission is default?";
-				debugView.innerHTML += "<span>&gt;User permission is default?</span>";
+				debugView.innerHTML += "<span>&gt;initServiceWorker() User denied push permission</span>";
 		}
 	}
 	catch(error){
-			debugView.innerHTML += "<span>"+err+"</span>";
+			debugView.innerHTML += "<span>&gt;initServiceWorker() "+err+"</span>";
 	}
 }
 
 function isPushManagerActive(pushManager) {
 	try{
-		debugView.innerHTML += "<span>&gt;pushManager function init</span>";
+		debugView.innerHTML += "<span>&gt;isPushManagerActive()</span>";
 		if (!pushManager) {
 			//What should I do if pushmanager is false?
 	//		subscribeNotifBtn.style.display = "block";
@@ -63,17 +60,19 @@ function isPushManagerActive(pushManager) {
 			return false;
 		}
 		else {
-			debugView.innerHTML += "<span>&gt;Has Pushmanager</span>";
+			debugView.innerHTML += "<span>&gt;isPushManagerActive() Has Pushmanager</span>";
 			return true;
 		}
 	}
 	catch(err){
-			debugView.innerHTML += "<span>"+err.message+"</span>";
+			debugView.innerHTML += "<span>&gt;isPushManagerActive() "+err.message+"</span>";
 	}
 }
 
 //Called from <button>
 async function subscribeToPush() {
+	debugView.innerHTML += "<span>&gt;subscribeToPush()</span>";
+
 	try{
 		// Public part of VAPID key, generation of that covered in README
 		// All subscription tokens associated with that key, so if you change it - you may lose old subscribers
@@ -97,7 +96,7 @@ async function subscribeToPush() {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC_KEY
 		};
-/*
+
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 			displaySubscriptionInfo(subscription);
@@ -110,7 +109,7 @@ async function subscribeToPush() {
 	//		subscribeNotifBtn.style.display = "none";
 			subscribeNotifBtn.disabled = true;
 		}
-*/
+
 	}
 	catch(err){
 			debugView.innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
