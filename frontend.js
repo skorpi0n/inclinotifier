@@ -221,8 +221,12 @@ try{
 
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
-		document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
-		document.getElementById(location.hash.replace("#","")).style.display = "block";
+		if(e.oldURL.split('#').length == 2){
+			document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
+		}
+		if(location.hash!=""){
+			document.getElementById(location.hash.replace("#","")).style.display = "block";
+		}
 	}
 
 	//Header button
@@ -341,7 +345,7 @@ try{
 
 	//Main JS code
 	if(window.location.hash==""){
-		pushHashAndFixTargetSelector("#home");
+		pushHashAndFixTargetSelector("#orientation");
 	}
 
 	// LOAD DEFAULTS
