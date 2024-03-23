@@ -45,9 +45,6 @@ function pushHashAndFixTargetSelector(hash) {
 	history.back(); //go back to trigger the above function
 }
 
-
-
-
 function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	try{
 	audioCtx = new(window.AudioContext || window.webkitAudioContext)();
@@ -133,14 +130,14 @@ function calibrate(event){
 }
 
 var lastPushTS = Date.now();
-const pushIntervalMS = 5000;
+const pushIntervalMS = 10000;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
 
 var lastBeepTS = Date.now();
 
-const maxAngle = 30;	//IS THIS USED?
+const maxAngle = 30;
 var lastXangle = 180;	//Set it to something big initially
 var lastZangle = 180;	//Set it to something big initially
 

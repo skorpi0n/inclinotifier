@@ -89,6 +89,9 @@ async function subscribeToPush() {
 	
 			return;
 		}
+		else{
+			debugView.innerHTML += "<span>&gt;Pushmanager is active3</span>";
+		}
 		let subscriptionOptions = {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC_KEY
@@ -165,7 +168,7 @@ function sendPush(title, body) {
 		const options = {
 			body: body,
 			icon: "https://skorpi0n.github.io/inclinotifier/images/favicon.png",
-			renotify: false,
+			renotify: true,
 			silent: false,
 			tag: "inclinotifier",	//Using same ID will replace/overwrite previous notification
 	//		image: ?
