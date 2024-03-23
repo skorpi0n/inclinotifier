@@ -11,7 +11,7 @@ async function initServiceWorker() {
 		}
 		else{
 			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is active</span>";
-			document.getElementById("test-send-btn").style.display = "block";
+			testSendBtn.style.display = "block";
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
@@ -33,7 +33,7 @@ async function initServiceWorker() {
 
 				subscribeNotifBtn.disabled = true;
 				subInfo.innerHTML = "Subscribed to Push Notifications";
-				displaySubscriptionInfo(await pushManager.getSubscription());
+				displaySubscriptionInfo(await pushManager.getSubscription());f
 				break;
 			case "denied":
 //				subscribeNotifBtn.style.display = "none";

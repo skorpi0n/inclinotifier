@@ -199,6 +199,7 @@ catch(err){
 	speakButton = document.getElementById("speak");
 	subInfo = document.getElementById("sub-info");
 	subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
+	testSendBtn = document.getElementById("test-send-btn");
 
 	frontView = document.getElementById("front-view");
 	sideView = document.getElementById("side-view");
