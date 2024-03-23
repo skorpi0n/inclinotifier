@@ -1,3 +1,8 @@
+/*
+Errors
+frontend.js reference error cant find variable initServiceWorker()
+*/
+
 //iOS device orientation
 function deviceOrientation() {
 	var body = document.body;

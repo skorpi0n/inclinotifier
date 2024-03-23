@@ -5,12 +5,12 @@ async function initServiceWorker() {
 		let pushManager = swRegistration.pushManager;
 
 		if (!isPushManagerActive(pushManager)) {
-			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active1</span>";
+			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active</span>";
 			subInfo.innerHTML = "Pushmanager is not active";
 			return;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is active4</span>";
+			debugView.innerHTML += "<span>&gt;initServiceWorker() Pushmanager is active</span>";
 			document.getElementById("test-send-btn").style.display = "block";
 		}
 
@@ -43,7 +43,7 @@ async function initServiceWorker() {
 				debugView.innerHTML += "<span>&gt;initServiceWorker() User denied push permission</span>";
 		}
 	}
-	catch(error){
+	catch(err){
 			debugView.innerHTML += "<span>&gt;initServiceWorker() "+err+"</span>";
 	}
 }
@@ -83,14 +83,14 @@ async function subscribeToPush() {
 		if (!isPushManagerActive(pushManager)) {
 			debugView.innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active0</span>";
 			subscribeNotifBtn.disabled = true;
-			subInfo.innerHTML = "subscribeToPush() Pushmanager is not active0";
+			subInfo.innerHTML = "subscribeToPush() Pushmanager is not active";
 	
 	//		reqMotionPermBtn.disabled = false;
 	
 			return;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active3</span>";
+			debugView.innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active</span>";
 		}
 		let subscriptionOptions = {
 			userVisibleOnly: true,
