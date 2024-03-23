@@ -167,18 +167,7 @@ let is_running = false;
 var sleepSetTimeout_ctrl;
 
 
-if (navigator.serviceWorker) {
-	try{
-			debugView.innerHTML += "<span>&gt;frontend.js: exec initServiceWorker()</span>";
 
-		initServiceWorker();
-			debugView.innerHTML += "<span>&gt;frontend.js: after initServiceWorker()</span>";
-
-	}
-	catch(err){
-			debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
-	}
-}
 
 	//Simplify getElement
 	addToHomeScreen = document.getElementById("add-to-home-screen");
@@ -211,7 +200,18 @@ if (navigator.serviceWorker) {
 	xAxis = document.getElementById("x-axis");
 	xDist = document.getElementById("x-distance");
 
+if (navigator.serviceWorker) {
+	try{
+			debugView.innerHTML += "<span>&gt;frontend.js: exec initServiceWorker()</span>";
 
+		initServiceWorker();
+			debugView.innerHTML += "<span>&gt;frontend.js: after initServiceWorker()</span>";
+
+	}
+	catch(err){
+			debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
+	}
+}
 
 
 try{
