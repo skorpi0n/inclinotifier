@@ -422,9 +422,9 @@ var sleepSetTimeout_ctrl;
 		}
 	}
 	else if(!window.navigator.standalone && is_iOS()){
-		debugView.innerHTML += "<span>&gt;is NOT standalone and is iOS</span>";
+		debugView.innerHTML += "<span>&gt;iOS but not Standalone</span>";
 		subscribeNotifBtn.disabled = true;
-		subInfo.innerHTML = "Not Standalone and not iOS";
+		subInfo.innerHTML = "iOS but not Standalone";
 		addToHomeScreen.style.display = "block";
 	}
 	else if(window.navigator.standalone=="undefined" && is_Android()){

@@ -10,7 +10,7 @@ async function initServiceWorker() {
 			return;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;Pushmanager is active3</span>";
+			debugView.innerHTML += "<span>&gt;Pushmanager is active4</span>";
 			document.getElementById("test-send-btn").style.display = "block";
 		}
 
@@ -82,16 +82,16 @@ async function subscribeToPush() {
 		let swRegistration = await navigator.serviceWorker.getRegistration();
 		let pushManager = swRegistration.pushManager;
 		if (!isPushManagerActive(pushManager)) {
-			debugView.innerHTML += "<span>&gt;Pushmanager is not active0</span>";
+			debugView.innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active0</span>";
 			subscribeNotifBtn.disabled = true;
-			subInfo.innerHTML = "Pushmanager is not active0";
+			subInfo.innerHTML = "subscribeToPush() Pushmanager is not active0";
 	
 	//		reqMotionPermBtn.disabled = false;
 	
 			return;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;Pushmanager is active3</span>";
+			debugView.innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active3</span>";
 		}
 		let subscriptionOptions = {
 			userVisibleOnly: true,
@@ -113,7 +113,7 @@ async function subscribeToPush() {
 */
 	}
 	catch(err){
-			debugView.innerHTML += "<span>"+err+"</span>";
+			debugView.innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
 	}
 }
 
@@ -181,6 +181,6 @@ function sendPush(title, body) {
 		});
 	}
 	catch(err){
-			debugView.innerHTML += "<span>&gt;"+err+"</span>";
+			debugView.innerHTML += "<span>&gt;sendPush() "+err+"</span>";
 	}
 }
