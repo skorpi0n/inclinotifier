@@ -166,39 +166,36 @@ var calibratedXOffsetVal = 0;
 let is_running = false;
 var sleepSetTimeout_ctrl;
 
+//Simplify getElement
+addToHomeScreen = document.getElementById("add-to-home-screen");
+calibrateBn = document.getElementById("calibrate-btn");
+debugBtn = document.getElementById("show-debug");
+debugView = document.getElementById("debug");
+frontIcon = document.getElementById("front-icon");
+motionInfo = document.getElementById("motion-info");
+notValidDeviceView = document.getElementById("not-a-valid-device");
+orientView = document.getElementById("orientation");
+rateInput = document.getElementById("rate");
+resetButton = document.getElementById("reset-btn");
+reqMotionPermBtn = document.getElementById("request-perm-for-motion-btn");
+scanQrCodeView = document.getElementById("scan-qr-code");
+settingsView = document.getElementById("settings");
+homeBtn = document.getElementById("show-home");
+settingsBtn = document.getElementById("show-settings");
+qrCodeBtn = document.getElementById("show-qr-code");
+sideIcon = document.getElementById("side-icon");
+//	speakButton = document.getElementById("speak");
+subInfo = document.getElementById("sub-info");
+subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
+testSendBtn = document.getElementById("test-send-btn");
 
+frontView = document.getElementById("front-view");
+sideView = document.getElementById("side-view");
 
-
-	//Simplify getElement
-	addToHomeScreen = document.getElementById("add-to-home-screen");
-	calibrateBn = document.getElementById("calibrate-btn");
-	debugBtn = document.getElementById("show-debug");
-	debugView = document.getElementById("debug");
-	frontIcon = document.getElementById("front-icon");
-	motionInfo = document.getElementById("motion-info");
-	notValidDeviceView = document.getElementById("not-a-valid-device");
-	orientView = document.getElementById("orientation");
-	rateInput = document.getElementById("rate");
-	resetButton = document.getElementById("reset-btn");
-	reqMotionPermBtn = document.getElementById("request-perm-for-motion-btn");
-	scanQrCodeView = document.getElementById("scan-qr-code");
-	settingsView = document.getElementById("settings");
-	homeBtn = document.getElementById("show-home");
-	settingsBtn = document.getElementById("show-settings");
-	qrCodeBtn = document.getElementById("show-qr-code");
-	sideIcon = document.getElementById("side-icon");
-	speakButton = document.getElementById("speak");
-	subInfo = document.getElementById("sub-info");
-	subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
-	testSendBtn = document.getElementById("test-send-btn");
-
-	frontView = document.getElementById("front-view");
-	sideView = document.getElementById("side-view");
-
-	zAxis = document.getElementById("z-axis");
-	zDist = document.getElementById("z-distance");
-	xAxis = document.getElementById("x-axis");
-	xDist = document.getElementById("x-distance");
+zAxis = document.getElementById("z-axis");
+zDist = document.getElementById("z-distance");
+xAxis = document.getElementById("x-axis");
+xDist = document.getElementById("x-distance");
 /*
 if (navigator.serviceWorker) {
 	try{
@@ -215,8 +212,6 @@ if (navigator.serviceWorker) {
 */
 
 try{
-
-
 	//Event listeners
 
 	//Listens on hash change to hide previous and show current
@@ -415,17 +410,6 @@ try{
 
 	debugView.innerHTML += "<span>"+new Date(document.lastModified).toLocaleString()+"</span>";
 
-	//Touch Events
-//	document.body.addEventListener("touchstart", function(e){ e.preventDefault(); });
-//	document.body.addEventListener("touchmove", function(e){ e.preventDefault(); });
-	
-	/*
-	document.getElementById("side-view").addEventListener("touchstart", process_touchstart, false);
-	document.getElementById("side-view").addEventListener("touchend", process_touchend, false);
-	document.getElementById("side-view").addEventListener("touchmove", process_touchmove, false);
-	document.getElementById("side-view").addEventListener("touchcancel", process_touchcancel, false);
-	*/
-
 	//Orientation, Portrait or Landscape
 	window.addEventListener("orientationchange", deviceOrientation);
 	deviceOrientation();
@@ -446,36 +430,59 @@ if android
 	initServiceWorker()
 
 */
-
+	//Verify Push Availability
 	if(is_iOS()){
 		debugView.innerHTML += "<span>&gt;frontend.js is_iOS()</span>";
 		if(window.navigator.standalone){
 			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
 			if(navigator.serviceWorker) {
+				subInfo.innerHTML = "exec initServiceWorker";
+				subInfo.style.display = "none";
+				subscribeNotifBtn.disabled = false;
+				subscribeNotifBtn.style.display = "block";
 				debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
-//					subscribeNotifBtn.disabled = false;
-//					reqMotionPermBtn.disabled = false;
-
 				initServiceWorker();
 			}
 			else{
 				debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
 				if (location.protocol !== "https:") {
+					subInfo.innerHTML = "Not HTTPS://";
+					subInfo.style.display = "block";
+					subscribeNotifBtn.disabled = true;
+					subscribeNotifBtn.style.display = "none";
 					debugView.innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
 				}
 				else{
+					subInfo.innerHTML = "Unknown Error";
+					subInfo.style.display = "block";
+					subscribeNotifBtn.disabled = true;
+					subscribeNotifBtn.style.display = "none";
 					debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
 				}
 			}
 		}
 		else{
+			subInfo.innerHTML = "Not Standalone, add to home screen";
+			subInfo.style.display = "block";
+			subscribeNotifBtn.disabled = true;
+			subscribeNotifBtn.style.display = "none";
 			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is FALSE</span>";
 		}
 	}
 	else if(is_Android()){
+			subInfo.style.display = "none";
+			subscribeNotifBtn.disabled = false;
+			subscribeNotifBtn.style.display = "block";
 			debugView.innerHTML += "<span>&gt;frontend.js is_android()</span>";
+			debugView.innerHTML += "<span>&gt;frontend.js exec initServiceWorker()</span>";
+			initServiceWorker();
 	}
 	else{
+		subInfo.innerHTML = "Neither iOS or Android";
+		subInfo.style.display = "block";
+		subscribeNotifBtn.disabled = true;
+		subscribeNotifBtn.style.display = "none";
+
 		debugView.innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
 	}
 
@@ -521,19 +528,31 @@ if android
 //		notValidDeviceView.style.display = "block";
 	}
 */
-
-	if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion is TRUE AND reqMotion = function</span>";
-		motionInfo.innerHTML = "DeviceMotion function exist";
-		reqMotionPermBtn.disabled = false;
+	//Verify Motion Availability
+	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
+		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent is TRUE</span>";
+		if(typeof DeviceMotionEvent.requestPermission === "function"){
+			debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is FUNCTION</span>";
+			motionInfo.innerHTML = "DeviceMotionEvent is available";
+			motionInfo.style.display = "none";
+			reqMotionPermBtn.disabled = false;
+			reqMotionPermBtn.style.display = "block";
+		}
+		else{
+			debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is not a FUNCTION</span>";
+			motionInfo.innerHTML = "DeviceMotionEvent is not available";
+			reqMotionPermBtn.disabled = true;
+			reqMotionPermBtn.style.display = "block";
+		}
 	}
 	else{
-		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotion False OR reqMotion != function</span>";
-		motionInfo.innerHTML = "DeviceMotion is not accessible";
+		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent FALSE OR reqMotion != function</span>";
+		motionInfo.innerHTML = "DeviceMotionEvent is not available";
+		reqMotionPermBtn.disabled = true;
+		reqMotionPermBtn.style.display = "none";
 	}
 
-debugView.innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
-
+	debugView.innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
 }
 catch(err){
 		debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";

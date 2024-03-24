@@ -1,3 +1,14 @@
+//Touch Events
+//	document.body.addEventListener("touchstart", function(e){ e.preventDefault(); });
+//	document.body.addEventListener("touchmove", function(e){ e.preventDefault(); });
+
+/*
+document.getElementById("side-view").addEventListener("touchstart", process_touchstart, false);
+document.getElementById("side-view").addEventListener("touchend", process_touchend, false);
+document.getElementById("side-view").addEventListener("touchmove", process_touchmove, false);
+document.getElementById("side-view").addEventListener("touchcancel", process_touchcancel, false);
+*/
+
 // touchstart handler
 function process_touchstart(ev){
 	console.log(ev);

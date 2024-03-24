@@ -1,6 +1,3 @@
-
-
-
 //Caravan angle
 function handleOrientation(event) {
 	try{
