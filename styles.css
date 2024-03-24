@@ -59,6 +59,9 @@ body.rotation90 {
 //	cursor: not-allowed;		/*Remove comments to disable click on disabled icons*/
 //	pointer-events: none;
 }
+.active{
+	color: #009aff;
+}
 
 
 

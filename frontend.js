@@ -78,57 +78,57 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	);
 	}
 	catch(err){
-			debugView.innerHTML += "<span>&gt;beep(): "+err.message+"</span>";
+			$("debug").innerHTML += "<span>&gt;beep(): "+err.message+"</span>";
 	}
 }
 */
 
 function calibrate(event){
 	try{
-		calibrateBtn.disabled = true;
+		$("calibrate-btn").disabled = true;
 		if(counterS + calibrationHoldS + 1 <= 0){
-			calibrationTimer.innerText = "";
-			calibrationTimer.style.display = "none";
+			$("calibration-timer").innerText = "";
+			$("calibration-timer").style.display = "none";
 			calibrationStart = true;
-			calibrateBtn.disabled = false;
+			$("calibrate-btn").disabled = false;
 			clearInterval(calibrationTimer);
 		}
 		else if(counterS + calibrationHoldS <= 0){
-			calibrationTimer.classList.remove("calibrate-wait");
+			$("calibration-timer").classList.remove("calibrate-wait");
 			sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
 			sumX = calibrationXArr.reduce((a, b) => a + b, 0);
 			calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
 			calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 
 			if(Math.abs(calibratedZOffsetVal)<5 || Math.abs(calibratedXOffsetVal)<5){
-				calibrationTimer.innerText = "DONE";
-				debugView.innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
-				debugView.innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
-				calibratedZOffset.value = calibratedZOffsetVal;
-				calibratedZOffset.dispatchEvent(new Event('input'));
-				calibratedZOffset.nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
-				calibratedXOffset.value = calibratedXOffsetVal;
-				calibratedXOffset.dispatchEvent(new Event('input'));
-				calibratedXOffset.nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
+				$("calibration-timer").innerText = "DONE";
+				$("debug").innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
+				$("debug").innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
+				$("calibrated-Z-Offset").value = calibratedZOffsetVal;
+				$("calibrated-Z-Offset").dispatchEvent(new Event('input'));
+				$("calibrated-Z-Offset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
+				$("calibrated-X-Offset").value = calibratedXOffsetVal;
+				$("calibrated-X-Offset").dispatchEvent(new Event('input'));
+				$("calibrated-X-Offset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
 			}
 			else{
-				document.getElementById("calibration-timer").innerText = "ERROR";
+				$("calibration-timer").innerText = "ERROR";
 			}
 			calibrationZArr = [];
 			calibrationXArr = [];
 		}
 		else if(counterS <= 0){
 			calibrationStart = true;
-			calibrationTimer.innerText = "WAIT";
-			calibrationTimer.classList.add("calibrate-wait");
+			$("calibration-timer").innerText = "WAIT";
+			$("calibration-timer").classList.add("calibrate-wait");
 		}
 		else{
-			calibrationTimer.innerText = counterS;
+			$("calibration-timer").innerText = counterS;
 		}
 		counterS -= 1;
 	}
 	catch(err){
-			debugView.innerHTML += "<span>&gt;calibrate(): "+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;calibrate(): "+err+"</span>";
 	}
 }
 
@@ -161,6 +161,10 @@ var calibratedXOffsetVal = 0;
 let is_running = false;
 var sleepSetTimeout_ctrl;
 
+var $ = function(id){
+	return document.getElementById(id);
+};
+/*
 //Simplify getElement
 addToHomeScreen = document.getElementById("add-to-home-screen");
 calibrateBtn = document.getElementById("calibrate-btn");
@@ -168,22 +172,22 @@ calibratedZOffset = document.getElementById("calibrated-Z-Offset");
 calibratedXOffset = document.getElementById("calibrated-X-Offset");
 calibrationTimer = document.getElementById("calibration-timer");
 debugBtn = document.getElementById("show-debug");
-debugView = document.getElementById("debug");
+$("debug") = document.getElementById("debug");
 frontIcon = document.getElementById("front-icon");
-motionInfo = document.getElementById("motion-info");
+$("motion-info") = document.getElementById("motion-info");
 notValidDeviceView = document.getElementById("not-a-valid-device");
 orientView = document.getElementById("orientation");
 rateInput = document.getElementById("rate");
 resetButton = document.getElementById("reset-btn");
-reqMotionPermBtn = document.getElementById("request-perm-for-motion-btn");
+$("req-motion-perm-btn") = document.getElementById("request-perm-for-motion-btn");
 scanQrCodeView = document.getElementById("scan-qr-code");
 settingsView = document.getElementById("settings");
 homeBtn = document.getElementById("show-home");
 settingsBtn = document.getElementById("show-settings");
 qrCodeBtn = document.getElementById("show-qr-code");
 sideIcon = document.getElementById("side-icon");
-subInfo = document.getElementById("sub-info");
-subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
+$("sub-info") = document.getElementById("sub-info");
+$("subscribe-notif-btn") = document.getElementById("subscribe-to-notifications-btn");
 testSendBtn = document.getElementById("test-send-btn");
 
 frontView = document.getElementById("front-view");
@@ -193,61 +197,79 @@ zAxis = document.getElementById("z-axis");
 zDist = document.getElementById("z-distance");
 xAxis = document.getElementById("x-axis");
 xDist = document.getElementById("x-distance");
-
+*/
 try{
 	//Event listeners
 
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
 		if(e.oldURL.split('#').length == 2){
-			console.log(e.oldURL.split('#')[1]);
-			document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
+			$(e.oldURL.split('#')[1]).style.display = "none";
 		}
 		if(location.hash!=""){
-			document.getElementById(location.hash.replace("#","")).style.display = "block";
+			$(location.hash.replace("#","")).style.display = "block";
 		}
 	}
 
 	//Header button
-	homeBtn.addEventListener("click", () => {
+	$("home-btn").addEventListener("click", () => {
 		if(window.location.hash=="#orientation"){
 //			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#orientation");
 		}
+		$("home-btn").classList.add("active");
+		$("settings-btn").classList.remove("active");
+		$("qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+
 	});
 
-	settingsBtn.addEventListener("click", () => {
+	$("settings-btn").addEventListener("click", () => {
 		if(window.location.hash=="#settings"){
 //			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#settings");
 		}
+		$("settings-btn").classList.add("active");
+		$("home-btn").classList.remove("active");
+		$("qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+
 	});
-	qrCodeBtn.addEventListener("click", function(e) {
+	$("qr-code-btn").addEventListener("click", function(e) {
 		if(window.location.hash=="#distribute-qr-code"){
 //			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#distribute-qr-code");
 		}
+		$("qr-code-btn").classList.add("active");
+		$("home-btn").classList.remove("active");
+		$("settings-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+
 	});
 
-	debugBtn.addEventListener("click", function(e) {
+	$("debug-btn").addEventListener("click", function(e) {
 		if(window.location.hash=="#debug"){
 //			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#debug");
 		}
+		$("debug-btn").classList.add("active");
+		$("home-btn").classList.remove("active");
+		$("settings-btn").classList.remove("active");
+		$("qr-code-btn").classList.remove("active");
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
-	document.getElementById("pushIntervalMS").addEventListener("input", function(e) {
+	$("push-interval-ms").addEventListener("input", function(e) {
 		localStorage.setItem("pushIntervalMS", e.target.value);
-		document.getElementById("pushIntervalMS").value = e.target.value;
+		$("push-interval-ms").value = e.target.value;
 		e.target.nextElementSibling.value=Math.ceil(this.value)/1000+"s";
 	});
 
@@ -259,62 +281,61 @@ try{
 	});
 */
 
-	document.getElementById("wheelTrackDistanceMM").addEventListener("input", function(e) {
+	$("wheel-track-distance-mm").addEventListener("input", function(e) {
 		localStorage.setItem("wheelTrackDistanceMM", e.target.value);
-		document.getElementById("wheelTrackDistanceMM").value = e.target.value;
+		$("wheel-track-distance-mm").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+"mm";
 	});
 
-	document.getElementById("axleToJockeyWheelMM").addEventListener("input", function(e) {
+	$("axle-to-jockey-wheel-mm").addEventListener("input", function(e) {
 		localStorage.setItem("axleToJockeyWheelMM", e.target.value);
-		document.getElementById("axleToJockeyWheelMM").value = e.target.value;
+		$("axle-to-jockey-wheel-mm").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+"mm";
 	});
 
-	document.getElementById("calibrate-btn").addEventListener("click", function(e) {
+	$("calibrate-btn").addEventListener("click", function(e) {
 		counterS = calibrationWaitS;
-
 		calibrate();
-		document.getElementById("calibration-timer").style.display = "block";
+		$("calibration-timer").style.display = "block";
 		calibrationTimer = setInterval(function(){
 			calibrate();
 		}, 1000);
 	});
 
 	//Even though no input is possible from user, we use this when calibration sets this value, thus triggering the eventListener
-	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
+	$("calibrated-z-offset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZOffset", e.target.value);
-		document.getElementById("calibratedZOffset").value = e.target.value;
+		$("calibrated-z-offset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
-	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
+	$("calibrated-x-offset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedXOffset", e.target.value);
-		document.getElementById("calibratedXOffset").value = e.target.value;
+		$("calibrated-x-offset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
-	resetButton.addEventListener("click", function(e){
+	$("reset-btn").addEventListener("click", function(e){
 		localStorage.clear();
 
-		document.getElementById("pushIntervalMS").value = pushIntervalMS;
-		document.getElementById("pushIntervalMS").dispatchEvent(new Event('input'));
+		$("push-interval-ms").value = pushIntervalMS;
+		$("push-interval-ms").dispatchEvent(new Event('input'));
 
 //		document.getElementById("angleStepsForPush").value = angleStepsForPush;
 //		document.getElementById("angleStepsForPush").dispatchEvent(new Event('input'));
 
-		document.getElementById("wheelTrackDistanceMM").value = wheelTrackDistanceMM;
-		document.getElementById("wheelTrackDistanceMM").dispatchEvent(new Event('input'));
+		$("wheel-track-distance-mm").value = wheelTrackDistanceMM;
+		$("wheel-track-distance-mm").dispatchEvent(new Event('input'));
 
-		document.getElementById("axleToJockeyWheelMM").value = axleToJockeyWheelMM;
-		document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
+		$("axle-to-jockey-wheel-mm").value = axleToJockeyWheelMM;
+		$("axle-to-jockey-wheel-mm").dispatchEvent(new Event('input'));
 
-		document.getElementById("calibratedZOffset").value = 0;
-		document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedZOffset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
+		$("calibrated-z-offset").value = 0;
+		$("calibrated-z-offset").dispatchEvent(new Event('input'));
+		$("calibrated-z-offset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 
-		document.getElementById("calibratedXOffset").value = 0;
-		document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
-		document.getElementById("calibratedXOffset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
+		$("calibrated-x-offset").value = 0;
+		$("calibrated-x-offset").dispatchEvent(new Event('input'));
+		$("calibrated-x-offset").nextElementSibling.value=0+this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 
 
@@ -325,12 +346,12 @@ try{
 
 	// LOAD DEFAULTS
 	if(localStorage.getItem("pushIntervalMS")!==null){
-		document.getElementById("pushIntervalMS").setAttribute("value",localStorage.getItem("pushIntervalMS"));
+		$("push-interval-ms").setAttribute("value",localStorage.getItem("pushIntervalMS"));
 	}
 	else{
-		document.getElementById("pushIntervalMS").setAttribute("value",pushIntervalMS);
+		$("push-interval-ms").setAttribute("value",pushIntervalMS);
 	}
-	document.getElementById("pushIntervalMS").dispatchEvent(new Event('input'));
+	$("push-interval-ms").dispatchEvent(new Event('input'));
 
 /*
 	if(localStorage.getItem("angleStepsForPush")!==null){
@@ -343,35 +364,35 @@ try{
 */
 
 	if(localStorage.getItem("wheelTrackDistanceMM")!==null){
-		document.getElementById("wheelTrackDistanceMM").setAttribute("value",localStorage.getItem("wheelTrackDistanceMM"));
+		$("wheel-track-distance-mm").setAttribute("value",localStorage.getItem("wheelTrackDistanceMM"));
 	}
 	else{
-		document.getElementById("wheelTrackDistanceMM").setAttribute("value",wheelTrackDistanceMM);
+		$("wheel-track-distance-mm").setAttribute("value",wheelTrackDistanceMM);
 	}
-	document.getElementById("wheelTrackDistanceMM").dispatchEvent(new Event('input'));
+	$("wheel-track-distance-mm").dispatchEvent(new Event('input'));
 
 	if(localStorage.getItem("axleToJockeyWheelMM")!==null){
-		document.getElementById("axleToJockeyWheelMM").setAttribute("value",localStorage.getItem("axleToJockeyWheelMM"));
+		$("axle-to-jockey-wheel-mm").setAttribute("value",localStorage.getItem("axleToJockeyWheelMM"));
 	}
 	else{
-		document.getElementById("axleToJockeyWheelMM").setAttribute("value",axleToJockeyWheelMM);
+		$("axle-to-jockey-wheel-mm").setAttribute("value",axleToJockeyWheelMM);
 	}
-	document.getElementById("axleToJockeyWheelMM").dispatchEvent(new Event('input'));
+	$("axle-to-jockey-wheel-mm").dispatchEvent(new Event('input'));
 
 	if(localStorage.getItem("calibratedZOffset")!==null){
-		document.getElementById("calibratedZOffset").setAttribute("value",localStorage.getItem("calibratedZOffset"));
+		$("calibrated-z-offset").setAttribute("value",localStorage.getItem("calibratedZOffset"));
 	}
 	else{
-		document.getElementById("calibratedZOffset").setAttribute("value",0);
+		$("calibrated-z-offset").setAttribute("value",0);
 	}
-	document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
+	$("calibrated-z-offset").dispatchEvent(new Event('input'));
 	if(localStorage.getItem("calibratedXOffset")!==null){
-		document.getElementById("calibratedXOffset").setAttribute("value",localStorage.getItem("calibratedXOffset"));
+		$("calibrated-x-offset").setAttribute("value",localStorage.getItem("calibratedXOffset"));
 	}
 	else{
-		document.getElementById("calibratedXOffset").setAttribute("value",0);
+		$("calibrated-x-offset").setAttribute("value",0);
 	}
-	document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
+	$("calibrated-x-offset").dispatchEvent(new Event('input'));
 
 
 	//Custom Fontawesome icon - Caravan front view
@@ -387,7 +408,7 @@ try{
 	}
 	FontAwesome.library.add(faCaravanFront)
 
-	debugView.innerHTML += "<span>"+new Date(document.lastModified).toLocaleString()+"</span>";
+	$("debug").innerHTML += "<span>"+new Date(document.lastModified).toLocaleString()+"</span>";
 
 	//Orientation, Portrait or Landscape
 	window.addEventListener("orientationchange", deviceOrientation);
@@ -395,129 +416,87 @@ try{
 
 	//Verify Push Availability
 	if(is_iOS()){
-		debugView.innerHTML += "<span>&gt;frontend.js is_iOS()</span>";
+		$("debug").innerHTML += "<span>&gt;frontend.js is_iOS()</span>";
 		if(window.navigator.standalone){
-			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
+			$("debug").innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
 			if(navigator.serviceWorker) {
-				subInfo.innerHTML = "exec initServiceWorker";
-				subInfo.style.display = "none";
-				subscribeNotifBtn.disabled = false;
-				subscribeNotifBtn.style.display = "block";
-				debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
+				$("sub-info").innerHTML = "exec initServiceWorker";
+				$("sub-info").style.display = "none";
+				$("subscribe-notif-btn").disabled = false;
+				$("subscribe-notif-btn").style.display = "block";
+				$("debug").innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
 				initServiceWorker();
 			}
 			else{
-				debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
+				$("debug").innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
 				if (location.protocol !== "https:") {
-					subInfo.innerHTML = "Not HTTPS://";
-					subInfo.style.display = "block";
-					subscribeNotifBtn.disabled = true;
-					subscribeNotifBtn.style.display = "none";
-					debugView.innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
+					$("sub-info").innerHTML = "Not HTTPS://";
+					$("sub-info").style.display = "block";
+					$("subscribe-notif-btn").disabled = true;
+					$("subscribe-notif-btn").style.display = "none";
+					$("debug").innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
 				}
 				else{
-					subInfo.innerHTML = "Unknown Error";
-					subInfo.style.display = "block";
-					subscribeNotifBtn.disabled = true;
-					subscribeNotifBtn.style.display = "none";
-					debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
+					$("sub-info").innerHTML = "Unknown Error";
+					$("sub-info").style.display = "block";
+					$("subscribe-notif-btn").disabled = true;
+					$("subscribe-notif-btn").style.display = "none";
+					$("debug").innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
 				}
 			}
 		}
 		else{
-			subInfo.innerHTML = "Not Standalone, add to home screen";
-			subInfo.style.display = "block";
-			subscribeNotifBtn.disabled = true;
-			subscribeNotifBtn.style.display = "none";
-			debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is FALSE</span>";
+			$("sub-info").innerHTML = "Not Standalone, add to home screen";
+			$("sub-info").style.display = "block";
+			$("subscribe-notif-btn").disabled = true;
+			$("subscribe-notif-btn").style.display = "none";
+			$("debug").innerHTML += "<span>&gt;frontend.js navigator.standalone is FALSE</span>";
 		}
 	}
 	else if(is_Android()){
-			subInfo.style.display = "none";
-			subscribeNotifBtn.disabled = false;
-			subscribeNotifBtn.style.display = "block";
-			debugView.innerHTML += "<span>&gt;frontend.js is_android()</span>";
-			debugView.innerHTML += "<span>&gt;frontend.js exec initServiceWorker()</span>";
+			$("sub-info").style.display = "none";
+			$("subscribe-notif-btn").disabled = false;
+			$("subscribe-notif-btn").style.display = "block";
+			$("debug").innerHTML += "<span>&gt;frontend.js is_android()</span>";
+			$("debug").innerHTML += "<span>&gt;frontend.js exec initServiceWorker()</span>";
 			initServiceWorker();
 	}
 	else{
-		subInfo.innerHTML = "Neither iOS or Android";
-		subInfo.style.display = "block";
-		subscribeNotifBtn.disabled = true;
-		subscribeNotifBtn.style.display = "none";
+		$("sub-info").innerHTML = "Neither iOS or Android";
+		$("sub-info").style.display = "block";
+		$("subscribe-notif-btn").disabled = true;
+		$("subscribe-notif-btn").style.display = "none";
 
-		debugView.innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
+		$("debug").innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
 	}
 
-/*
-	if(window.navigator.standalone){
-		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is TRUE</span>";
-		if (navigator.serviceWorker) {
-			debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
-//				subscribeNotifBtn.disabled = false;
-//				reqMotionPermBtn.disabled = false;
-
-//			initServiceWorker();
-		}
-		else{
-			debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
-			if (location.protocol !== "https:") {
-				debugView.innerHTML += "<span>&gt;frontend.js You need to visit this page with a secure connection (https://)</span>";
-			}
-			else{
-				debugView.innerHTML += "<span>&gt;frontend.js navigator.serviceWorker failed by unknown reason</span>";
-			}
-		}
-	}
-	else if(!window.navigator.standalone && is_iOS()){
-		debugView.innerHTML += "<span>&gt;frontend.js iOS but not Standalone</span>";
-		subscribeNotifBtn.disabled = true;
-		subInfo.innerHTML = "iOS but not Standalone";
-		addToHomeScreen.style.display = "block";
-	}
-	else if(window.navigator.standalone=="undefined" && is_Android()){
-		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is undefined and is_Android is TRUE, init serviceworker?</span>";
-		subInfo.innerHTML = "Android?";
-		//Need to init serviceworker when device is android
-	}
-	else{
-		pushHashAndFixTargetSelector("#scan-qr-code");
-		debugView.innerHTML += "<span>&gt;frontend.js navigator.standalone is undefined and not a iOS or Android device (redirect to QR-code)</span>";
-		subInfo.innerHTML = "Neither Standalone iOS or Android";	//Add to home screen
-		scanQrCodeView.style.display = "block";
-		homeBtn.classList.add("fa-disabled");
-		settingsBtn.classList.add("fa-disabled");
-//		qrCodeBtn.classList.add("fa-disabled");
-//		notValidDeviceView.style.display = "block";
-	}
-*/
 	//Verify Motion Availability
 	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent is TRUE</span>";
+		$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent is TRUE</span>";
 		if(typeof DeviceMotionEvent.requestPermission === "function"){
-			debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is FUNCTION</span>";
-			motionInfo.innerHTML = "DeviceMotionEvent is available";
-			motionInfo.style.display = "none";
-			reqMotionPermBtn.disabled = false;
-			reqMotionPermBtn.style.display = "block";
+			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is FUNCTION</span>";
+			$("motion-info").innerHTML = "DeviceMotionEvent is available";
+			$("motion-info").style.display = "none";
+			$("req-motion-perm-btn").disabled = false;
+			$("req-motion-perm-btn").style.display = "block";
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is not a FUNCTION</span>";
-			motionInfo.innerHTML = "DeviceMotionEvent is not available";
-			reqMotionPermBtn.disabled = true;
-			reqMotionPermBtn.style.display = "block";
+			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is not a FUNCTION</span>";
+			$("motion-info").innerHTML = "DeviceMotionEvent is not available";
+			$("req-motion-perm-btn").disabled = true;
+			$("req-motion-perm-btn").style.display = "block";
 		}
 	}
 	else{
-		debugView.innerHTML += "<span>&gt;frontend.js DeviceMotionEvent FALSE OR reqMotion != function</span>";
-		motionInfo.innerHTML = "DeviceMotionEvent is not available";
-		reqMotionPermBtn.disabled = true;
-		reqMotionPermBtn.style.display = "none";
+		$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent FALSE OR reqMotion != function</span>";
+		$("motion-info").innerHTML = "DeviceMotionEvent is not available";
+		$("req-motion-perm-btn").disabled = true;
+		$("req-motion-perm-btn").style.display = "none";
 	}
 
-	debugView.innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
+	$("debug").innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
+
 }
 catch(err){
-		debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
+		$("debug").innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
 }
-
