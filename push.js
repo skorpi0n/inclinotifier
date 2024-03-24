@@ -30,6 +30,7 @@ async function initServiceWorker() {
 				debugView.innerHTML += "<span>&gt;initServiceWorker() User granted push permission</span>";
 //				reqMotionPermBtn.style.display = "none";
 //				reqMotionPermBtn.disabled = true;
+				testSendBtn.style.display = "block";
 
 				subscribeNotifBtn.disabled = true;
 				subInfo.innerHTML = "Subscribed to Push Notifications";
