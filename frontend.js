@@ -200,7 +200,11 @@ xDist = document.getElementById("x-distance");
 */
 try{
 	//Event listeners
+	if(location.hash!=""){
+		console.log($(location.hash.replace("#","").replace("-btn","")));
+			$(location.hash.replace("#","")+"-btn").classList.add("active");
 
+	}
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
 		if(e.oldURL.split('#').length == 2){
@@ -211,15 +215,15 @@ try{
 		}
 	}
 
-	//Header button
-	$("home-btn").addEventListener("click", () => {
+	//Header buttons
+	$("orientation-btn").addEventListener("click", () => {
 		if(window.location.hash=="#orientation"){
 //			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#orientation");
 		}
-		$("home-btn").classList.add("active");
+		$("orientation-btn").classList.add("active");
 		$("settings-btn").classList.remove("active");
 		$("qr-code-btn").classList.remove("active");
 		$("debug-btn").classList.remove("active");
@@ -233,11 +237,10 @@ try{
 		else{
 			pushHashAndFixTargetSelector("#settings");
 		}
+		$("orientation-btn").classList.remove("active");
 		$("settings-btn").classList.add("active");
-		$("home-btn").classList.remove("active");
 		$("qr-code-btn").classList.remove("active");
 		$("debug-btn").classList.remove("active");
-
 	});
 	$("qr-code-btn").addEventListener("click", function(e) {
 		if(window.location.hash=="#distribute-qr-code"){
@@ -246,9 +249,9 @@ try{
 		else{
 			pushHashAndFixTargetSelector("#distribute-qr-code");
 		}
-		$("qr-code-btn").classList.add("active");
-		$("home-btn").classList.remove("active");
+		$("orientation-btn").classList.remove("active");
 		$("settings-btn").classList.remove("active");
+		$("qr-code-btn").classList.add("active");
 		$("debug-btn").classList.remove("active");
 
 	});
@@ -260,10 +263,10 @@ try{
 		else{
 			pushHashAndFixTargetSelector("#debug");
 		}
-		$("debug-btn").classList.add("active");
 		$("home-btn").classList.remove("active");
 		$("settings-btn").classList.remove("active");
 		$("qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.add("active");
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE

@@ -134,7 +134,7 @@ body.rotation90 {
 	left: -90px;
 }
 
-#subscribe-to-notifications-btn, #request-perm-for-motion-btn, #test-send-btn, #reset-btn, #calibrate-btn{
+#subscribe-notif-btn, #req-motion-perm-btn, #test-send-btn, #reset-btn, #calibrate-btn{
 	width: 100%;
 	line-height: 2;
 	font-size: 20px;
