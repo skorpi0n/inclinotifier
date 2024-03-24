@@ -53,11 +53,10 @@ function isPushManagerActive(pushManager) {
 	try{
 		$("debug").innerHTML += "<span>&gt;isPushManagerActive()</span>";
 		if (!pushManager) {
-			//What should I do if pushmanager is false?
-	//		$("subscribe-notif-btn").style.display = "block";
-	//		reqMotionPermBtn.style.display = "block";
+			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = false;
-			reqMotionPermBtn.disabled = false;
+			$("sub-info").style.display = "block";
+			$("sub-info").innerHTML = "PushManager is not available";
 			return false;
 		}
 		else {
@@ -66,7 +65,7 @@ function isPushManagerActive(pushManager) {
 		}
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>&gt;isPushManagerActive() "+err.message+"</span>";
+			$("debug").innerHTML += "<span>&gt;isPushManagerActive() "+err+"</span>";
 	}
 }
 
@@ -82,7 +81,7 @@ async function subscribeToPush() {
 		let swRegistration = await navigator.serviceWorker.getRegistration();
 		let pushManager = swRegistration.pushManager;
 		if (!isPushManagerActive(pushManager)) {
-			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active0</span>";
+			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active</span>";
 			$("subscribe-notif-btn").disabled = true;
 			$("subscribe-notif-btn").style.display = "none";
 			$("sub-info").style.display = "block";
@@ -100,6 +99,9 @@ async function subscribeToPush() {
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 //			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
+			$("subscribe-notif-btn").style.display = "none";
+			$("subscribe-notif-btn").disabled = true;
+			$("sub-info").style.display = "none";
 			$("test-send-btn").style.display = "block";
 			$("test-send-btn").disabled = false;
 			displaySubscriptionInfo(subscription);
@@ -123,7 +125,7 @@ function displaySubscriptionInfo(subscription) {
 		$("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() "+JSON.stringify(subscription.toJSON())+"</span>";
 	}
 	catch(err){
-		$("debug").innerHTML += "<span>"+err.message+"</span>";
+		$("debug").innerHTML += "<span>"+err+"</span>";
 	}
 }
 

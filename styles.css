@@ -260,9 +260,6 @@ button:disabled {
 }
 
 
-
-
-
 /* ANIMATIONS */
 .beatDuration{
 	--fa-animation-duration: 0.5s;
@@ -318,20 +315,3 @@ button:disabled {
 	padding: 5px;
 	left: 10px;
 }
-
-
-/* REMOVE? */
-div.option:has(#angleStepsForPush){
-	display: none;
-}
-
-
-
-/*
-.hide{
-	display: none !important;
-}
-.show{
-	display: block !important;
-}
-*/

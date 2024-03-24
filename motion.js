@@ -131,10 +131,10 @@ async function requestPermForMotion() {
 			const permissionState = await DeviceOrientationEvent.requestPermission();
 			
 			if (permissionState === "granted") {
-				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted__</span>";
-				reqMotionPermBtn.style.display = "none";
-				reqMotionPermBtn.disabled = true;
-				calibrateBn.disabled = false;
+				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
+				$("req-motion-perm-btn").style.display = "none";
+				$("req-motion-perm-btn").disabled = true;
+				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
 				orientView.style.display = "block";
 				pushHashAndFixTargetSelector("#orientation");
@@ -142,9 +142,9 @@ async function requestPermForMotion() {
 			else{
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
 				$("motion-info").innerHTML = "Device motion was Denied";
-				reqMotionPermBtn.style.display = "none";
-				reqMotionPermBtn.disabled = true;
-				calibrateBn.disabled = false;
+				$("req-motion-perm-btn").style.display = "none";
+				$("req-motion-perm-btn").disabled = true;
+				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
 				orientView.style.display = "none";
 			}
@@ -165,6 +165,6 @@ async function requestPermForMotion() {
 		}
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>"+err.message+"</span>";
+			$("debug").innerHTML += "<span>"+err+"</span>";
 	}
 };

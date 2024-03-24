@@ -201,9 +201,7 @@ xDist = document.getElementById("x-distance");
 try{
 	//Event listeners
 	if(location.hash!=""){
-		console.log($(location.hash.replace("#","").replace("-btn","")));
-			$(location.hash.replace("#","")+"-btn").classList.add("active");
-
+		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
