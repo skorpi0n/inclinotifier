@@ -15,33 +15,32 @@ async function initServiceWorker() {
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
-		debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState: "+permissionState+"</span>";
+//		debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState: "+permissionState+"</span>";
 		switch (permissionState) {
 			case "prompt":
-				debugView.innerHTML += "<span>&gt;initServiceWorker() btns shown by prompt</span>";
-//				subscribeNotifBtn.style.display = "block";
-//				reqMotionPermBtn.style.display = "block";
+				subscribeNotifBtn.style.display = "block";
 				subscribeNotifBtn.disabled = false;
+				subInfo.style.display = "none";
 				subInfo.innerHTML = "Choose";
-				reqMotionPermBtn.disabled = false;
-				motionInfo.innerHTML = "Choose";
+				debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState prompt</span>";
 				break;
 			case "granted":
-				debugView.innerHTML += "<span>&gt;initServiceWorker() User granted push permission</span>";
-//				reqMotionPermBtn.style.display = "none";
-//				reqMotionPermBtn.disabled = true;
 				testSendBtn.style.display = "block";
-
+				testSendBtn.disabled = false;
+				subscribeNotifBtn.style.display = "none";
 				subscribeNotifBtn.disabled = true;
+				subInfo.style.display = "block";
 				subInfo.innerHTML = "Subscribed to Push Notifications";
-				displaySubscriptionInfo(await pushManager.getSubscription());
+				debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
+//				displaySubscriptionInfo(await pushManager.getSubscription());
+				await pushManager.getSubscription();
 				break;
 			case "denied":
-//				subscribeNotifBtn.style.display = "none";
+				subscribeNotifBtn.style.display = "none";
 				subscribeNotifBtn.disabled = true;
-//				subInfo.style.display = "block";
+				subInfo.style.display = "block";
 				subInfo.innerHTML = "User denied push permission";
-				debugView.innerHTML += "<span>&gt;initServiceWorker() User denied push permission</span>";
+				debugView.innerHTML += "<span>&gt;initServiceWorker() permissionState denied</span>";
 		}
 
 	}
@@ -101,8 +100,8 @@ async function subscribeToPush() {
 
 		try {
 			let subscription = await pushManager.subscribe(subscriptionOptions);
-//			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
-		testSendBtn.disabled = false;
+			debugView.innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
+			testSendBtn.disabled = false;
 //			displaySubscriptionInfo(subscription);
 		}
 		catch(err) {
@@ -129,7 +128,7 @@ function displaySubscriptionInfo(subscription) {
 		testSendBtn.disabled = false;
 	
 		if(is_iOS()){
-			debugView.innerHTML += "<span>&gt;is_iOS is TRUE</span>";
+			debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() is_iOS is TRUE</span>";
 			if(typeof DeviceMotionEvent.requestPermission === "undefined"){
 	//			subscribeNotifBtn.style.display = "none";
 	//			reqMotionPermBtn.style.display = "none";
@@ -142,22 +141,22 @@ function displaySubscriptionInfo(subscription) {
 			
 			}
 			else if(typeof DeviceMotionEvent.requestPermission === "function"){
-				debugView.innerHTML += "<span>&gt;DeviceMotionEvent is a function. Should be a iOS device?</span>";
+				debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() DeviceMotionEvent is a function. Should be a iOS device?</span>";
 	//			reqMotionPermBtn.style.display = "block";
 				reqMotionPermBtn.disabled = false;
 			}
 			else{
-				debugView.innerHTML += "<span>&gt;requestPermission is not undefined and not function.</span>";
+				debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() requestPermission is not undefined and not function.</span>";
 			}
 		}
 		else if(is_Android()){
-			debugView.innerHTML += "<span>&gt;is_Android is TRUE</span>";
-			debugView.innerHTML += "<span>&gt;DeviceMotionEvent is a function. Should be a iOS device?</span>";
+			debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() is_Android is TRUE</span>";
+			debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() DeviceMotionEvent is a function. Should be a iOS device?</span>";
 			reqMotionPermBtn.style.display = "block";
 			reqMotionPermBtn.disabled = false;
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;is_iOS and is_Android is FALSE. Device not valid</span>";
+			debugView.innerHTML += "<span>&gt;displaySubscriptionInfo() is_iOS and is_Android is FALSE. Device not valid</span>";
 			notValidDeviceView.style.display = "block";
 		}
 	}

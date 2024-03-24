@@ -142,9 +142,10 @@ body.rotation90 {
 }
 #sub-info, #motion-info{
 	background-color: #e7e7ff;
-	padding: 20px;
+	padding: 15px;
 	word-wrap: break-word;
-	font-style: italic
+	font-style: italic;
+	margin-bottom: 5px;
 }
 #front-motion_, #side-motion_{
 	background-color: #e7e7ff;

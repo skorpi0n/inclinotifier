@@ -127,12 +127,12 @@ async function requestPermForMotion() {
 	//	e.preventDefault();
 		// Request permission for iOS 13+ devices
 		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-			debugView.innerHTML += "<span>&gt;DeviceMotion True AND reqMotion = function</span>";
+			debugView.innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
 	
 			const permissionState = await DeviceOrientationEvent.requestPermission();
 			
 			if (permissionState === "granted") {
-				debugView.innerHTML += "<span>&gt;Device motion was Granted__</span>";
+				debugView.innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted__</span>";
 	//			reqMotionPermBtn.style.display = "none";
 				reqMotionPermBtn.disabled = true;
 				calibrateBn.disabled = false;
@@ -141,7 +141,7 @@ async function requestPermForMotion() {
 				pushHashAndFixTargetSelector("#orientation");
 			}
 			else{
-				debugView.innerHTML += "<span>&gt;Device motion was Denied</span>";
+				debugView.innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
 				//Permission was denied
 				motionInfo.innerHTML = "Device motion was Denied";
 	//			reqMotionPermBtn.style.display = "none";
@@ -152,7 +152,7 @@ async function requestPermForMotion() {
 			}
 		}
 		else{
-			debugView.innerHTML += "<span>&gt;Device motion not asked yet</span>";
+			debugView.innerHTML += "<span>&gt;requestPermForMotion() Device motion not asked yet</span>";
 			motionInfo.innerHTML = "Device motion not asked yet";
 		}
 	
