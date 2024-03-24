@@ -40,7 +40,8 @@ function is_Android(){
 	return isAndroid;
 }
 
-function pushHashAndFixTargetSelector(hash) {
+function pushHashAndFixTargetSelector(hash){
+		console.log(4);
 	history.pushState({}, document.title, hash); //called as you would normally
 	const onpopstate = window.onpopstate; //store the old event handler to restore it later
 	window.onpopstate = function() { //this will be called when we call history.back()
@@ -49,40 +50,6 @@ function pushHashAndFixTargetSelector(hash) {
 	};
 	history.back(); //go back to trigger the above function
 }
-
-/*
-function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
-	try{
-	audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-
-	var oscillator = audioCtx.createOscillator();
-	var gainNode = audioCtx.createGain();
-	
-	const stereoNode = new StereoPannerNode(audioCtx, { pan: pan });
-	//oscillator.connect(gainNode);
-	oscillator.connect(gainNode);
-	gainNode.connect(stereoNode);
-	//gainNode.connect(audioCtx.destination);
-	stereoNode.connect(audioCtx.destination);
-	
-	gainNode.gain.value = 0.5;
-	oscillator.frequency.value = 1500;
-	oscillator.type = "triangle";
-
-	oscillator.start();	
-	setTimeout(
-		function() {
-			oscillator.stop();
-		},
-		duration
-	);
-	}
-	catch(err){
-			$("debug").innerHTML += "<span>&gt;beep(): "+err.message+"</span>";
-	}
-}
-*/
-
 function calibrate(event){
 	try{
 		$("calibrate-btn").disabled = true;
@@ -104,12 +71,12 @@ function calibrate(event){
 				$("calibration-timer").innerText = "DONE";
 				$("debug").innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
 				$("debug").innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
-				$("calibrated-Z-Offset").value = calibratedZOffsetVal;
-				$("calibrated-Z-Offset").dispatchEvent(new Event('input'));
-				$("calibrated-Z-Offset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
-				$("calibrated-X-Offset").value = calibratedXOffsetVal;
-				$("calibrated-X-Offset").dispatchEvent(new Event('input'));
-				$("calibrated-X-Offset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
+				$("calibrated-z-offset").value = calibratedZOffsetVal;
+				$("calibrated-z-offset").dispatchEvent(new Event('input'));
+				$("calibrated-z-offset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
+				$("calibrated-x-offset").value = calibratedXOffsetVal;
+				$("calibrated-x-offset").dispatchEvent(new Event('input'));
+				$("calibrated-x-offset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
 			}
 			else{
 				$("calibration-timer").innerText = "ERROR";
@@ -164,107 +131,58 @@ var sleepSetTimeout_ctrl;
 var $ = function(id){
 	return document.getElementById(id);
 };
-/*
-//Simplify getElement
-addToHomeScreen = document.getElementById("add-to-home-screen");
-calibrateBtn = document.getElementById("calibrate-btn");
-calibratedZOffset = document.getElementById("calibrated-Z-Offset");
-calibratedXOffset = document.getElementById("calibrated-X-Offset");
-calibrationTimer = document.getElementById("calibration-timer");
-debugBtn = document.getElementById("show-debug");
-$("debug") = document.getElementById("debug");
-frontIcon = document.getElementById("front-icon");
-$("motion-info") = document.getElementById("motion-info");
-notValidDeviceView = document.getElementById("not-a-valid-device");
-orientView = document.getElementById("orientation");
-rateInput = document.getElementById("rate");
-resetButton = document.getElementById("reset-btn");
-$("req-motion-perm-btn") = document.getElementById("request-perm-for-motion-btn");
-scanQrCodeView = document.getElementById("scan-qr-code");
-settingsView = document.getElementById("settings");
-homeBtn = document.getElementById("show-home");
-settingsBtn = document.getElementById("show-settings");
-qrCodeBtn = document.getElementById("show-qr-code");
-sideIcon = document.getElementById("side-icon");
-$("sub-info") = document.getElementById("sub-info");
-$("subscribe-notif-btn") = document.getElementById("subscribe-to-notifications-btn");
-testSendBtn = document.getElementById("test-send-btn");
 
-frontView = document.getElementById("front-view");
-sideView = document.getElementById("side-view");
-
-zAxis = document.getElementById("z-axis");
-zDist = document.getElementById("z-distance");
-xAxis = document.getElementById("x-axis");
-xDist = document.getElementById("x-distance");
-*/
 try{
 	//Event listeners
 	if(location.hash!=""){
-		$(location.hash.replace("#","")+"-btn").classList.add("active");
+		console.log(1);
+		$(location.hash.replace("#","")).style.display = "block";
+
+//		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
+		$("orientation-btn").classList.remove("active");
+		$("settings-btn").classList.remove("active");
+		$("qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+		$("orientation-btn").classList.add("fa-disabled");
+		$("settings-btn").classList.add("fa-disabled");
+		$("qr-code-btn").classList.add("fa-disabled");
+
 		if(e.oldURL.split('#').length == 2){
-			$(e.oldURL.split('#')[1]).style.display = "none";
+		console.log(2);
+
+//			$(e.oldURL.split('#')[1]).style.display = "none";
 		}
 		if(location.hash!=""){
+		console.log(3);
 			$(location.hash.replace("#","")).style.display = "block";
 		}
 	}
-
+//fa-disabled
 	//Header buttons
 	$("orientation-btn").addEventListener("click", () => {
-		if(window.location.hash=="#orientation"){
-//			history.back();
-		}
-		else{
-			pushHashAndFixTargetSelector("#orientation");
-		}
+		pushHashAndFixTargetSelector("#orientation");
 		$("orientation-btn").classList.add("active");
-		$("settings-btn").classList.remove("active");
-		$("qr-code-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
-
+		$("orientation-btn").classList.remove("fa-disabled");
 	});
 
 	$("settings-btn").addEventListener("click", () => {
-		if(window.location.hash=="#settings"){
-//			history.back();
-		}
-		else{
-			pushHashAndFixTargetSelector("#settings");
-		}
-		$("orientation-btn").classList.remove("active");
+		pushHashAndFixTargetSelector("#settings");
 		$("settings-btn").classList.add("active");
-		$("qr-code-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
+		$("settings-btn").classList.remove("fa-disabled");
 	});
 	$("qr-code-btn").addEventListener("click", function(e) {
-		if(window.location.hash=="#distribute-qr-code"){
-//			history.back();
-		}
-		else{
-			pushHashAndFixTargetSelector("#distribute-qr-code");
-		}
-		$("orientation-btn").classList.remove("active");
-		$("settings-btn").classList.remove("active");
+		pushHashAndFixTargetSelector("#distribute-qr-code");
 		$("qr-code-btn").classList.add("active");
-		$("debug-btn").classList.remove("active");
-
+		$("qr-code-btn").classList.remove("fa-disabled");
 	});
 
 	$("debug-btn").addEventListener("click", function(e) {
-		if(window.location.hash=="#debug"){
-//			history.back();
-		}
-		else{
-			pushHashAndFixTargetSelector("#debug");
-		}
-		$("home-btn").classList.remove("active");
-		$("settings-btn").classList.remove("active");
-		$("qr-code-btn").classList.remove("active");
+		pushHashAndFixTargetSelector("#debug");
 		$("debug-btn").classList.add("active");
+		$("debug-btn").classList.remove("fa-disabled");
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
@@ -341,9 +259,11 @@ try{
 
 
 	//Main JS code
-	if(window.location.hash==""){
-		pushHashAndFixTargetSelector("#orientation");
-	}
+//	if(window.location.hash==""){
+//		pushHashAndFixTargetSelector("#orientation");
+//		window.location.hash = "#orientation";
+//history.pushState(null,null,"#orientation");
+//	}
 
 	// LOAD DEFAULTS
 	if(localStorage.getItem("pushIntervalMS")!==null){
@@ -447,6 +367,7 @@ try{
 			}
 		}
 		else{
+pushHashAndFixTargetSelector("#add-to-home-screen");
 			$("sub-info").innerHTML = "Not Standalone, add to home screen";
 			$("sub-info").style.display = "block";
 			$("subscribe-notif-btn").disabled = true;
@@ -463,6 +384,7 @@ try{
 			initServiceWorker();
 	}
 	else{
+pushHashAndFixTargetSelector("#not-a-valid-device");
 		$("sub-info").innerHTML = "Neither iOS or Android";
 		$("sub-info").style.display = "block";
 		$("subscribe-notif-btn").disabled = true;

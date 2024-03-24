@@ -35,7 +35,6 @@ body.rotation90 {
 .wrapper {
 	max-width: 800px;
 	margin: 0 auto;
-	border:2px solid red;
 }
 @supports (-webkit-touch-callout: none) {
 	#scan-qr-code {
@@ -54,10 +53,10 @@ body.rotation90 {
 	z-index: 9999;
 }
 
-.fa-disabled {
+.fa-disabled{
 	opacity: 0.4;
-//	cursor: not-allowed;		/*Remove comments to disable click on disabled icons*/
-//	pointer-events: none;
+	cursor: not-allowed;
+	pointer-events: none;
 }
 .active{
 	color: #009aff;
@@ -174,7 +173,7 @@ body.rotation90 {
 	float: left;
 }
 #settings .option {
-	padding: 0px 10px;
+	padding: 5px 10px;
 }
 #settings .option output {
 	width: 80px;
@@ -186,7 +185,7 @@ body.rotation90 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 10em;
+	font-size: 8em;
 	font-weight: bold;
 	text-align: center;
 
@@ -242,7 +241,7 @@ button:disabled {
 #add-to-home-screen {
 	display: none;
 	background-color: #fff;
-	padding: 10px;
+	padding: 20px;
 }
 #add-to-home-screen img {
 	margin: 0 auto;
@@ -253,12 +252,8 @@ button:disabled {
 
 #not-a-valid-device{
 	display: none;
-	max-width: 100%
+	padding: 20px;
 }
-#not-a-valid-device i{
-	color: grey;
-}
-
 
 /* ANIMATIONS */
 .beatDuration{
@@ -306,12 +301,17 @@ button:disabled {
 }
 
 
-#source-link {
-	display: none;
-	position: fixed;
-	bottom: 10px;
-	color: #fff;
-	background-color: rgba(0,0,0,0.5);
-	padding: 5px;
-	left: 10px;
+#links{
+	display: grid;
 }
+#source-link, #issue-link {
+//	bottom: 10px;
+	padding: 5px;
+}
+
+
+/* REMOVE? */
+div.option:has(#angle-steps-for-push){
+	display: none;
+}
+

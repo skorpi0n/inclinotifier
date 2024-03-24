@@ -19,9 +19,9 @@
 <body>
 <div class="wrapper">
 	<div id="header">
-		<span id="orientation-btn"><i class="fas fa-caravan fa-2x fa-flip-horizontal"></i></span>
-		<span id="settings-btn"><i class="fas fa-gear fa-2x"></i></span>
-		<span id="qr-code-btn"><i class="fa-solid fa-qrcode fa-2x"></i></span>
+		<span id="orientation-btn" class="fa-disabled"><i class="fas fa-caravan fa-2x fa-flip-horizontal"></i></span>
+		<span id="settings-btn" class="fa-disabled"><i class="fas fa-gear fa-2x"></i></span>
+		<span id="qr-code-btn" class="fa-disabled"><i class="fa-solid fa-qrcode fa-2x"></i></span>
 		<span id="debug-btn"><i class="fa-solid fa-code fa-2x"></i></span>
 	</div>
 
@@ -40,23 +40,14 @@
 	</div>
 
 	<div id="not-a-valid-device" class="views">
-		Looks like you're neither on a IOS or Android device<br>
-		If this is incorrect, report issue at <a href="https://github.com/skorpi0n/inclinotifier/issues">https://github.com/skorpi0n/inclinotifier/issues</a>
-		<span class="fa-stack fa-2x">
-			<i class="fa-brands fa-android"></i>
-			<! i class="fa-solid fa-ban fa-stack-2x" style="color:Tomato"></i>
-		</span>
-		<span class="fa-stack fa-2x">
-			<i class="fa-brands fa-apple"></i>
-			<! i class="fa-solid fa-ban fa-stack-2x" style="color:Tomato"></i>
-		</span>
+		Looks like you're neither on a iOS or Android device<br>
+		If this is incorrect, <a href="https://skorpi0n.github.io/inclinotifier/issues">report issue at GitHub</a>
 	</div>
 
 	<div id="add-to-home-screen" class="views">
 		For Inclinotifier to work, you need to add it to your Home Screen.
 		<img src="images/webpush-add-to-home-screen.jpg" alt="webpush add to some screen">
 	</div>
-
 
 	<div id="orientation" class="views">
 		<div id="front-view">
@@ -91,7 +82,6 @@
 		<button id="subscribe-notif-btn" onclick="subscribeToPush()" disabled>Subscribe to notifications</button>
 		<button id="test-send-btn" onclick="sendPush('Push notification test', 'Push notification is working if you can read this')" disabled>Send test notification</button>
 		<div id="sub-info"></div>
-	
 
 		<button id="req-motion-perm-btn" onclick="requestPermForMotion()" disabled>Request permissions for motion</button>
 		<div id="motion-info"></div>
@@ -124,8 +114,10 @@
 			<input type="range" min="-2" max="2" step="0.1" name="calibrated-x-offset" id="calibrated-x-offset" value="" disabled><output></output>
 		</div>
 
-		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub</a>
-		<a id="issues-link" href="https://skorpi0n.github.io/inclinotifier/issues">Report issue at GitHub</a>
+		<div id="links">
+			<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub</a>
+			<a id="issue-link" href="https://skorpi0n.github.io/inclinotifier/issues">Report issue at GitHub</a>
+		</div>
 		<button id="reset-btn">Reset to defaults</button>
 	</div>
 </div>

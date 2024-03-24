@@ -1,14 +1,6 @@
 //Caravan angle
 function handleOrientation(event) {
 	try{
-/*
-		b = lastBeepTS + Math.max(250, Math.min(4000, (calibratedBeta / 0.004 )));
-		if(calibratedBeta != null && Date.now() >= b){
-			beep(200,1);
-			lastBeepTS=Date.now();
-		}
-*/
-
 		calibratedGamma = event.gamma - calibratedZOffsetVal;
 		calibratedBeta = event.beta - calibratedXOffsetVal;
 
@@ -25,7 +17,6 @@ function handleOrientation(event) {
 			if(calibrationStart){
 				calibrationZArr.push(event.gamma);
 			}
-//			$("debug").innerHTML += "<span>g"+Date.now()+" "+lastZupdateTS+" "+xzUpdateIntervalMS+" "+(Date.now()-(lastZupdateTS+xzUpdateIntervalMS))+"</span>";
 			$("z-axis").innerHTML = Math.ceil(calibratedBeta*10)/10;
 			if(Math.abs(calibratedGamma) >= 5){
 				$("front-icon").classList.remove("beat");
@@ -53,11 +44,11 @@ function handleOrientation(event) {
 				//Send push
 				if(Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
 					if(calibratedGamma > 0){
-						sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)");
+						sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+String.fromCharCode(176)+")");
 						$("debug").innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)</span>";
 					}
 					else{
-						sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)");
+						sendPush("Side to side","Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+String.fromCharCode(176)+"");
 						$("debug").innerHTML += "<span>&gt;Side to side: Left wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
@@ -103,11 +94,11 @@ function handleOrientation(event) {
 				//Send push
 				if(Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
 					if(calibratedBeta < 0){
-						sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)");
+						sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+String.fromCharCode(176)+")");
 						$("debug").innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)</span>";
 					}
 					else{
-						sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)");
+						sendPush("Jockey Up/down","Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+String.fromCharCode(176)+")");
 						$("debug").innerHTML += "<span>&gt;Jockey wheel down by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)</span>";
 					}
 					lastPushTS = Date.now();
@@ -145,8 +136,8 @@ async function requestPermForMotion() {
 				$("req-motion-perm-btn").style.display = "none";
 				$("req-motion-perm-btn").disabled = true;
 				$("calibrate-btn").disabled = false;
-				$("motion-info").innerHTML = "Motion was Granted";
-				orientView.style.display = "none";
+				$("motion-info").style.display = "block";
+				$("motion-info").innerHTML = "Motion Not Granted";
 			}
 		}
 		else{

@@ -15,7 +15,6 @@ async function initServiceWorker() {
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
-//		$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState: "+permissionState+"</span>";
 		switch (permissionState) {
 			case "prompt":
 				$("subscribe-notif-btn").style.display = "block";
