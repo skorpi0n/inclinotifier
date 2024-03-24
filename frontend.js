@@ -222,6 +222,7 @@ try{
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
 		if(e.oldURL.split('#').length == 2){
+			console.log(e.oldURL.split('#')[1]);
 			document.getElementById(e.oldURL.split('#')[1]).style.display = "none";
 		}
 		if(location.hash!=""){
