@@ -125,14 +125,14 @@
 		</div>
 
 		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/">Visit this code at GitHub</a>
-		<a id="source-link" href="https://skorpi0n.github.io/inclinotifier/issues">Report issue at GitHub</a>
+		<a id="issues-link" href="https://skorpi0n.github.io/inclinotifier/issues">Report issue at GitHub</a>
 		<button id="reset-btn">Reset to defaults</button>
 	</div>
 </div>
 <script type="text/javascript">
 	//Dynamically load javascripts to prvent caching
 	ts=new Date().getTime();
-	scripts = ["push.js","touch.js","motion.js","frontend.js"];
+	scripts = ["push.js","motion.js","frontend.js"];	//"touch.js"
 	scripts.forEach(jsfile =>{
 		script = document.createElement("script");
 		script.src = jsfile+"?v=" + ts;
