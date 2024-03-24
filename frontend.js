@@ -199,7 +199,7 @@ var sleepSetTimeout_ctrl;
 	zDist = document.getElementById("z-distance");
 	xAxis = document.getElementById("x-axis");
 	xDist = document.getElementById("x-distance");
-
+/*
 if (navigator.serviceWorker) {
 	try{
 			debugView.innerHTML += "<span>&gt;frontend.js: exec initServiceWorker()</span>";
@@ -212,7 +212,7 @@ if (navigator.serviceWorker) {
 			debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
 	}
 }
-
+*/
 
 try{
 
@@ -456,7 +456,7 @@ if android
 //					subscribeNotifBtn.disabled = false;
 //					reqMotionPermBtn.disabled = false;
 
-//				initServiceWorker();
+				initServiceWorker();
 			}
 			else{
 				debugView.innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
