@@ -183,7 +183,7 @@ body.rotation90 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 15em;
+	font-size: 10em;
 	font-weight: bold;
 	text-align: center;
 

@@ -124,7 +124,6 @@ function handleOrientation(event) {
 
 async function requestPermForMotion() {
 	try{
-	//	e.preventDefault();
 		// Request permission for iOS 13+ devices
 		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
 			debugView.innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
@@ -133,18 +132,17 @@ async function requestPermForMotion() {
 			
 			if (permissionState === "granted") {
 				debugView.innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted__</span>";
-	//			reqMotionPermBtn.style.display = "none";
+				reqMotionPermBtn.style.display = "none";
 				reqMotionPermBtn.disabled = true;
 				calibrateBn.disabled = false;
 				motionInfo.innerHTML = "Motion was Granted";
-	//			orientView.style.display = "block";
+				orientView.style.display = "block";
 				pushHashAndFixTargetSelector("#orientation");
 			}
 			else{
 				debugView.innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
-				//Permission was denied
 				motionInfo.innerHTML = "Device motion was Denied";
-	//			reqMotionPermBtn.style.display = "none";
+				reqMotionPermBtn.style.display = "none";
 				reqMotionPermBtn.disabled = true;
 				calibrateBn.disabled = false;
 				motionInfo.innerHTML = "Motion was Granted";
@@ -158,15 +156,11 @@ async function requestPermForMotion() {
 	
 		//Here we only process while motion is running/or not
 		if (is_running){
-			//debugView.innerHTML += "<br>Device motion is running";
 			window.removeEventListener("deviceorientation", handleOrientation);
-//			window.removeEventListener("deviceorientation", calibrate);
 			is_running = false;
 		}
 		else{
-			//debugView.innerHTML += "<br>Device motion is not running";
 			window.addEventListener("deviceorientation", handleOrientation);
-//			window.addEventListener("deviceorientation", calibrate);
 			is_running = true;
 		}
 	}

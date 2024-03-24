@@ -50,6 +50,7 @@ function pushHashAndFixTargetSelector(hash) {
 	history.back(); //go back to trigger the above function
 }
 
+/*
 function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 	try{
 	audioCtx = new(window.AudioContext || window.webkitAudioContext)();
@@ -80,37 +81,35 @@ function beep(duration=200, pan) {	//pan: -1=left, 0=center, 1=right
 			debugView.innerHTML += "<span>&gt;beep(): "+err.message+"</span>";
 	}
 }
-
+*/
 
 function calibrate(event){
 	try{
-	//	debugView.innerHTML += "<span>&gt;Gamma: "+event.gamma+"</span>";
-		document.getElementById("calibrate-btn").disabled = true;
+		calibrateBtn.disabled = true;
 		if(counterS + calibrationHoldS + 1 <= 0){
-			document.getElementById("calibration-timer").innerText = "";
-			document.getElementById("calibration-timer").style.display = "none";
+			calibrationTimer.innerText = "";
+			calibrationTimer.style.display = "none";
 			calibrationStart = true;
-			document.getElementById("calibrate-btn").disabled = false;
+			calibrateBtn.disabled = false;
 			clearInterval(calibrationTimer);
 		}
 		else if(counterS + calibrationHoldS <= 0){
-			document.getElementById("calibration-timer").classList.remove("calibrate-wait");
+			calibrationTimer.classList.remove("calibrate-wait");
 			sumZ = calibrationZArr.reduce((a, b) => a + b, 0);
 			sumX = calibrationXArr.reduce((a, b) => a + b, 0);
 			calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
 			calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 
 			if(Math.abs(calibratedZOffsetVal)<5 || Math.abs(calibratedXOffsetVal)<5){
-				document.getElementById("calibration-timer").innerText = "DONE";
+				calibrationTimer.innerText = "DONE";
 				debugView.innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
 				debugView.innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
-		
-				document.getElementById("calibratedZOffset").value = calibratedZOffsetVal;
-				document.getElementById("calibratedZOffset").dispatchEvent(new Event('input'));
-				document.getElementById("calibratedZOffset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
-				document.getElementById("calibratedXOffset").value = calibratedXOffsetVal;
-				document.getElementById("calibratedXOffset").dispatchEvent(new Event('input'));
-				document.getElementById("calibratedXOffset").nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
+				calibratedZOffset.value = calibratedZOffsetVal;
+				calibratedZOffset.dispatchEvent(new Event('input'));
+				calibratedZOffset.nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol
+				calibratedXOffset.value = calibratedXOffsetVal;
+				calibratedXOffset.dispatchEvent(new Event('input'));
+				calibratedXOffset.nextElementSibling.value=calibratedXOffsetVal+String.fromCharCode(176);	//176 = degree symbol				
 			}
 			else{
 				document.getElementById("calibration-timer").innerText = "ERROR";
@@ -120,13 +119,12 @@ function calibrate(event){
 		}
 		else if(counterS <= 0){
 			calibrationStart = true;
-			document.getElementById("calibration-timer").innerText = "WAIT";
-			document.getElementById("calibration-timer").classList.add("calibrate-wait");
+			calibrationTimer.innerText = "WAIT";
+			calibrationTimer.classList.add("calibrate-wait");
 		}
 		else{
-			document.getElementById("calibration-timer").innerText = counterS;
+			calibrationTimer.innerText = counterS;
 		}
-	
 		counterS -= 1;
 	}
 	catch(err){
@@ -134,23 +132,22 @@ function calibrate(event){
 	}
 }
 
-
+// Push Variables
 var lastPushTS = Date.now();
 const pushIntervalMS = 10000;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
 
-var lastBeepTS = Date.now();
-
+// Motion Variables
 const maxAngle = 30;
 var lastXangle = 180;	//Set it to something big initially
 var lastZangle = 180;	//Set it to something big initially
-
 const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
 
+// Calibration Variables
 var calibrationTimer;
 var counterS;
 const calibrationHoldS = 2;
@@ -158,17 +155,18 @@ var calibrationStart = false;
 const calibrationWaitS = 5;
 var calibrationZArr = [];
 var calibrationXArr = [];
-
 var calibratedZOffsetVal = 0;
 var calibratedXOffsetVal = 0;
-
 
 let is_running = false;
 var sleepSetTimeout_ctrl;
 
 //Simplify getElement
 addToHomeScreen = document.getElementById("add-to-home-screen");
-calibrateBn = document.getElementById("calibrate-btn");
+calibrateBtn = document.getElementById("calibrate-btn");
+calibratedZOffset = document.getElementById("calibrated-Z-Offset");
+calibratedXOffset = document.getElementById("calibrated-X-Offset");
+calibrationTimer = document.getElementById("calibration-timer");
 debugBtn = document.getElementById("show-debug");
 debugView = document.getElementById("debug");
 frontIcon = document.getElementById("front-icon");
@@ -184,7 +182,6 @@ homeBtn = document.getElementById("show-home");
 settingsBtn = document.getElementById("show-settings");
 qrCodeBtn = document.getElementById("show-qr-code");
 sideIcon = document.getElementById("side-icon");
-//	speakButton = document.getElementById("speak");
 subInfo = document.getElementById("sub-info");
 subscribeNotifBtn = document.getElementById("subscribe-to-notifications-btn");
 testSendBtn = document.getElementById("test-send-btn");
@@ -196,20 +193,6 @@ zAxis = document.getElementById("z-axis");
 zDist = document.getElementById("z-distance");
 xAxis = document.getElementById("x-axis");
 xDist = document.getElementById("x-distance");
-/*
-if (navigator.serviceWorker) {
-	try{
-			debugView.innerHTML += "<span>&gt;frontend.js: exec initServiceWorker()</span>";
-
-		initServiceWorker();
-			debugView.innerHTML += "<span>&gt;frontend.js: after initServiceWorker()</span>";
-
-	}
-	catch(err){
-			debugView.innerHTML += "<span>&gt;frontend.js: "+err+"</span>";
-	}
-}
-*/
 
 try{
 	//Event listeners
@@ -228,7 +211,7 @@ try{
 	//Header button
 	homeBtn.addEventListener("click", () => {
 		if(window.location.hash=="#orientation"){
-			history.back();
+//			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#orientation");
@@ -237,7 +220,7 @@ try{
 
 	settingsBtn.addEventListener("click", () => {
 		if(window.location.hash=="#settings"){
-			history.back();
+//			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#settings");
@@ -245,7 +228,7 @@ try{
 	});
 	qrCodeBtn.addEventListener("click", function(e) {
 		if(window.location.hash=="#distribute-qr-code"){
-			history.back();
+//			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#distribute-qr-code");
@@ -254,7 +237,7 @@ try{
 
 	debugBtn.addEventListener("click", function(e) {
 		if(window.location.hash=="#debug"){
-			history.back();
+//			history.back();
 		}
 		else{
 			pushHashAndFixTargetSelector("#debug");
@@ -299,17 +282,13 @@ try{
 	});
 
 	//Even though no input is possible from user, we use this when calibration sets this value, thus triggering the eventListener
-
 	document.getElementById("calibratedZOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedZOffset", e.target.value);
-//debugView.innerHTML += "<span>&gt;localstoragteZ: "+e.target.value+"</span>";
-
 		document.getElementById("calibratedZOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
 	document.getElementById("calibratedXOffset").addEventListener("input", function(e) {
 		localStorage.setItem("calibratedXOffset", e.target.value);
-//debugView.innerHTML += "<span>&gt;localstoragteX: "+e.target.value+"</span>";
 		document.getElementById("calibratedXOffset").value = e.target.value;
 		e.target.nextElementSibling.value=this.value+String.fromCharCode(176);	//176 = degree symbol
 	});
@@ -414,22 +393,6 @@ try{
 	window.addEventListener("orientationchange", deviceOrientation);
 	deviceOrientation();
 
-/*
-Work to do
-
-Check motion availability?
-
-Check mobile device
-if ios
-	if standalone
-		initServiceWorker
-	else
-		not standalone
-		add to home screen
-if android
-	initServiceWorker()
-
-*/
 	//Verify Push Availability
 	if(is_iOS()){
 		debugView.innerHTML += "<span>&gt;frontend.js is_iOS()</span>";
