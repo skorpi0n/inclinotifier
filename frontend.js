@@ -137,6 +137,7 @@ try{
 	if(location.hash!=""){
 		console.log(1);
 		$(location.hash.replace("#","")).style.display = "block";
+			$("debug").innerHTML += "<span>&gt;"+location.hash.replace("#","")+"</span>";
 
 //		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
@@ -146,9 +147,9 @@ try{
 		$("settings-btn").classList.remove("active");
 		$("qr-code-btn").classList.remove("active");
 		$("debug-btn").classList.remove("active");
-		$("orientation-btn").classList.add("fa-disabled");
-		$("settings-btn").classList.add("fa-disabled");
-		$("qr-code-btn").classList.add("fa-disabled");
+//		$("orientation-btn").classList.add("fa-disabled");
+//		$("settings-btn").classList.add("fa-disabled");
+//		$("qr-code-btn").classList.add("fa-disabled");
 
 		if(e.oldURL.split('#').length == 2){
 		console.log(2);
@@ -160,7 +161,7 @@ try{
 			$(location.hash.replace("#","")).style.display = "block";
 		}
 	}
-//fa-disabled
+
 	//Header buttons
 	$("orientation-btn").addEventListener("click", () => {
 		pushHashAndFixTargetSelector("#orientation");
