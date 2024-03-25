@@ -409,7 +409,7 @@ pushHashAndFixTargetSelector("#not-a-valid-device");
 		if(typeof DeviceMotionEvent.requestPermission === "function"){
 			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is FUNCTION</span>";
 			$("motion-info").innerHTML = "DeviceMotionEvent is available";
-			$("motion-info").style.display = "none";
+			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
 		}

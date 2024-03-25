@@ -138,7 +138,7 @@ function sendPush(title, body) {
 			icon: "https://skorpi0n.github.io/inclinotifier/images/favicon.png",
 			renotify: true,
 			silent: false,
-			tag: "inclinotifier",	//Using same ID will replace/overwrite previous notification
+			tag: 1234,	//Using same ID will replace/overwrite previous notification
 	//		image: ?
 		};
 		navigator.serviceWorker.ready.then(async function (serviceWorker) {

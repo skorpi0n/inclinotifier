@@ -1,5 +1,5 @@
 self.addEventListener('push', (event) => {
-	// PushData keys structure standart https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
+	// PushData keys structure standar https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
 	let pushData = event.data.json();
 	if (!pushData || !pushData.title) {
 		console.error('Received WebPush with an empty title. Received body: ', pushData);
@@ -29,6 +29,3 @@ self.addEventListener('notificationclick', function (event) {
 			// fetch('https://your_backend_server.com/track_click?message_id=' + pushData.data.message_id);
 		});
 });
-
-$("debug").innerHTML += "<span>&gt;serviceworker.js loaded to the end</span>";
-
