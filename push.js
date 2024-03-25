@@ -101,7 +101,7 @@ async function subscribeToPush() {
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
 			$("sub-info").style.display = "block";
-			$("sub-info").innerHTML = "???";
+			$("sub-info").innerHTML = "Subscribed to Push Notifications";
 			$("test-send-btn").style.display = "block";
 			$("test-send-btn").disabled = false;
 			displaySubscriptionInfo(subscription);

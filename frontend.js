@@ -51,6 +51,8 @@ function pushHashAndFixTargetSelector(hash){
 		history.forward(); //go forward again to update the CSS
 	};
 	history.back(); //go back to trigger the above function
+	$(hash.replace("#","")+"-btn").classList.add("active");
+
 }
 function calibrate(event){
 	try{
@@ -146,7 +148,7 @@ try{
 	if(location.hash!=""){
 		console.log(1);
 		$(location.hash.replace("#","")).style.display = "block";
-			$("debug").innerHTML += "<span>&gt;"+location.hash.replace("#","")+"</span>";
+			$("debug").innerHTML += "<span>&gt;frontend.js "+location.hash.replace("#","")+"</span>";
 
 //		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
