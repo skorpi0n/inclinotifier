@@ -51,7 +51,9 @@ function pushHashAndFixTargetSelector(hash){
 		history.forward(); //go forward again to update the CSS
 	};
 	history.back(); //go back to trigger the above function
-	$(hash.replace("#","")+"-btn").classList.add("active");
+	if($(hash.replace("#","")+"-btn").length>!=0){
+		$(hash.replace("#","")+"-btn").classList.add("active");
+	}
 
 }
 function calibrate(event){
@@ -99,7 +101,7 @@ function calibrate(event){
 		counterS -= 1;
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>&gt;calibrate(): "+err+"</span>";
+		$("debug").innerHTML += "<span>&gt;calibrate(): "+err+"</span>";
 	}
 }
 
@@ -148,7 +150,7 @@ try{
 	if(location.hash!=""){
 		console.log(1);
 		$(location.hash.replace("#","")).style.display = "block";
-			$("debug").innerHTML += "<span>&gt;frontend.js "+location.hash.replace("#","")+"</span>";
+		$("debug").innerHTML += "<span>&gt;frontend.js "+location.hash.replace("#","")+"</span>";
 
 //		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
