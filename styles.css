@@ -66,7 +66,7 @@ body.rotation90 {
 
 /* VIEWS */
 .views:not(:target) {
-	display: none !important;
+//	display: none !important;
 }
 .views{
 	display: none;
@@ -74,7 +74,7 @@ body.rotation90 {
 
 }
 :target{
-	display: block;
+//	display: block;
 }
 
 
@@ -226,15 +226,16 @@ button:disabled {
 #scan-qr-code{
 	position: relative;
 }
-#scan-qr-code img, #distribute-qr-code img {
+
+/* SHARE QR VIEW */
+#share-qr-code{
+	position: relative;
+	text-align: center;
+}
+
+#scan-qr-code img, #share-qr-code img {
 	max-width: 100%
 }
-
-/* DISTRIBUTE QR VIEW */
-#distribute-qr-code{
-	position: relative;
-}
-
 
 
 /* ADD TO HOME SCREEN VIEW */

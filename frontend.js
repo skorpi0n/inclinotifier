@@ -51,10 +51,6 @@ function pushHashAndFixTargetSelector(hash){
 		history.forward(); //go forward again to update the CSS
 	};
 	history.back(); //go back to trigger the above function
-	if($(hash.replace("#","")+"-btn").length>!=0){
-		$(hash.replace("#","")+"-btn").classList.add("active");
-	}
-
 }
 function calibrate(event){
 	try{
@@ -144,22 +140,59 @@ enable orientation if motion is active
 
 click on disabled should refresh page to rerun checks
 
+After 5 uses, suggest buy me a coffee
+after 20th usage, suggest buy me a coffee
+
+https://www.buymeacoffee.com/skorpi0n
+
 */
+
+function showView(view){
+	console.log(view);
+	//Hide all element width class "views"
+	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+	//Show the designated view
+	$(view).style.display = "block";
+	//Set the designated view to a hash in the url
+
+	history.pushState(null, null, "#"+view);
+
+	$("orientation-btn").classList.remove("active");
+	$("settings-btn").classList.remove("active");
+	$("share-qr-code-btn").classList.remove("active");
+	$("debug-btn").classList.remove("active");
+
+	if($(view+"-btn")!=null){
+//		$("orientation-btn").classList.remove("fa-disabled");
+//		$("settings-btn").classList.remove("fa-disabled");
+
+		$(view+"-btn").classList.add("active");
+//		$("orientation-btn").classList.remove("fa-disabled");
+	}
+	else{
+		$("orientation-btn").classList.add("fa-disabled");
+		$("settings-btn").classList.add("fa-disabled");
+	}
+
+	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
+	if(view=="orientation"){
+		$("orientation-btn").classList.remove("fa-disabled");
+		$("settings-btn").classList.remove("fa-disabled");
+	}
+}
+
 try{
 	//Event listeners
+/*
 	if(location.hash!=""){
 		console.log(1);
-		$(location.hash.replace("#","")).style.display = "block";
+//		$(location.hash.replace("#","")).style.display = "block";
 		$("debug").innerHTML += "<span>&gt;frontend.js "+location.hash.replace("#","")+"</span>";
-
-//		$(location.hash.replace("#","")+"-btn").classList.add("active");
 	}
 	//Listens on hash change to hide previous and show current
 	window.onhashchange = function(e){
-		$("orientation-btn").classList.remove("active");
-		$("settings-btn").classList.remove("active");
-		$("qr-code-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
+
+
 //		$("orientation-btn").classList.add("fa-disabled");
 //		$("settings-btn").classList.add("fa-disabled");
 //		$("qr-code-btn").classList.add("fa-disabled");
@@ -167,36 +200,77 @@ try{
 		if(e.oldURL.split('#').length == 2){
 		console.log(2);
 
-//			$(e.oldURL.split('#')[1]).style.display = "none";
+			$(e.oldURL.split('#')[1]).style.display = "none";
 		}
 		if(location.hash!=""){
 		console.log(3);
 			$(location.hash.replace("#","")).style.display = "block";
 		}
 	}
+*/
 
 	//Header buttons
 	$("orientation-btn").addEventListener("click", () => {
-		pushHashAndFixTargetSelector("#orientation");
+showView("orientation");
+/*
+		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+		$("orientation").style.display = "block";
+		history.pushState(null, null, "#orientation");
+//		pushHashAndFixTargetSelector("#orientation");
 		$("orientation-btn").classList.add("active");
 		$("orientation-btn").classList.remove("fa-disabled");
+
+		$("settings-btn").classList.remove("active");
+		$("share-qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+*/
 	});
 
 	$("settings-btn").addEventListener("click", () => {
-		pushHashAndFixTargetSelector("#settings");
+showView("settings");
+/*
+		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+		$("settings").style.display = "block";
+		history.pushState(null, null, "#settings");
+//		pushHashAndFixTargetSelector("#settings");
 		$("settings-btn").classList.add("active");
 		$("settings-btn").classList.remove("fa-disabled");
+
+		$("orientation-btn").classList.remove("active");
+		$("share-qr-code-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+*/
 	});
-	$("qr-code-btn").addEventListener("click", function(e) {
-		pushHashAndFixTargetSelector("#distribute-qr-code");
-		$("qr-code-btn").classList.add("active");
-		$("qr-code-btn").classList.remove("fa-disabled");
+
+	$("share-qr-code-btn").addEventListener("click", function(e) {
+showView("share-qr-code");
+/*
+		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+		$("share-qr-code").style.display = "block";
+		history.pushState(null, null, "#share-qr-code");
+//		pushHashAndFixTargetSelector("#share-qr-code");
+		$("share-qr-code-btn").classList.add("active");
+		$("share-qr-code-btn").classList.remove("fa-disabled");
+
+		$("orientation-btn").classList.remove("active");
+		$("settings-btn").classList.remove("active");
+		$("debug-btn").classList.remove("active");
+*/
 	});
 
 	$("debug-btn").addEventListener("click", function(e) {
-		pushHashAndFixTargetSelector("#debug");
+showView("debug");
+/*
+		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+		$("debug").style.display = "block";
+		history.pushState(null, null, "#debug");
+//		pushHashAndFixTargetSelector("#debug");
 		$("debug-btn").classList.add("active");
 		$("debug-btn").classList.remove("fa-disabled");
+		$("orientation-btn").classList.remove("active");
+		$("settings-btn").classList.remove("active");
+		$("share-qr-code-btn").classList.remove("active");
+*/
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
@@ -381,7 +455,7 @@ try{
 			}
 		}
 		else{
-pushHashAndFixTargetSelector("#add-to-home-screen");
+showView("add-to-home-screen");
 			$("sub-info").innerHTML = "Not Standalone, add to home screen";
 			$("sub-info").style.display = "block";
 			$("subscribe-notif-btn").disabled = true;
@@ -398,7 +472,7 @@ pushHashAndFixTargetSelector("#add-to-home-screen");
 			initServiceWorker();
 	}
 	else{
-pushHashAndFixTargetSelector("#not-a-valid-device");
+showView("not-a-valid-device");
 		$("sub-info").innerHTML = "Neither iOS or Android";
 		$("sub-info").style.display = "block";
 		$("subscribe-notif-btn").disabled = true;

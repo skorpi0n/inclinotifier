@@ -128,7 +128,7 @@ async function requestPermForMotion() {
 				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
 //				$("orientation").style.display = "block";
-				pushHashAndFixTargetSelector("#orientation");
+				showView("orientation");
 			}
 			else{
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
