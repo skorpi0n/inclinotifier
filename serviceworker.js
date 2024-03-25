@@ -29,3 +29,6 @@ self.addEventListener('notificationclick', function (event) {
 			// fetch('https://your_backend_server.com/track_click?message_id=' + pushData.data.message_id);
 		});
 });
+
+$("debug").innerHTML += "<span>&gt;serviceworker.js loaded to the end</span>";
+

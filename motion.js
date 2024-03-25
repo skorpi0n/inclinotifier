@@ -127,7 +127,7 @@ async function requestPermForMotion() {
 				$("req-motion-perm-btn").disabled = true;
 				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
-				orientView.style.display = "block";
+//				$("orientation").style.display = "block";
 				pushHashAndFixTargetSelector("#orientation");
 			}
 			else{

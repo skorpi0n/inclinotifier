@@ -100,7 +100,8 @@ async function subscribeToPush() {
 //			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+JSON.stringify(subscription)+"</span>";
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
-			$("sub-info").style.display = "none";
+			$("sub-info").style.display = "block";
+			$("sub-info").innerHTML = "???";
 			$("test-send-btn").style.display = "block";
 			$("test-send-btn").disabled = false;
 			displaySubscriptionInfo(subscription);

@@ -41,7 +41,9 @@ function is_Android(){
 }
 
 function pushHashAndFixTargetSelector(hash){
-		console.log(4);
+	console.log(4);
+	$("debug").innerHTML += "<span>&gt;pushHashAndFixTargetSelector() "+hash+"</span>";
+
 	history.pushState({}, document.title, hash); //called as you would normally
 	const onpopstate = window.onpopstate; //store the old event handler to restore it later
 	window.onpopstate = function() { //this will be called when we call history.back()
@@ -131,7 +133,14 @@ var sleepSetTimeout_ctrl;
 var $ = function(id){
 	return document.getElementById(id);
 };
+/*
+Add fa-disabled to first 2 icons
+if motion and push is available, then enable settings
+enable orientation if motion is active
 
+click on disabled should refresh page to rerun checks
+
+*/
 try{
 	//Event listeners
 	if(location.hash!=""){
