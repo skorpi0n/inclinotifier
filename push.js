@@ -150,3 +150,5 @@ function sendPush(title, body) {
 	}
 
 }
+
+$("debug").innerHTML += "<span>&gt;push.js was loaded to the end</span>";

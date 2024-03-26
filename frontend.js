@@ -39,7 +39,7 @@ function is_Android(){
 	const isAndroid = ua.indexOf("android") > -1;
 	return isAndroid;
 }
-
+/*
 function pushHashAndFixTargetSelector(hash){
 	console.log(4);
 	$("debug").innerHTML += "<span>&gt;pushHashAndFixTargetSelector() "+hash+"</span>";
@@ -52,6 +52,37 @@ function pushHashAndFixTargetSelector(hash){
 	};
 	history.back(); //go back to trigger the above function
 }
+*/
+function showView(view){
+	$("debug").innerHTML += "<span>&gt;showView() "+view+"</span>";
+	//Hide all element width class "views"
+	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+	//Show the designated view
+	$(view).style.display = "block";
+	//Set the designated view to a hash in the url
+	history.pushState(null, null, "#"+view);
+
+	//Remove class "active" from all header buttons
+	$("orientation-btn").classList.remove("active");
+	$("settings-btn").classList.remove("active");
+	$("share-qr-code-btn").classList.remove("active");
+	$("debug-btn").classList.remove("active");
+
+	if($(view+"-btn")!=null){
+		$(view+"-btn").classList.add("active");
+	}
+	else{
+		$("orientation-btn").classList.add("fa-disabled");
+		$("settings-btn").classList.add("fa-disabled");
+	}
+
+	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
+	if(view=="orientation"){
+		$("orientation-btn").classList.remove("fa-disabled");
+		$("settings-btn").classList.remove("fa-disabled");
+	}
+}
+
 function calibrate(event){
 	try{
 		$("calibrate-btn").disabled = true;
@@ -146,40 +177,6 @@ after 20th usage, suggest buy me a coffee
 https://www.buymeacoffee.com/skorpi0n
 
 */
-
-function showView(view){
-	console.log(view);
-	//Hide all element width class "views"
-	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-	//Show the designated view
-	$(view).style.display = "block";
-	//Set the designated view to a hash in the url
-
-	history.pushState(null, null, "#"+view);
-
-	$("orientation-btn").classList.remove("active");
-	$("settings-btn").classList.remove("active");
-	$("share-qr-code-btn").classList.remove("active");
-	$("debug-btn").classList.remove("active");
-
-	if($(view+"-btn")!=null){
-//		$("orientation-btn").classList.remove("fa-disabled");
-//		$("settings-btn").classList.remove("fa-disabled");
-
-		$(view+"-btn").classList.add("active");
-//		$("orientation-btn").classList.remove("fa-disabled");
-	}
-	else{
-		$("orientation-btn").classList.add("fa-disabled");
-		$("settings-btn").classList.add("fa-disabled");
-	}
-
-	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
-	if(view=="orientation"){
-		$("orientation-btn").classList.remove("fa-disabled");
-		$("settings-btn").classList.remove("fa-disabled");
-	}
-}
 
 try{
 	//Event listeners
@@ -434,7 +431,7 @@ showView("debug");
 				$("subscribe-notif-btn").disabled = false;
 				$("subscribe-notif-btn").style.display = "block";
 				$("debug").innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
-				initServiceWorker();
+				initServiceWorkerr();
 			}
 			else{
 				$("debug").innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";

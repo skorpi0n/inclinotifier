@@ -159,3 +159,5 @@ async function requestPermForMotion() {
 			$("debug").innerHTML += "<span>"+err+"</span>";
 	}
 };
+
+$("debug").innerHTML += "<span>&gt;motion.js was loaded to the end</span>";

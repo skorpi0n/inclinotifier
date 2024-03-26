@@ -102,7 +102,6 @@ body.rotation90 {
 	text-align: right;
 }
 
-
 /* ORIENTATION / HOME VIEW */
 #orientation {
 	margin-top: 60px;
@@ -206,13 +205,13 @@ button {
 	text-align: center;
 }
 
-button:disabled {
+button:disabled{
 	background: #A0A0A0;
 }
 
 
 /* DEBUG VIEW */
-#debug {
+#debug{
 	background-color:orange;
 	word-wrap: break-word;
 	font-style: italic
