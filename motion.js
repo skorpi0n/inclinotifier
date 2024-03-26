@@ -1,6 +1,9 @@
 //Caravan angle
 function handleOrientation(event) {
 	try{
+if($("orientation").style.display != "none"){
+
+
 		calibratedGamma = event.gamma - calibratedZOffsetVal;
 		calibratedBeta = event.beta - calibratedXOffsetVal;
 
@@ -109,8 +112,14 @@ function handleOrientation(event) {
 		}
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>"+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;"+err+"</span>";
 	}
+}
+else{
+			$("debug").innerHTML += "<span>&gt;stopped</span>";
+
+}
+
 }
 
 async function requestPermForMotion() {
@@ -120,8 +129,8 @@ async function requestPermForMotion() {
 			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
 	
 			const permissionState = await DeviceOrientationEvent.requestPermission();
+motionPermissionState = permissionState;
 			$("debug").innerHTML += "<span>&gt;requestPermForMotion() permissionState: "+permissionState+"</span>";
-
 
 			if (permissionState === "granted") {
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
@@ -130,7 +139,16 @@ async function requestPermForMotion() {
 				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
 //				$("orientation").style.display = "block";
-				gotoView("orientation");
+
+				$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
+				if(pushPermissionState === "granted"){
+					gotoView("orientation");
+			window.addEventListener("deviceorientation", handleOrientation);
+
+				}
+				else{
+					gotoView("settings");	//Or reload for recheck?
+				}
 			}
 			else{
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
@@ -146,7 +164,9 @@ async function requestPermForMotion() {
 			$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion not asked yet</span>";
 			$("motion-info").innerHTML = "Device motion not asked yet";
 		}
-	
+
+
+/*
 		//Here we only process while motion is running/or not
 		//If orientation view is not active, pause handleOrientation
 		if (is_running){
@@ -159,6 +179,7 @@ async function requestPermForMotion() {
 			window.addEventListener("deviceorientation", handleOrientation);
 			is_running = true;
 		}
+*/
 	}
 	catch(err){
 			$("debug").innerHTML += "<span>"+err+"</span>";

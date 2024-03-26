@@ -35,7 +35,13 @@ async function initServiceWorker() {
 				$("sub-info").innerHTML = "Subscribed to Push Notifications";
 				$("orientation-btn").classList.remove("fa-disabled");
 				$("settings-btn").classList.remove("fa-disabled");
-				gotoView("orientation");
+
+				if(motionPermissionState === "granted"){
+					gotoView("orientation");
+				}
+				else{
+					gotoView("settings");	//Or reload for recheck?
+				}
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
 				break;

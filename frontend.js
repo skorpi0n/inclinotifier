@@ -120,14 +120,15 @@ function calibrate(event){
 }
 
 // Push Variables
+var pushPermissionState;
 var lastPushTS = Date.now();
 const pushIntervalMS = 10000;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
-var pushPermissionState;
 
 // Motion Variables
+var motionPermissionState;
 const maxAngle = 30;
 var lastXangle = 180;	//Set it to something big initially
 var lastZangle = 180;	//Set it to something big initially
