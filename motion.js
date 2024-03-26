@@ -150,10 +150,12 @@ async function requestPermForMotion() {
 		//Here we only process while motion is running/or not
 		//If orientation view is not active, pause handleOrientation
 		if (is_running){
+			$("debug").innerHTML += "<span>&gt;frontend.js is_running: true</span>";
 			window.removeEventListener("deviceorientation", handleOrientation);
 			is_running = false;
 		}
 		else{
+			$("debug").innerHTML += "<span>&gt;frontend.js is_running: false</span>";
 			window.addEventListener("deviceorientation", handleOrientation);
 			is_running = true;
 		}
