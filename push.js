@@ -21,6 +21,7 @@ async function initServiceWorker() {
 				$("subscribe-notif-btn").disabled = false;
 				$("sub-info").style.display = "none";
 				$("sub-info").innerHTML = "Choose";
+				$("settings-btn").classList.remove("fa-disabled");
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState prompt</span>";
 				break;
 			case "granted":
@@ -30,6 +31,7 @@ async function initServiceWorker() {
 				$("subscribe-notif-btn").disabled = true;
 				$("sub-info").style.display = "block";
 				$("sub-info").innerHTML = "Subscribed to Push Notifications";
+				$("settings-btn").classList.remove("fa-disabled");
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
 //				await pushManager.getSubscription();
