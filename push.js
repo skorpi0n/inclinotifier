@@ -40,7 +40,7 @@ async function initServiceWorker() {
 					gotoView("orientation");
 				}
 				else{
-					gotoView("settings");	//Or reload for recheck?
+					gotoView("settings");
 				}
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
@@ -86,8 +86,6 @@ async function subscribeToPush() {
 	$("debug").innerHTML += "<span>&gt;subscribeToPush()</span>";
 
 	try{
-		// Public part of VAPID key, generation of that covered in README
-		// All subscription tokens associated with that key, so if you change it - you may lose old subscribers
 		const VAPID_PUBLIC_KEY = "BFPmwTmsONIPnl4UBrQVE9k1K5dpHFN85CIbnXmWWn2LrT9bdBaCU2l8R-l5BQVPRcAi8GOf39XSDS7v-LvW1UU";
 	
 		let swRegistration = await navigator.serviceWorker.getRegistration();

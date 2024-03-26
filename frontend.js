@@ -59,8 +59,8 @@ function gotoView(view){
 		$(view+"-btn").classList.add("active");
 	}
 	else{
-//		$("orientation-btn").classList.add("fa-disabled");
-//		$("settings-btn").classList.add("fa-disabled");
+		$("orientation-btn").classList.add("fa-disabled");
+		$("settings-btn").classList.add("fa-disabled");
 	}
 
 	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
@@ -259,11 +259,6 @@ try{
 
 
 	//Main JS code
-//	if(window.location.hash==""){
-//		pushHashAndFixTargetSelector("#orientation");
-//		window.location.hash = "#orientation";
-//history.pushState(null,null,"#orientation");
-//	}
 
 	// LOAD DEFAULTS
 	if(localStorage.getItem("pushIntervalMS")!==null){
@@ -403,7 +398,7 @@ try{
 			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
-requestPermForMotion();
+			requestPermForMotion();
 /*
 			DeviceMotionEvent.requestPermission().then(permissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
@@ -441,30 +436,6 @@ requestPermForMotion();
 				$("debug").innerHTML += "<span>&gt;frontend.js permissionState error: "+error+"</span>";
 			});
 */
-
-/*
-			const permissionState = DeviceOrientationEvent.requestPermission();
-			$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+JSON.stringify(permissionState)+"</span>";
-
-			if (permissionState === "granted") {
-				gotoView("orientation");
-
-				//Here we only process while motion is running/or not
-				//If orientation view is not active, pause handleOrientation
-				if (is_running){
-					window.removeEventListener("deviceorientation", handleOrientation);
-					is_running = false;
-				}
-				else{
-					window.addEventListener("deviceorientation", handleOrientation);
-					is_running = true;
-				}
-
-
-			}
-*/
-
-
 
 
 		}
