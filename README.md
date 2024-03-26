@@ -5,11 +5,11 @@
 ## What does it do?
 
 ## History
-This Web App idea came to my mind shortly after I bought my caravan and thought that it should be possible to utilize my smartphone (iPhone 8) as a inclinometer and send push notifications to itself which would show up on my smart watch (Garmin Forerunner 935)
+This idea came to my mind shortly after I bought my first caravan and thought that it should be possible to utilize my smartphone (iPhone 8) as an inclinometer (spirit level) and send push notifications to itself which would then show up on my smart watch (Garmin Forerunner 935) with guidence how level my caravan.
 
-At first look, I thought pushnotifications was only possible from a native app and since I wasnt't very found of spending $99 per year for a Apple Dev-account, the idea was postponed.
+At first look, It looked like push notifications was only possible from a native app and since I wasnt't very fond of spending $99 per year for a Apple Dev-account, the idea was postponed.
 
-I then found out that Push Notifications indeed worked aslong as you provide by a secure connection (https://) and add it as a bookmark on "Home Screen", which will let it run almost like a native app.
+In mid March 2024 I finally found out that Push Notifications indeed worked with JavaScript, aslong as you provide a secure connection (https://) and add it as a bookmark on "Home Screen", which will let it run almost like a native app.
 
 The work then began to make this Web App.
 
@@ -18,12 +18,6 @@ If you like my Web App, please support my Work!
 <br>
 <a href="https://www.buymeacoffee.com/skorpi0n" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-
-WARNING!
-
-WORK IN PROGRESS!
-
-UNDER DEVELOPMENT!
 
 ## Milestones already reached
 1. Proof of concept with working caravan X/Z tilt visualization (build 3e385b8)
@@ -46,9 +40,9 @@ UNDER DEVELOPMENT!
 
 ## TODO list
 
-- [x] Replace home icon with tilted caravan icon
+:white_check_mark: Replace home icon with tilted caravan icon
 
-- [x] Calibration ability in the settings view
+:heavy_check_mark: Calibration ability in the settings view
 
 - [ ] Add to settings
 		if degree <= x, send push with level completed message
@@ -72,3 +66,11 @@ When should push be sent?
 - [x] Add icon with transparent bg in favicon.png
 
 - [x] Investigate what can be put in manifest.json
+
+## Version History
+
+
+
+
+**March 15th 2024 (build 3e385b8)**
+First release with proof of concept.
