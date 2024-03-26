@@ -409,6 +409,9 @@ try{
 				if(permissionState === 'granted') {
 					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: granted</span>";
 				}
+			})
+			.catch(function(error) {
+				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+error+"</span>";
 			});
 
 /*
