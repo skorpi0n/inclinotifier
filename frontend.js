@@ -402,32 +402,44 @@ try{
 			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
-
+requestPermForMotion();
+/*
 			DeviceMotionEvent.requestPermission().then(permissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
-				if(permissionState === 'granted') {
+				if(permissionState === "granted"){
 					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
-					gotoView("orientation");
+					if(pushPermissionState === "granted"){
+						gotoView("orientation");
+
+						$("debug").innerHTML += "<span>&gt;frontend.js Device motion was Granted</span>";
+						$("req-motion-perm-btn").style.display = "none";
+						$("req-motion-perm-btn").disabled = true;
+						$("calibrate-btn").disabled = false;
+						$("motion-info").innerHTML = "Motion was Granted";
 
 
-
-
-					//Here we only process while motion is running/or not
-					//If orientation view is not active, pause handleOrientation
-					if (is_running){
-						window.removeEventListener("deviceorientation", handleOrientation);
-						is_running = false;
+						//Here we only process while motion is running/or not
+						//If orientation view is not active, pause handleOrientation
+						if (is_running){
+							window.removeEventListener("deviceorientation", handleOrientation);
+							$("debug").innerHTML += "<span>&gt;frontend.js is_running: true</span>";
+							is_running = false;
+						}
+						else{
+							$("debug").innerHTML += "<span>&gt;frontend.js is_running: false</span>";
+							window.addEventListener("deviceorientation", handleOrientation);
+							is_running = true;
+						}
 					}
 					else{
-						window.addEventListener("deviceorientation", handleOrientation);
-						is_running = true;
+						gotoView("settings");
 					}
-
 				}
 			})
 			.catch(function(error) {
 				$("debug").innerHTML += "<span>&gt;frontend.js permissionState error: "+error+"</span>";
 			});
+*/
 
 /*
 			const permissionState = DeviceOrientationEvent.requestPermission();
