@@ -406,10 +406,10 @@ try{
 
 			DeviceMotionEvent.requestPermission().then(permissionStatus => {
 					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
-				if (permissionState === 'granted') {
+				if(permissionState === 'granted') {
 					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: granted</span>";
 				}
-			}
+			});
 
 /*
 			const permissionState = DeviceOrientationEvent.requestPermission();
