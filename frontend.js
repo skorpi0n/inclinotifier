@@ -125,6 +125,7 @@ const pushIntervalMS = 10000;
 const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
+var pushPermissionState;
 
 // Motion Variables
 const maxAngle = 30;
@@ -402,12 +403,15 @@ try{
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
 
-	
-
 			DeviceMotionEvent.requestPermission().then(permissionState => {
-					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
+				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
 				if(permissionState === 'granted') {
-					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: granted</span>";
+					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
+					gotoView("orientation");
+
+
+
+
 					//Here we only process while motion is running/or not
 					//If orientation view is not active, pause handleOrientation
 					if (is_running){
@@ -418,7 +422,7 @@ try{
 						window.addEventListener("deviceorientation", handleOrientation);
 						is_running = true;
 					}
-gotoView("orientation");
+
 				}
 			})
 			.catch(function(error) {

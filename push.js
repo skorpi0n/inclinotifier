@@ -15,6 +15,7 @@ async function initServiceWorker() {
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
+		pushPermissionState = permissionState;
 		switch (permissionState) {
 			case "prompt":
 				$("subscribe-notif-btn").style.display = "block";
@@ -37,7 +38,6 @@ async function initServiceWorker() {
 				gotoView("orientation");
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
-//				await pushManager.getSubscription();
 				break;
 			case "denied":
 				$("subscribe-notif-btn").style.display = "none";
