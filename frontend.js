@@ -40,8 +40,8 @@ function is_Android(){
 	return isAndroid;
 }
 
-function showView(view){
-	$("debug").innerHTML += "<span>&gt;showView() "+view+"</span>";
+function gotoView(view){
+	$("debug").innerHTML += "<span>&gt;gotoView() "+view+"</span>";
 	//Hide all element width class "views"
 	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
 	//Show the designated view
@@ -168,19 +168,19 @@ try{
 
 	//Header buttons
 	$("orientation-btn").addEventListener("click", () => {
-		showView("orientation");
+		gotoView("orientation");
 	});
 
 	$("settings-btn").addEventListener("click", () => {
-		showView("settings");
+		gotoView("settings");
 	});
 
 	$("share-qr-code-btn").addEventListener("click", function(e) {
-		showView("share-qr-code");
+		gotoView("share-qr-code");
 	});
 
 	$("debug-btn").addEventListener("click", function(e) {
-		showView("debug");
+		gotoView("debug");
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
@@ -365,7 +365,7 @@ try{
 			}
 		}
 		else{
-			showView("add-to-home-screen");
+			gotoView("add-to-home-screen");
 			$("sub-info").innerHTML = "Not Standalone, add to home screen";
 			$("sub-info").style.display = "block";
 			$("subscribe-notif-btn").disabled = true;
@@ -383,7 +383,7 @@ try{
 			initServiceWorker();
 	}
 	else{
-		showView("not-a-valid-device");
+		gotoView("not-a-valid-device");
 		$("sub-info").innerHTML = "Neither iOS or Android";
 		$("sub-info").style.display = "block";
 		$("subscribe-notif-btn").disabled = true;
@@ -408,10 +408,21 @@ try{
 					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
 				if(permissionState === 'granted') {
 					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: granted</span>";
+					//Here we only process while motion is running/or not
+					//If orientation view is not active, pause handleOrientation
+					if (is_running){
+						window.removeEventListener("deviceorientation", handleOrientation);
+						is_running = false;
+					}
+					else{
+						window.addEventListener("deviceorientation", handleOrientation);
+						is_running = true;
+					}
+gotoView("orientation");
 				}
 			})
 			.catch(function(error) {
-				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+error+"</span>";
+				$("debug").innerHTML += "<span>&gt;frontend.js permissionState error: "+error+"</span>";
 			});
 
 /*
@@ -419,7 +430,7 @@ try{
 			$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+JSON.stringify(permissionState)+"</span>";
 
 			if (permissionState === "granted") {
-				showView("orientation");
+				gotoView("orientation");
 
 				//Here we only process while motion is running/or not
 				//If orientation view is not active, pause handleOrientation

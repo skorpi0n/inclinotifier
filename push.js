@@ -22,7 +22,7 @@ async function initServiceWorker() {
 				$("sub-info").style.display = "block";
 				$("sub-info").innerHTML = "Not subscribed yet";
 				$("settings-btn").classList.remove("fa-disabled");
-				showView("settings");
+				gotoView("settings");
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState prompt</span>";
 				break;
 			case "granted":
@@ -34,7 +34,7 @@ async function initServiceWorker() {
 				$("sub-info").innerHTML = "Subscribed to Push Notifications";
 				$("orientation-btn").classList.remove("fa-disabled");
 				$("settings-btn").classList.remove("fa-disabled");
-				showView("orientation");
+				gotoView("orientation");
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
 //				await pushManager.getSubscription();
