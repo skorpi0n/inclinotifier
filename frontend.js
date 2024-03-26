@@ -161,9 +161,7 @@ var calibratedXOffsetVal = 0;
 let is_running = false;
 var sleepSetTimeout_ctrl;
 
-var $ = function(id){
-	return document.getElementById(id);
-};
+
 /*
 Add fa-disabled to first 2 icons
 if motion and push is available, then enable settings
