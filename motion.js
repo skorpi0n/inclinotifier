@@ -110,16 +110,20 @@ if($("orientation").style.display != "none"){
 			}
 			lastXupdateTS=Date.now();
 		}
-	}
-	catch(err){
-			$("debug").innerHTML += "<span>&gt;"+err+"</span>";
-	}
+
+
 }
 else{
 			$("debug").innerHTML += "<span>&gt;stopped</span>";
 
 }
 
+
+
+	}
+	catch(err){
+			$("debug").innerHTML += "<span>&gt;"+err+"</span>";
+	}
 }
 
 async function requestPermForMotion() {
