@@ -41,6 +41,11 @@ function is_Android(){
 }
 
 function gotoView(view){
+	console.log(firstView);
+	if(firstView == undefined){
+		firstView=view;
+	console.log(firstView);
+	}
 	$("debug").innerHTML += "<span>&gt;gotoView() "+view+"</span>";
 	//Hide all element width class "views"
 	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
@@ -147,9 +152,10 @@ var calibrationXArr = [];
 var calibratedZOffsetVal = 0;
 var calibratedXOffsetVal = 0;
 
-let is_running = false;
+//let is_running = false;
 var sleepSetTimeout_ctrl;
 
+var firstView;
 
 /*
 Add fa-disabled to first 2 icons

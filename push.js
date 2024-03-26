@@ -40,7 +40,7 @@ async function initServiceWorker() {
 					gotoView("orientation");
 				}
 				else{
-					gotoView("settings");
+					gotoView(firstView);
 				}
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());

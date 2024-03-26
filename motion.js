@@ -137,7 +137,7 @@ async function requestPermForMotion() {
 					gotoView("orientation");
 				}
 				else{
-					gotoView("settings");
+					gotoView(firstView);
 				}
 				window.addEventListener("deviceorientation", handleOrientation);
 			}

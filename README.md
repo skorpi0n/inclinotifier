@@ -27,7 +27,7 @@ If you like my Web App, please support my Work!
 	For SpeechSynthesis to work, it needs user interactionin the form of a click or similar
 
 ## Milestones to reach
-1. Toggle Push / ---Audio notification--- (when smartwatch is not available)
+1. Toggle Push / ~Audio notification~ (when smartwatch is not available)
 	Text to speech
 	https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
 	https://codepen.io/matt-west/pen/DpmMgE
@@ -36,13 +36,13 @@ If you like my Web App, please support my Work!
 2. Public Release with caravan X/Z tilt visualization with working push/audio notifications
 	Need to also show how to use it properly
 
-3. Add ability to change icon to RV, car, spirit level. Anything more?
+3. Add ~~ability~~ to change icon to RV, car, spirit level. Anything more?
 
 ## TODO list
 
 :white_check_mark: Replace home icon with tilted caravan icon
 
-:heavy_check_mark: Calibration ability in the settings view
+:white_check_mark: Calibration ability in the settings view
 
 - [ ] Add to settings
 		if degree <= x, send push with level completed message
@@ -51,7 +51,7 @@ When should push be sent?
 	Send push only on +/-1 change and max every 5s?
 	On every change 1 degree, check if currentTS is greater than timerStartTS+5s, then do a push?
 
-- [x] Add ability to change axleToJockeyWheel distance by clicking on the caravan image
+:white_check_mark: Add ability to change axleToJockeyWheel distance by clicking on the caravan image
 	---Push on wheel base should increase length to jockey wheel by 250mm?---
 	---touchstart and touchend should increase length by 100 each x?
 		Read more at https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
@@ -59,13 +59,13 @@ When should push be sent?
 			If vertical move is within 20% of start, then it should be considered as horizontal and vice versa
 			How will horizontal touchmove react in portrait/landscape mode?---
 
-- [x] Show distance in image
+:white_check_mark: Show distance in image
 
-- [x] Save variables to local storage?
+:white_check_mark: Save variables to local storage?
 	
-- [x] Add icon with transparent bg in favicon.png
+:white_check_mark: Add icon with transparent bg in favicon.png
 
-- [x] Investigate what can be put in manifest.json
+:white_check_mark: Investigate what can be put in manifest.json
 
 ## Version History
 
