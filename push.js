@@ -14,8 +14,7 @@ async function initServiceWorker() {
 			//$("test-send-btn").style.display = "block";
 		}
 
-		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
-		pushPermissionState = permissionState;
+		pushPermissionState = await pushManager.permissionState({userVisibleOnly: true});
 		switch (permissionState) {
 			case "prompt":
 				$("subscribe-notif-btn").style.display = "block";
@@ -24,7 +23,7 @@ async function initServiceWorker() {
 				$("sub-info").innerHTML = "Not subscribed yet";
 				$("settings-btn").classList.remove("fa-disabled");
 				gotoView("settings");
-				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState prompt</span>";
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() pushPermissionState prompt</span>";
 				break;
 			case "granted":
 				$("test-send-btn").style.display = "block";
@@ -36,13 +35,14 @@ async function initServiceWorker() {
 				$("orientation-btn").classList.remove("fa-disabled");
 				$("settings-btn").classList.remove("fa-disabled");
 
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() motionPermissionState: "+motionPermissionState+"</span>";
 				if(motionPermissionState === "granted"){
 					gotoView("orientation");
 				}
 				else{
 					gotoView(firstView);
 				}
-				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState granted</span>";
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() pushPermissionState granted</span>";
 				displaySubscriptionInfo(await pushManager.getSubscription());
 				break;
 			case "denied":
@@ -52,7 +52,7 @@ async function initServiceWorker() {
 				$("test-send-btn").disabled = true;
 				$("sub-info").style.display = "block";
 				$("sub-info").innerHTML = "User denied push permission";
-				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState denied</span>";
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() pushPermissionState denied</span>";
 		}
 
 	}

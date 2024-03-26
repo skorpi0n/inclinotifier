@@ -1,8 +1,8 @@
 //Caravan angle
 function handleOrientation(event) {
 	try{
-		//Run only if orientation view is visible
-		if($("orientation").style.display != "none"){
+		//Run only if orientation view or calibration-timer is visible
+		if($("orientation").style.display != "none" || $("calibration-timer").style.display != "none"){
 			calibratedGamma = event.gamma - calibratedZOffsetVal;
 			calibratedBeta = event.beta - calibratedXOffsetVal;
 	
@@ -122,8 +122,8 @@ async function requestPermForMotion() {
 		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
 			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
 	
-			const motionPermissionState = await DeviceOrientationEvent.requestPermission();
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() permissionState: "+motionPermissionState+"</span>";
+			motionPermissionState = await DeviceOrientationEvent.requestPermission();
+			$("debug").innerHTML += "<span>&gt;requestPermForMotion() motionPermissionState: "+motionPermissionState+"</span>";
 
 			if (motionPermissionState === "granted") {
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
@@ -132,7 +132,7 @@ async function requestPermForMotion() {
 				$("calibrate-btn").disabled = false;
 				$("motion-info").innerHTML = "Motion was Granted";
 
-				$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
+				$("debug").innerHTML += "<span>&gt;requestPermForMotion() pushPermissionState: "+pushPermissionState+"</span>";
 				if(pushPermissionState === "granted"){
 					gotoView("orientation");
 				}
