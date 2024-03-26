@@ -11,7 +11,7 @@ async function initServiceWorker() {
 		}
 		else{
 			$("debug").innerHTML += "<span>&gt;initServiceWorker() Pushmanager is active</span>";
-			$("test-send-btn").style.display = "block";
+			//$("test-send-btn").style.display = "block";
 		}
 
 		let permissionState = await pushManager.permissionState({userVisibleOnly: true});
@@ -42,6 +42,8 @@ async function initServiceWorker() {
 			case "denied":
 				$("subscribe-notif-btn").style.display = "none";
 				$("subscribe-notif-btn").disabled = true;
+				$("test-send-btn").style.display = "none";
+				$("test-send-btn").disabled = true;
 				$("sub-info").style.display = "block";
 				$("sub-info").innerHTML = "User denied push permission";
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() permissionState denied</span>";
@@ -49,7 +51,7 @@ async function initServiceWorker() {
 
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>&gt;initServiceWorker() "+err+"</span>";
+		$("debug").innerHTML += "<span>&gt;initServiceWorker() "+err+"</span>";
 	}
 }
 
