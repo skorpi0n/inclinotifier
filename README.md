@@ -1,8 +1,17 @@
 # Inclinotifier
 
-## What is it?
+## What is it and what does it do?
 
-## What does it do?
+Inclinotifier is a Web App that uses a smart phone's motion sensor to determine the current level and then notifies the user by a connected smart watch by sending push notifications to itself
+
+## Features
+- Visual representation of side and front with angle and distance left
+- Push Notification
+- Ability to change Wheel Track Distance (wheel to wheel)
+- Ability to change Wheel To JockyWheel Distance
+- Ability to calibrate to motion sensors.
+	(Especially good for phones with cameras which sticks out on back which prevents the phone to lay perfectly flat)
+- Ability to change push notification interval in seconds
 
 ## History
 This idea came to my mind shortly after I bought my first caravan and thought that it should be possible to utilize my smartphone (iPhone 8) as an inclinometer (spirit level) and send push notifications to itself which would then show up on my smart watch (Garmin Forerunner 935) with guidence how level my caravan.
@@ -40,14 +49,16 @@ If you like my Web App, please support my Work!
 
 ## TODO list
 
+:white_large_square: Make the Z/X angle with largest movement since last push to be the next push.
+
 :white_check_mark: Replace home icon with tilted caravan icon
 
 :white_check_mark: Calibration ability in the settings view
 
-:white_large_square:	 Add to settings
+:white_large_square:Add to settings
 	if degree <= x, send push with level completed message
 
-:white_large_square:	When should push be sent?
+:white_large_square: When should push be sent?
 	Send push only on +/-1 change and max every 5s?
 	On every change 1 degree, check if currentTS is greater than timerStartTS+5s, then do a push?
 
@@ -73,4 +84,5 @@ If you like my Web App, please support my Work!
 
 
 **March 15th 2024 (build 3e385b8)**
+
 First release with proof of concept.

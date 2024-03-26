@@ -3,10 +3,12 @@ function handleOrientation(event) {
 	try{
 		//Run only if orientation view or calibration-timer is visible
 		if($("orientation").style.display != "none" || $("calibration-timer").style.display != "none"){
+			//Update with calibrated values
 			calibratedGamma = event.gamma - calibratedZOffsetVal;
 			calibratedBeta = event.beta - calibratedXOffsetVal;
 	
 			//Z-axis gamma (right/left wheel up/down)
+			//Set he pivot point for the visual representation
 			if(calibratedGamma>=0){
 				$("front-view").style.transformOrigin = "23% 13%";
 			}
@@ -44,6 +46,13 @@ function handleOrientation(event) {
 		
 				if((Date.now()-lastPushTS) > pushIntervalMS){
 					//Send push
+					if(Math.abs(lastZangle-calibratedGamma) > Math.abs(lastXangle-calibratedBeta)){
+						$("debug").innerHTML += "<span>&gt;Z diff is larger than X: "+Math.abs(lastZangle-calibratedGamma)+">"+Math.abs(lastXangle-calibratedBeta)+"</span>";
+					}
+					else{
+						$("debug").innerHTML += "<span>&gt;X diff is larger than Z: "+Math.abs(lastXangle-calibratedBeta)+">"+Math.abs(lastZangle-calibratedGamma)+"</span>";
+					}
+					$("debug").innerHTML += "<span>&gt;Z diff: "+Math.abs(lastZangle-calibratedGamma)+"</span>";
 					if(Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
 						if(calibratedGamma > 0){
 							sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+String.fromCharCode(176)+")");
@@ -62,6 +71,7 @@ function handleOrientation(event) {
 			}
 		
 			//X-axis beta (jockey wheel up/down)
+			//Set he pivot point for the visual representation
 			$("side-view").style.transformOrigin = "28% 60%";
 			$("side-view").style.transform = "rotate("+(Math.max((maxAngle*-1),Math.min(maxAngle,(calibratedBeta*1))))+"deg)";
 			//Update only on a specified interval to prevent fast switching numbers
@@ -94,6 +104,7 @@ function handleOrientation(event) {
 				$("x-dist").innerHTML = degreeDistance;
 				if(Date.now() >= lastPushTS+pushIntervalMS){
 					//Send push
+					$("debug").innerHTML += "<span>&gt;X diff: "+Math.abs(lastXangle-calibratedBeta)+"</span>";
 					if(Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
 						if(calibratedBeta < 0){
 							sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+String.fromCharCode(176)+")");
