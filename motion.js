@@ -147,12 +147,13 @@ motionPermissionState = permissionState;
 				$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
 				if(pushPermissionState === "granted"){
 					gotoView("orientation");
-			window.addEventListener("deviceorientation", handleOrientation);
 
 				}
 				else{
-					gotoView("settings");	//Or reload for recheck?
+					gotoView("settings");
 				}
+			window.addEventListener("deviceorientation", handleOrientation);
+
 			}
 			else{
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
