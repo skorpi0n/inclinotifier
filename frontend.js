@@ -431,7 +431,7 @@ showView("debug");
 				$("subscribe-notif-btn").disabled = false;
 				$("subscribe-notif-btn").style.display = "block";
 				$("debug").innerHTML += "<span>&gt;frontend.js navigator.serviceWorker is TRUE, exec initServiceWorker()</span>";
-				initServiceWorkerr();
+				initServiceWorker();
 			}
 			else{
 				$("debug").innerHTML += "<span>&gt;navigator.serviceWorker is FALSE</span>";
