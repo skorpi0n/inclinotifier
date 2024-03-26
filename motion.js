@@ -146,6 +146,7 @@ async function requestPermForMotion() {
 		}
 	
 		//Here we only process while motion is running/or not
+		//If orientation view is not active, pause handleOrientation
 		if (is_running){
 			window.removeEventListener("deviceorientation", handleOrientation);
 			is_running = false;
