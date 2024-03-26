@@ -39,20 +39,7 @@ function is_Android(){
 	const isAndroid = ua.indexOf("android") > -1;
 	return isAndroid;
 }
-/*
-function pushHashAndFixTargetSelector(hash){
-	console.log(4);
-	$("debug").innerHTML += "<span>&gt;pushHashAndFixTargetSelector() "+hash+"</span>";
 
-	history.pushState({}, document.title, hash); //called as you would normally
-	const onpopstate = window.onpopstate; //store the old event handler to restore it later
-	window.onpopstate = function() { //this will be called when we call history.back()
-		window.onpopstate = onpopstate; //restore the original handler
-		history.forward(); //go forward again to update the CSS
-	};
-	history.back(); //go back to trigger the above function
-}
-*/
 function showView(view){
 	$("debug").innerHTML += "<span>&gt;showView() "+view+"</span>";
 	//Hide all element width class "views"
@@ -72,8 +59,8 @@ function showView(view){
 		$(view+"-btn").classList.add("active");
 	}
 	else{
-		$("orientation-btn").classList.add("fa-disabled");
-		$("settings-btn").classList.add("fa-disabled");
+//		$("orientation-btn").classList.add("fa-disabled");
+//		$("settings-btn").classList.add("fa-disabled");
 	}
 
 	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
@@ -178,94 +165,22 @@ https://www.buymeacoffee.com/skorpi0n
 
 try{
 	//Event listeners
-/*
-	if(location.hash!=""){
-		console.log(1);
-//		$(location.hash.replace("#","")).style.display = "block";
-		$("debug").innerHTML += "<span>&gt;frontend.js "+location.hash.replace("#","")+"</span>";
-	}
-	//Listens on hash change to hide previous and show current
-	window.onhashchange = function(e){
-
-
-//		$("orientation-btn").classList.add("fa-disabled");
-//		$("settings-btn").classList.add("fa-disabled");
-//		$("qr-code-btn").classList.add("fa-disabled");
-
-		if(e.oldURL.split('#').length == 2){
-		console.log(2);
-
-			$(e.oldURL.split('#')[1]).style.display = "none";
-		}
-		if(location.hash!=""){
-		console.log(3);
-			$(location.hash.replace("#","")).style.display = "block";
-		}
-	}
-*/
 
 	//Header buttons
 	$("orientation-btn").addEventListener("click", () => {
-showView("orientation");
-/*
-		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-		$("orientation").style.display = "block";
-		history.pushState(null, null, "#orientation");
-//		pushHashAndFixTargetSelector("#orientation");
-		$("orientation-btn").classList.add("active");
-		$("orientation-btn").classList.remove("fa-disabled");
-
-		$("settings-btn").classList.remove("active");
-		$("share-qr-code-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
-*/
+		showView("orientation");
 	});
 
 	$("settings-btn").addEventListener("click", () => {
-showView("settings");
-/*
-		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-		$("settings").style.display = "block";
-		history.pushState(null, null, "#settings");
-//		pushHashAndFixTargetSelector("#settings");
-		$("settings-btn").classList.add("active");
-		$("settings-btn").classList.remove("fa-disabled");
-
-		$("orientation-btn").classList.remove("active");
-		$("share-qr-code-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
-*/
+		showView("settings");
 	});
 
 	$("share-qr-code-btn").addEventListener("click", function(e) {
-showView("share-qr-code");
-/*
-		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-		$("share-qr-code").style.display = "block";
-		history.pushState(null, null, "#share-qr-code");
-//		pushHashAndFixTargetSelector("#share-qr-code");
-		$("share-qr-code-btn").classList.add("active");
-		$("share-qr-code-btn").classList.remove("fa-disabled");
-
-		$("orientation-btn").classList.remove("active");
-		$("settings-btn").classList.remove("active");
-		$("debug-btn").classList.remove("active");
-*/
+		showView("share-qr-code");
 	});
 
 	$("debug-btn").addEventListener("click", function(e) {
-showView("debug");
-/*
-		document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-		$("debug").style.display = "block";
-		history.pushState(null, null, "#debug");
-//		pushHashAndFixTargetSelector("#debug");
-		$("debug-btn").classList.add("active");
-		$("debug-btn").classList.remove("fa-disabled");
-		$("orientation-btn").classList.remove("active");
-		$("settings-btn").classList.remove("active");
-		$("share-qr-code-btn").classList.remove("active");
-*/
+		showView("debug");
 	});
 
 	// SAVE TO LOCALSTORAGE AND UPDATE VISUAL VALUE
