@@ -464,6 +464,7 @@ showView("add-to-home-screen");
 			$("subscribe-notif-btn").style.display = "block";
 			$("debug").innerHTML += "<span>&gt;frontend.js is_android()</span>";
 			$("debug").innerHTML += "<span>&gt;frontend.js exec initServiceWorker()</span>";
+			$("settings-btn").classList.remove("fa-disabled");
 			initServiceWorker();
 	}
 	else{
