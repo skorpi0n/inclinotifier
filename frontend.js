@@ -403,8 +403,17 @@ try{
 			$("req-motion-perm-btn").style.display = "block";
 
 	
+
+			DeviceMotionEvent.requestPermission().then(permissionStatus => {
+					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
+				if (permissionState === 'granted') {
+					$("debug").innerHTML += "<span>&gt;frontend.js permissionState: granted</span>";
+				}
+			}
+
+/*
 			const permissionState = DeviceOrientationEvent.requestPermission();
-			$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
+			$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+JSON.stringify(permissionState)+"</span>";
 
 			if (permissionState === "granted") {
 				showView("orientation");
@@ -422,7 +431,7 @@ try{
 
 
 			}
-
+*/
 
 
 
