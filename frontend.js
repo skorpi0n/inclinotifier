@@ -365,7 +365,7 @@ try{
 			}
 		}
 		else{
-showView("add-to-home-screen");
+			showView("add-to-home-screen");
 			$("sub-info").innerHTML = "Not Standalone, add to home screen";
 			$("sub-info").style.display = "block";
 			$("subscribe-notif-btn").disabled = true;
@@ -383,7 +383,7 @@ showView("add-to-home-screen");
 			initServiceWorker();
 	}
 	else{
-showView("not-a-valid-device");
+		showView("not-a-valid-device");
 		$("sub-info").innerHTML = "Neither iOS or Android";
 		$("sub-info").style.display = "block";
 		$("subscribe-notif-btn").disabled = true;
@@ -401,6 +401,32 @@ showView("not-a-valid-device");
 			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
+
+	
+			const permissionState = DeviceOrientationEvent.requestPermission();
+			$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
+
+			if (permissionState === "granted") {
+				showView("orientation");
+
+				//Here we only process while motion is running/or not
+				//If orientation view is not active, pause handleOrientation
+				if (is_running){
+					window.removeEventListener("deviceorientation", handleOrientation);
+					is_running = false;
+				}
+				else{
+					window.addEventListener("deviceorientation", handleOrientation);
+					is_running = true;
+				}
+
+
+			}
+
+
+
+
+
 		}
 		else{
 			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is not a FUNCTION</span>";

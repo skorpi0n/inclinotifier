@@ -120,7 +120,9 @@ async function requestPermForMotion() {
 			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
 	
 			const permissionState = await DeviceOrientationEvent.requestPermission();
-			
+			$("debug").innerHTML += "<span>&gt;requestPermForMotion() permissionState: "+permissionState+"</span>";
+
+
 			if (permissionState === "granted") {
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
 				$("req-motion-perm-btn").style.display = "none";
