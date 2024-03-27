@@ -133,7 +133,7 @@ function calibrate(event){
 	}
 }
 
-function a(){
+function orientationDelay(){
 	try{
 		$("debug").innerHTML += "<span>&gt;orientationDelayTimer(): started</span>";
 		if(orientationDelayCounterS  <= 0){
@@ -147,7 +147,7 @@ function a(){
 			$("orientation-delay-timer").innerText = orientationDelayCounterS;
 		}
 		else{
-			$("orientation-delay-timer").innerText = "LAY PHONE ON A FLAT SURFACE";
+			$("orientation-delay-timer").innerText = "PLACE PHONE ON A FLAT SURFACE";
 		}
 		orientationDelayCounterS -= 1;
 	}
@@ -444,6 +444,28 @@ try{
 //					window.addEventListener("deviceorientation", handleOrientation);
 //						gotoView("orientation");
 
+
+DeviceOrientationEvent.requestPermission()
+        .then(response => {
+            if (response == 'granted') {
+				$("debug").innerHTML += "<span>&gt;frontend.js orientationPermissionState: granted__</span>";
+
+				orientationDelayCounterS = 5;
+				$("orientation-delay-timer").style.display = "block";
+				orientationDelayTimer = setInterval(function(){
+					orientationDelay();
+				}, 1000);
+
+            }
+            else{
+				$("debug").innerHTML += "<span>&gt;frontend.js else orientationPermissionState: "+response+"</span>";
+            }
+        })
+        .catch(console.error)
+
+
+
+/*
 			DeviceOrientationEvent.requestPermission().then(orientationPermissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js orientationPermissionState: "+orientationPermissionState+"</span>";
 				if(orientationPermissionState === "granted"){
@@ -471,7 +493,7 @@ try{
 			.catch(function(error) {
 				$("debug").innerHTML += "<span>&gt;frontend.js orientationPermissionState error: "+error+"</span>";
 			});
-
+*/
 
 
 		}

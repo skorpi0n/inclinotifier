@@ -172,7 +172,7 @@ body.rotation90 {
 	width: 80px;
 	text-align: right;
 }
-#calibration-timer, #orientation-delay-timer{
+#calibration-timer{
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -181,7 +181,16 @@ body.rotation90 {
 	font-size: 6em;
 	font-weight: bold;
 	text-align: center;
-
+}
+#orientation-delay-timer{
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3em;
+	font-weight: bold;
+	text-align: center;
 }
 button {
 	display: inline-block;

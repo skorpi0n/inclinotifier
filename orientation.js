@@ -151,11 +151,11 @@ async function requestPermForOrientation() {
 				}
 
 
-		orientationDelayCounterS = 5;
-		$("orientation-delay-timer").style.display = "block";
-		calibrationTimer = setInterval(function(){
-			a();
-		}, 1000);
+				orientationDelayCounterS = 5;
+				$("orientation-delay-timer").style.display = "block";
+				orientationDelayTimer = setInterval(function(){
+					orientationDelay();
+				}, 1000);
 
 
 
