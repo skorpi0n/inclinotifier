@@ -418,7 +418,7 @@ try{
 //					window.addEventListener("deviceorientation", handleOrientation);
 //						gotoView("orientation");
 
-			DeviceMotionEvent.requestPermission().then(motionPermissionState => {
+			DeviceOrientationEvent.requestPermission().then(motionPermissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";
 				if(motionPermissionState === "granted"){
 

@@ -35,6 +35,8 @@ async function initServiceWorker() {
 				$("orientation-btn").classList.remove("fa-disabled");
 				$("settings-btn").classList.remove("fa-disabled");
 
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() pushPermissionState: "+pushPermissionState+"</span>";
+
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() motionPermissionState: "+motionPermissionState+"</span>";
 				if(motionPermissionState === "granted"){
 					gotoView("orientation");
