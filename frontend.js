@@ -421,7 +421,7 @@ try{
 					$("calibrate-btn").disabled = false;
 					$("motion-info").innerHTML = "Motion was Granted";
 	
-					$("debug").innerHTML += "<span>&gt;requestPermForMotion() pushPermissionState: "+pushPermissionState+"</span>";
+					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
 					if(pushPermissionState === "granted"){
 						gotoView("orientation");
 					}
@@ -432,7 +432,7 @@ try{
 
 
 
-
+/*
 					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
 					if(pushPermissionState === "granted"){
 						gotoView("orientation");
@@ -460,10 +460,11 @@ try{
 					else{
 						gotoView("settings");
 					}
+*/
 				}
 			})
 			.catch(function(error) {
-				$("debug").innerHTML += "<span>&gt;frontend.js permissionState error: "+error+"</span>";
+				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState error: "+error+"</span>";
 			});
 
 
