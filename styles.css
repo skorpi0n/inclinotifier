@@ -111,7 +111,7 @@ body.rotation90 {
 	font-size: 8em;
 	text-align: center;
 }
-#front-motion{
+#front-orientation{
 	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
@@ -124,7 +124,7 @@ body.rotation90 {
 	font-size: 10em;
 	text-align: center;
 }
-#side-motion{
+#side-orientation{
 	position: relative;
 	transform: rotate(90deg);
 	font-size:14px;
@@ -132,7 +132,7 @@ body.rotation90 {
 	left: -90px;
 }
 
-#subscribe-notif-btn, #req-motion-perm-btn, #test-send-btn, #reset-btn, #calibrate-btn{
+#subscribe-notif-btn, #req-orientation-perm-btn, #test-send-btn, #reset-btn, #calibrate-btn{
 	width: 100%;
 	line-height: 2;
 	font-size: 20px;
@@ -141,18 +141,12 @@ body.rotation90 {
 #test-send-btn{
 	display:none;
 }
-#sub-info, #motion-info{
+#sub-info, #orientation-info{
 	background-color: #e7e7ff;
 	padding: 15px;
 	word-wrap: break-word;
 	font-style: italic;
 	margin-bottom: 5px;
-}
-#front-motion_, #side-motion_{
-	background-color: #e7e7ff;
-	padding: 20px;
-	word-wrap: break-word;
-	font-style: italic
 }
 
 /* SETTINGS VIEW */
@@ -178,7 +172,7 @@ body.rotation90 {
 	width: 80px;
 	text-align: right;
 }
-#calibration-timer{
+#calibration-timer, #orientation-delay-timer{
 	display: none;
 	position: absolute;
 	top: 50%;

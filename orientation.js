@@ -126,44 +126,54 @@ function handleOrientation(event) {
 	}
 }
 
-async function requestPermForMotion() {
+async function requestPermForOrientation() {
 	try{
 		// Request permission for iOS 13+ devices
 		if (DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function"){
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceOrientationEvent True AND reqPerm = function</span>";
+			$("debug").innerHTML += "<span>&gt;requestPermForOrientation() DeviceOrientationEvent True AND reqPerm = function</span>";
 	
 			orientationPermissionState = await DeviceOrientationEvent.requestPermission();
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() orientationPermissionState: "+orientationPermissionState+"</span>";
+			$("debug").innerHTML += "<span>&gt;requestPermForOrientation() orientationPermissionState: "+orientationPermissionState+"</span>";
 
 			if (orientationPermissionState === "granted") {
-				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
-				$("req-motion-perm-btn").style.display = "none";
-				$("req-motion-perm-btn").disabled = true;
+				$("debug").innerHTML += "<span>&gt;requestPermForOrientation() Device orientation was Granted</span>";
+				$("req-orientation-perm-btn").style.display = "none";
+				$("req-orientation-perm-btn").disabled = true;
 				$("calibrate-btn").disabled = false;
-				$("motion-info").innerHTML = "Motion was Granted";
+				$("orientation-info").innerHTML = "Orientation was Granted";
 
-				$("debug").innerHTML += "<span>&gt;requestPermForMotion() pushPermissionState: "+pushPermissionState+"</span>";
+				$("debug").innerHTML += "<span>&gt;requestPermForOrientation() pushPermissionState: "+pushPermissionState+"</span>";
 				if(pushPermissionState === "granted"){
 					gotoView("orientation");
 				}
 				else{
 					gotoView(firstView);
 				}
-				window.addEventListener("deviceorientation", handleOrientation);
+
+
+		orientationDelayCounterS = 5;
+		$("orientation-delay-timer").style.display = "block";
+		calibrationTimer = setInterval(function(){
+			a();
+		}, 1000);
+
+
+
+//				window.addEventListener("deviceorientation", handleOrientation);
 			}
 			else{
-				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Denied</span>";
-				$("motion-info").innerHTML = "Device motion was Denied";
-				$("req-motion-perm-btn").style.display = "none";
-				$("req-motion-perm-btn").disabled = true;
+				$("debug").innerHTML += "<span>&gt;requestPermForOrientation() Device orientation was Denied</span>";
+				$("orientation-info").innerHTML = "Device orientation was Denied";
+				$("req-orientation-perm-btn").style.display = "none";
+				$("req-orientation-perm-btn").disabled = true;
 				$("calibrate-btn").disabled = false;
-				$("motion-info").style.display = "block";
-				$("motion-info").innerHTML = "Motion Not Granted";
+				$("orientation-info").style.display = "block";
+				$("orientation-info").innerHTML = "Orientation Not Granted";
 			}
 		}
 		else{
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion not asked yet</span>";
-			$("motion-info").innerHTML = "Device motion not asked yet";
+			$("debug").innerHTML += "<span>&gt;requestPermForOrientation() Device orientation not asked yet</span>";
+			$("orientation-info").innerHTML = "Device orientation not asked yet";
 		}
 	}
 	catch(err){
@@ -171,4 +181,4 @@ async function requestPermForMotion() {
 	}
 };
 
-$("debug").innerHTML += "<span>&gt;motion.js was loaded to the end</span>";
+$("debug").innerHTML += "<span>&gt;orientation.js was loaded to the end</span>";

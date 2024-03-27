@@ -133,6 +133,29 @@ function calibrate(event){
 	}
 }
 
+function a(){
+	try{
+		$("debug").innerHTML += "<span>&gt;orientationDelayTimer(): started</span>";
+		if(orientationDelayCounterS  <= 0){
+			$("orientation-delay-timer").innerText = "";
+			$("orientation-delay-timer").style.display = "none";
+				window.addEventListener("deviceorientation", handleOrientation);
+			clearInterval(orientationDelayTimer);
+		}
+		else if(orientationDelayCounterS <= 3){
+//			$("orientation-delay-timer").classList.add("calibrate-wait");
+			$("orientation-delay-timer").innerText = orientationDelayCounterS;
+		}
+		else{
+			$("orientation-delay-timer").innerText = "LAY PHONE ON A FLAT SURFACE";
+		}
+		orientationDelayCounterS -= 1;
+	}
+	catch(err){
+		$("debug").innerHTML += "<span>&gt;orientationDelayTimer(): "+err+"</span>";
+	}
+}
+
 // Push Variables
 var pushPermissionState;
 var lastPushTS = Date.now();
@@ -141,7 +164,7 @@ const wheelTrackDistanceMM = 2300;
 const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
 
-// Motion Variables
+// Orientation Variables
 var orientationPermissionState;
 const maxAngle = 30;
 var lastXangle = 180;	//Set it to something big initially
@@ -149,6 +172,9 @@ var lastZangle = 180;	//Set it to something big initially
 const xzUpdateIntervalMS = 400;	//200 is too fast, 400 is good
 var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
+var orientationDelayTimer;
+var orientationDelayCounterS;
+
 
 // Calibration Variables
 var calibrationRunning = false;
@@ -169,8 +195,8 @@ var firstView;
 
 /*
 Add fa-disabled to first 2 icons
-if motion and push is available, then enable settings
-enable orientation if motion is active
+if orientation and push is available, then enable settings
+enable orientation if orientation is active
 
 click on disabled should refresh page to rerun checks
 
@@ -405,16 +431,16 @@ try{
 		$("debug").innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
 	}
 
-	//Verify Motion Availability
+	//Verify Orientation Availability
 	if(DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function"){
 		$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent is TRUE</span>";
 		if(typeof DeviceOrientationEvent.requestPermission === "function"){
 			$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent.requestPermission is FUNCTION</span>";
-			$("motion-info").innerHTML = "DeviceOrientationEvent is available";
-			$("motion-info").style.display = "block";
-			$("req-motion-perm-btn").disabled = false;
-			$("req-motion-perm-btn").style.display = "block";
-//			requestPermForMotion();
+			$("orientation-info").innerHTML = "DeviceOrientationEvent is available";
+			$("orientation-info").style.display = "block";
+			$("req-orientation-perm-btn").disabled = false;
+			$("req-orientation-perm-btn").style.display = "block";
+//			requestPermForOrientation();
 //					window.addEventListener("deviceorientation", handleOrientation);
 //						gotoView("orientation");
 
@@ -423,11 +449,11 @@ try{
 				if(orientationPermissionState === "granted"){
 
 
-//				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
-					$("req-motion-perm-btn").style.display = "none";
-					$("req-motion-perm-btn").disabled = true;
+//				$("debug").innerHTML += "<span>&gt;requestPermForOrientation() Device orientation was Granted</span>";
+					$("req-orientation-perm-btn").style.display = "none";
+					$("req-orientation-perm-btn").disabled = true;
 					$("calibrate-btn").disabled = false;
-					$("motion-info").innerHTML = "Motion was Granted";
+					$("orientation-info").innerHTML = "Orientation was Granted";
 	
 					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
 					if(pushPermissionState === "granted"){
@@ -451,16 +477,16 @@ try{
 		}
 		else{
 			$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent.requestPermission is not a FUNCTION</span>";
-			$("motion-info").innerHTML = "DeviceOrientationEvent is not available";
-			$("req-motion-perm-btn").disabled = true;
-			$("req-motion-perm-btn").style.display = "block";
+			$("orientation-info").innerHTML = "DeviceOrientationEvent is not available";
+			$("req-orientation-perm-btn").disabled = true;
+			$("req-orientation-perm-btn").style.display = "block";
 		}
 	}
 	else{
-		$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent FALSE OR reqMotion != function</span>";
-		$("motion-info").innerHTML = "DeviceOrientationEvent is not available";
-		$("req-motion-perm-btn").disabled = true;
-		$("req-motion-perm-btn").style.display = "none";
+		$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent FALSE OR reqOrientation != function</span>";
+		$("orientation-info").innerHTML = "DeviceOrientationEvent is not available";
+		$("req-orientation-perm-btn").disabled = true;
+		$("req-orientation-perm-btn").style.display = "none";
 	}
 
 	$("debug").innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";

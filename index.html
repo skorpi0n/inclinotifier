@@ -60,7 +60,7 @@
 			<span id="front-icon">
 				<i class="fac fa-caravan-front fa-rotate-90"></i>
 			</span>
-			<div id="front-motion">
+			<div id="front-orientation">
 				<ul>
 					<li>Z-axis: <span id="z-axis">0</span><span>&deg;</span></li>
 					<li>Z-Distance: <span id="z-dist">0</span><span>mm</span></li>
@@ -72,7 +72,7 @@
 			<span id="side-icon" class="fa-flip-horizontal">
 				<i class="fas fa-caravan fa-rotate-270"></i>
 			</span>
-			<div id="side-motion">
+			<div id="side-orientation">
 				<ul>
 					<li>X-axis: <span id="x-axis">0</span><span>&deg;</span></li>
 					<li>X-Distance: <span id="x-dist">0</span><span>mm</span></li>
@@ -85,12 +85,15 @@
 
 		<div id="calibration-timer"></div>
 
+		<div id="orientation-delay-timer"></div>
+
+
 		<button id="subscribe-notif-btn" onclick="subscribeToPush()" disabled>Subscribe to notifications</button>
 		<button id="test-send-btn" onclick="sendPush('Push notification test', 'Push notification is working if you can read this')" disabled>Send test notification</button>
 		<div id="sub-info"></div>
 
-		<button id="req-motion-perm-btn" onclick="requestPermForMotion()" disabled>Request permissions for motion</button>
-		<div id="motion-info"></div>
+		<button id="req-orientation-perm-btn" onclick="requestPermForOrientation()" disabled>Request permissions for orientation</button>
+		<div id="orientation-info"></div>
 
 		<div class="option">
 			<label for="push-interval-ms">Push Interval</label>
@@ -134,7 +137,7 @@
 
 	//Dynamically load javascripts to prvent caching
 	ts=new Date().getTime();
-	scripts = ["push.js","motion.js","frontend.js"];	//"touch.js"
+	scripts = ["push.js","orientation.js","frontend.js"];	//"touch.js"
 	scripts.forEach(jsfile =>{
 		script = document.createElement("script");
 		script.src = jsfile+"?v=" + ts;
