@@ -36,36 +36,46 @@ function is_Android(){
 }
 
 function gotoView(view){
-	if(firstView == undefined){
-		firstView=view;
+	try{
+		if($(view)){
+			if(firstView == undefined){
+				firstView=view;
+			}
+		
+			$("debug").innerHTML += "<span>&gt;gotoView() "+view+"</span>";
+			//Hide all element width class "views"
+			document.querySelectorAll(".views").forEach(el => el.style.display = "none");
+			//Show the designated view
+			$(view).style.display = "block";
+			//Set the designated view to a hash in the url
+			history.pushState(null, null, "#"+view);
+		
+			//Remove class "active" from all header buttons
+			$("orientation-btn").classList.remove("active");
+			$("settings-btn").classList.remove("active");
+			$("share-qr-code-btn").classList.remove("active");
+			$("debug-btn").classList.remove("active");
+		
+			if($(view+"-btn")!=null){
+				$(view+"-btn").classList.add("active");
+			}
+			else{
+				$("orientation-btn").classList.add("fa-disabled");
+				$("settings-btn").classList.add("fa-disabled");
+			}
+		
+			//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
+			if(view=="orientation"){
+				$("orientation-btn").classList.remove("fa-disabled");
+				$("settings-btn").classList.remove("fa-disabled");
+			}
+		}
+		else{
+			$("debug").innerHTML += "<span>&gt;gotoView(): view not found "+view+"</span>";
+		}
 	}
-
-	$("debug").innerHTML += "<span>&gt;gotoView() "+view+"</span>";
-	//Hide all element width class "views"
-	document.querySelectorAll(".views").forEach(el => el.style.display = "none");
-	//Show the designated view
-	$(view).style.display = "block";
-	//Set the designated view to a hash in the url
-	history.pushState(null, null, "#"+view);
-
-	//Remove class "active" from all header buttons
-	$("orientation-btn").classList.remove("active");
-	$("settings-btn").classList.remove("active");
-	$("share-qr-code-btn").classList.remove("active");
-	$("debug-btn").classList.remove("active");
-
-	if($(view+"-btn")!=null){
-		$(view+"-btn").classList.add("active");
-	}
-	else{
-		$("orientation-btn").classList.add("fa-disabled");
-		$("settings-btn").classList.add("fa-disabled");
-	}
-
-	//If target view is "orientation", then we are happy with all the verifications and can show all header buttons
-	if(view=="orientation"){
-		$("orientation-btn").classList.remove("fa-disabled");
-		$("settings-btn").classList.remove("fa-disabled");
+	catch(err){
+		$("debug").innerHTML += "<span>&gt;gotoView(): "+err+"</span>";
 	}
 }
 
