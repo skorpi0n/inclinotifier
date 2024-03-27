@@ -88,8 +88,8 @@ function calibrate(event){
 
 			if(Math.abs(calibratedZOffsetVal)<5 || Math.abs(calibratedXOffsetVal)<5){
 				$("calibration-timer").innerText = "DONE";
-				$("debug").innerHTML += "<span>&gt;avgZ: "+calibratedZOffsetVal+"</span>";
-				$("debug").innerHTML += "<span>&gt;avgX: "+calibratedXOffsetVal+"</span>";
+				$("debug").innerHTML += "<span>&gt;calibrate() avgZ: "+calibratedZOffsetVal+"</span>";
+				$("debug").innerHTML += "<span>&gt;calibrate() avgX: "+calibratedXOffsetVal+"</span>";
 				$("calibrated-z-offset").value = calibratedZOffsetVal;
 				$("calibrated-z-offset").dispatchEvent(new Event('input'));
 				$("calibrated-z-offset").nextElementSibling.value=calibratedZOffsetVal+String.fromCharCode(176);	//176 = degree symbol

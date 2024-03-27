@@ -46,14 +46,10 @@ function handleOrientation(event) {
 		
 				if((Date.now()-lastPushTS) > pushIntervalMS){
 					//Send push
-					if(Math.abs(lastZangle-calibratedGamma) > Math.abs(lastXangle-calibratedBeta)){
-						$("debug").innerHTML += "<span>&gt;Z diff is larger than X: "+Math.abs(lastZangle-calibratedGamma)+">"+Math.abs(lastXangle-calibratedBeta)+"</span>";
-					}
-					else{
-						$("debug").innerHTML += "<span>&gt;X diff is larger than Z: "+Math.abs(lastXangle-calibratedBeta)+">"+Math.abs(lastZangle-calibratedGamma)+"</span>";
-					}
 					$("debug").innerHTML += "<span>&gt;Z diff: "+Math.abs(lastZangle-calibratedGamma)+"</span>";
-					if(Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
+					if(Math.abs(lastZangle-calibratedGamma) > Math.abs(lastXangle-calibratedBeta) && Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
+						$("debug").innerHTML += "<span>&gt;handleOrientation() Z > X diff: "+Math.abs(lastZangle-calibratedGamma)+">"+Math.abs(lastXangle-calibratedBeta)+"</span>";
+
 						if(calibratedGamma > 0){
 							sendPush("Side to side","Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+String.fromCharCode(176)+")");
 							$("debug").innerHTML += "<span>&gt;Side to side: Right wheel up by "+Math.abs(degreeDistance)+"mm ("+Math.ceil(calibratedGamma)+"&deg;)</span>";
@@ -105,7 +101,8 @@ function handleOrientation(event) {
 				if(Date.now() >= lastPushTS+pushIntervalMS){
 					//Send push
 					$("debug").innerHTML += "<span>&gt;X diff: "+Math.abs(lastXangle-calibratedBeta)+"</span>";
-					if(Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
+					if(Math.abs(lastXangle-calibratedBeta) >= Math.abs(lastZangle-calibratedGamma) && Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
+						$("debug").innerHTML += "<span>&gt;handleOrientation() X >= Z diff: "+Math.abs(lastXangle-calibratedBeta)+">="+Math.abs(lastZangle-calibratedGamma)+"</span>";
 						if(calibratedBeta < 0){
 							sendPush("Jockey Up/down","Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+String.fromCharCode(176)+")");
 							$("debug").innerHTML += "<span>&gt;Jockey wheel up by "+degreeDistance+"mm ("+Math.ceil(calibratedBeta)+"&deg;)</span>";
