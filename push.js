@@ -37,8 +37,8 @@ async function initServiceWorker() {
 
 				$("debug").innerHTML += "<span>&gt;initServiceWorker() pushPermissionState: "+pushPermissionState+"</span>";
 
-				$("debug").innerHTML += "<span>&gt;initServiceWorker() motionPermissionState: "+motionPermissionState+"</span>";
-				if(motionPermissionState === "granted"){
+				$("debug").innerHTML += "<span>&gt;initServiceWorker() orientationPermissionState: "+orientationPermissionState+"</span>";
+				if(orientationPermissionState === "granted"){
 					gotoView("orientation");
 				}
 				else{

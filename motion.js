@@ -129,13 +129,13 @@ function handleOrientation(event) {
 async function requestPermForMotion() {
 	try{
 		// Request permission for iOS 13+ devices
-		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceMotion True AND reqMotion = function</span>";
+		if (DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function"){
+			$("debug").innerHTML += "<span>&gt;requestPermForMotion() DeviceOrientationEvent True AND reqPerm = function</span>";
 	
-			motionPermissionState = await DeviceOrientationEvent.requestPermission();
-			$("debug").innerHTML += "<span>&gt;requestPermForMotion() motionPermissionState: "+motionPermissionState+"</span>";
+			orientationPermissionState = await DeviceOrientationEvent.requestPermission();
+			$("debug").innerHTML += "<span>&gt;requestPermForMotion() orientationPermissionState: "+orientationPermissionState+"</span>";
 
-			if (motionPermissionState === "granted") {
+			if (orientationPermissionState === "granted") {
 				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
 				$("req-motion-perm-btn").style.display = "none";
 				$("req-motion-perm-btn").disabled = true;

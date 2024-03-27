@@ -142,7 +142,7 @@ const axleToJockeyWheelMM = 3000;
 var angleStepsForPush;
 
 // Motion Variables
-var motionPermissionState;
+var orientationPermissionState;
 const maxAngle = 30;
 var lastXangle = 180;	//Set it to something big initially
 var lastZangle = 180;	//Set it to something big initially
@@ -406,11 +406,11 @@ try{
 	}
 
 	//Verify Motion Availability
-	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function"){
-		$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent is TRUE</span>";
-		if(typeof DeviceMotionEvent.requestPermission === "function"){
-			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is FUNCTION</span>";
-			$("motion-info").innerHTML = "DeviceMotionEvent is available";
+	if(DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function"){
+		$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent is TRUE</span>";
+		if(typeof DeviceOrientationEvent.requestPermission === "function"){
+			$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent.requestPermission is FUNCTION</span>";
+			$("motion-info").innerHTML = "DeviceOrientationEvent is available";
 			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
@@ -418,9 +418,9 @@ try{
 //					window.addEventListener("deviceorientation", handleOrientation);
 //						gotoView("orientation");
 
-			DeviceOrientationEvent.requestPermission().then(motionPermissionState => {
-				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";
-				if(motionPermissionState === "granted"){
+			DeviceOrientationEvent.requestPermission().then(orientationPermissionState => {
+				$("debug").innerHTML += "<span>&gt;frontend.js orientationPermissionState: "+orientationPermissionState+"</span>";
+				if(orientationPermissionState === "granted"){
 
 
 //				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
@@ -443,22 +443,22 @@ try{
 				}
 			})
 			.catch(function(error) {
-				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState error: "+error+"</span>";
+				$("debug").innerHTML += "<span>&gt;frontend.js orientationPermissionState error: "+error+"</span>";
 			});
 
 
 
 		}
 		else{
-			$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent.requestPermission is not a FUNCTION</span>";
-			$("motion-info").innerHTML = "DeviceMotionEvent is not available";
+			$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent.requestPermission is not a FUNCTION</span>";
+			$("motion-info").innerHTML = "DeviceOrientationEvent is not available";
 			$("req-motion-perm-btn").disabled = true;
 			$("req-motion-perm-btn").style.display = "block";
 		}
 	}
 	else{
-		$("debug").innerHTML += "<span>&gt;frontend.js DeviceMotionEvent FALSE OR reqMotion != function</span>";
-		$("motion-info").innerHTML = "DeviceMotionEvent is not available";
+		$("debug").innerHTML += "<span>&gt;frontend.js DeviceOrientationEvent FALSE OR reqMotion != function</span>";
+		$("motion-info").innerHTML = "DeviceOrientationEvent is not available";
 		$("req-motion-perm-btn").disabled = true;
 		$("req-motion-perm-btn").style.display = "none";
 	}
