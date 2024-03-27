@@ -3,6 +3,8 @@ function handleOrientation(event) {
 	try{
 		//Run only if orientation view or calibration-timer is visible
 		if($("orientation").style.display != "none" || $("calibration-timer").style.display != "none"){
+			$("debug").innerHTML += "<span>&gt;orientation: "+$("orientation").style.display+" calibration-timer: "+$("calibration-timer").style.display+"</span>";
+
 			//Update with calibrated values
 			calibratedGamma = event.gamma - calibratedZOffsetVal;
 			calibratedBeta = event.beta - calibratedXOffsetVal;
