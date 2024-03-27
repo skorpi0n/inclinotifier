@@ -2,7 +2,7 @@
 function handleOrientation(event) {
 	try{
 		//Run only if orientation view or calibration-timer is visible
-		if($("orientation").style.display != "none" || $("calibration-timer").style.display != "none"){
+		if($("orientation").style.display == "block" || $("calibration-timer").style.display == "block"){
 			$("debug").innerHTML += "<span>&gt;orientation: "+$("orientation").style.display+" calibration-timer: "+$("calibration-timer").style.display+"</span>";
 
 			//Update with calibrated values

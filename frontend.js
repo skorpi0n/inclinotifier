@@ -408,11 +408,31 @@ try{
 			$("motion-info").style.display = "block";
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
-			requestPermForMotion();
-/*
-			DeviceMotionEvent.requestPermission().then(permissionState => {
-				$("debug").innerHTML += "<span>&gt;frontend.js permissionState: "+permissionState+"</span>";
-				if(permissionState === "granted"){
+//			requestPermForMotion();
+
+			DeviceMotionEvent.requestPermission().then(motionPermissionState => {
+				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";
+				if(motionPermissionState === "granted"){
+
+
+//				$("debug").innerHTML += "<span>&gt;requestPermForMotion() Device motion was Granted</span>";
+					$("req-motion-perm-btn").style.display = "none";
+					$("req-motion-perm-btn").disabled = true;
+					$("calibrate-btn").disabled = false;
+					$("motion-info").innerHTML = "Motion was Granted";
+	
+					$("debug").innerHTML += "<span>&gt;requestPermForMotion() pushPermissionState: "+pushPermissionState+"</span>";
+					if(pushPermissionState === "granted"){
+						gotoView("orientation");
+					}
+					else{
+						gotoView(firstView);
+					}
+					window.addEventListener("deviceorientation", handleOrientation);
+
+
+
+
 					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
 					if(pushPermissionState === "granted"){
 						gotoView("orientation");
@@ -445,7 +465,7 @@ try{
 			.catch(function(error) {
 				$("debug").innerHTML += "<span>&gt;frontend.js permissionState error: "+error+"</span>";
 			});
-*/
+
 
 
 		}
