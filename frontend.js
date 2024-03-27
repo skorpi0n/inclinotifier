@@ -81,6 +81,7 @@ function gotoView(view){
 
 function calibrate(event){
 	try{
+		$("debug").innerHTML += "<span>&gt;calibrate(): calibrationRunning: "+calibrationRunning+"</span>";
 		calibrationRunning = true;
 		$("calibrate-btn").disabled = true;
 		if(counterS + calibrationHoldS + 1 <= 0){
@@ -90,6 +91,7 @@ function calibrate(event){
 			$("calibrate-btn").disabled = false;
 			clearInterval(calibrationTimer);
 			calibrationRunning = false;
+			$("debug").innerHTML += "<span>&gt;calibrate(): calibrationRunning: "+calibrationRunning+"</span>";
 		}
 		else if(counterS + calibrationHoldS <= 0){
 			$("calibration-timer").classList.remove("calibrate-wait");
