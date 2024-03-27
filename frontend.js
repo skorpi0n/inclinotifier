@@ -81,6 +81,7 @@ function gotoView(view){
 
 function calibrate(event){
 	try{
+		calibrationRunning = true;
 		$("calibrate-btn").disabled = true;
 		if(counterS + calibrationHoldS + 1 <= 0){
 			$("calibration-timer").innerText = "";
@@ -88,6 +89,7 @@ function calibrate(event){
 			calibrationStart = true;
 			$("calibrate-btn").disabled = false;
 			clearInterval(calibrationTimer);
+			calibrationRunning = false;
 		}
 		else if(counterS + calibrationHoldS <= 0){
 			$("calibration-timer").classList.remove("calibrate-wait");
@@ -146,6 +148,7 @@ var lastXupdateTS = Date.now();
 var lastZupdateTS = Date.now();
 
 // Calibration Variables
+var calibrationRunning = false;
 var calibrationTimer;
 var counterS;
 const calibrationHoldS = 2;
@@ -410,7 +413,7 @@ try{
 			$("req-motion-perm-btn").style.display = "block";
 //			requestPermForMotion();
 					window.addEventListener("deviceorientation", handleOrientation);
-
+						gotoView("orientation");
 /*
 			DeviceMotionEvent.requestPermission().then(motionPermissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";

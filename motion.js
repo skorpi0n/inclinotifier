@@ -2,7 +2,7 @@
 function handleOrientation(event) {
 	try{
 		//Run only if orientation view or calibration-timer is visible
-		if($("orientation").style.display == "block" || $("calibration-timer").style.display == "block"){
+		if($("orientation").style.display == "block" || calibrationRunning){
 			$("debug").innerHTML += "<span>&gt;orientation: "+$("orientation").style.display+" calibration-timer: "+$("calibration-timer").style.display+"</span>";
 
 			//Update with calibrated values
@@ -46,7 +46,7 @@ function handleOrientation(event) {
 				degreeDistance = Math.ceil((circumference/360)*calibratedGamma);
 				$("z-dist").innerHTML = degreeDistance;
 		
-				if((Date.now()-lastPushTS) > pushIntervalMS){
+				if((Date.now()-lastPushTS) > pushIntervalMS && !calibrationRunning){
 					//Send push
 					$("debug").innerHTML += "<span>&gt;Z diff: "+Math.abs(lastZangle-calibratedGamma)+"</span>";
 					if(Math.abs(lastZangle-calibratedGamma) > Math.abs(lastXangle-calibratedBeta) && Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
@@ -100,7 +100,7 @@ function handleOrientation(event) {
 				circumference = localStorage.getItem("axleToJockeyWheelMM")*2*Math.PI;
 				degreeDistance = Math.ceil((circumference/360)*calibratedBeta);
 				$("x-dist").innerHTML = degreeDistance;
-				if(Date.now() >= lastPushTS+pushIntervalMS){
+				if((Date.now()-lastPushTS) > pushIntervalMS && !calibrationRunning){
 					//Send push
 					$("debug").innerHTML += "<span>&gt;X diff: "+Math.abs(lastXangle-calibratedBeta)+"</span>";
 					if(Math.abs(lastXangle-calibratedBeta) >= Math.abs(lastZangle-calibratedGamma) && Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
