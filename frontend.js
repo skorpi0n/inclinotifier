@@ -409,7 +409,9 @@ try{
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
 //			requestPermForMotion();
+					window.addEventListener("deviceorientation", handleOrientation);
 
+/*
 			DeviceMotionEvent.requestPermission().then(motionPermissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";
 				if(motionPermissionState === "granted"){
@@ -432,41 +434,12 @@ try{
 
 
 
-/*
-					$("debug").innerHTML += "<span>&gt;frontend.js pushPermissionState: "+pushPermissionState+"</span>";
-					if(pushPermissionState === "granted"){
-						gotoView("orientation");
-
-						$("debug").innerHTML += "<span>&gt;frontend.js Device motion was Granted</span>";
-						$("req-motion-perm-btn").style.display = "none";
-						$("req-motion-perm-btn").disabled = true;
-						$("calibrate-btn").disabled = false;
-						$("motion-info").innerHTML = "Motion was Granted";
-
-
-						//Here we only process while motion is running/or not
-						//If orientation view is not active, pause handleOrientation
-						if (is_running){
-							window.removeEventListener("deviceorientation", handleOrientation);
-							$("debug").innerHTML += "<span>&gt;frontend.js is_running: true</span>";
-							is_running = false;
-						}
-						else{
-							$("debug").innerHTML += "<span>&gt;frontend.js is_running: false</span>";
-							window.addEventListener("deviceorientation", handleOrientation);
-							is_running = true;
-						}
-					}
-					else{
-						gotoView("settings");
-					}
-*/
 				}
 			})
 			.catch(function(error) {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState error: "+error+"</span>";
 			});
-
+*/
 
 
 		}
