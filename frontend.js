@@ -440,11 +440,22 @@ try{
 			$("orientation-info").style.display = "block";
 			$("req-orientation-perm-btn").disabled = false;
 			$("req-orientation-perm-btn").style.display = "block";
+
+
+
+
 //			requestPermForOrientation();
 //					window.addEventListener("deviceorientation", handleOrientation);
-//						gotoView("orientation");
 
+				orientationDelayCounterS = 5;
+				$("orientation-delay-timer").style.display = "block";
+				orientationDelayTimer = setInterval(function(){
+					orientationDelay();
+				}, 1000);
 
+						gotoView("orientation");
+
+/*
 DeviceOrientationEvent.requestPermission()
         .then(response => {
             if (response == 'granted') {
@@ -462,7 +473,7 @@ DeviceOrientationEvent.requestPermission()
             }
         })
         .catch(console.error)
-
+*/
 
 
 /*
