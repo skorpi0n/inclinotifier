@@ -100,7 +100,7 @@ function calibrate(event){
 			calibratedZOffsetVal = Math.round(((sumZ / calibrationZArr.length) || 0)*10)/10;
 			calibratedXOffsetVal = Math.round(((sumX / calibrationXArr.length) || 0)*10)/10;
 
-			if(Math.abs(calibratedZOffsetVal)<5 || Math.abs(calibratedXOffsetVal)<5){
+			if(Math.abs(calibratedZOffsetVal)<=5 || Math.abs(calibratedXOffsetVal)<=5){
 				$("calibration-timer").innerText = "DONE";
 				$("debug").innerHTML += "<span>&gt;calibrate() avgZ: "+calibratedZOffsetVal+"</span>";
 				$("debug").innerHTML += "<span>&gt;calibrate() avgX: "+calibratedXOffsetVal+"</span>";
@@ -113,6 +113,7 @@ function calibrate(event){
 			}
 			else{
 				$("calibration-timer").innerText = "ERROR";
+				$("debug").innerHTML += "<span>&gt;calibrate(): X or Z angle greater than 5 "+calibrationRunning+"</span>";
 			}
 			calibrationZArr = [];
 			calibrationXArr = [];
@@ -414,10 +415,10 @@ try{
 			$("req-motion-perm-btn").disabled = false;
 			$("req-motion-perm-btn").style.display = "block";
 //			requestPermForMotion();
-					window.addEventListener("deviceorientation", handleOrientation);
-						gotoView("orientation");
-/*
-			DeviceMotionEvent.requestPermission().then(motionPermissionState => {
+//					window.addEventListener("deviceorientation", handleOrientation);
+//						gotoView("orientation");
+
+			await DeviceMotionEvent.requestPermission().then(motionPermissionState => {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState: "+motionPermissionState+"</span>";
 				if(motionPermissionState === "granted"){
 
@@ -444,7 +445,7 @@ try{
 			.catch(function(error) {
 				$("debug").innerHTML += "<span>&gt;frontend.js motionPermissionState error: "+error+"</span>";
 			});
-*/
+
 
 
 		}

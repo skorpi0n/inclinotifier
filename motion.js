@@ -48,7 +48,7 @@ function handleOrientation(event) {
 		
 				if((Date.now()-lastPushTS) > pushIntervalMS && !calibrationRunning){
 					//Send push
-					$("debug").innerHTML += "<span>&gt;Z diff: "+Math.abs(lastZangle-calibratedGamma)+"</span>";
+					$("debug").innerHTML += "<span>&gt;handleOrientation() Z diff: "+Math.abs(lastZangle-calibratedGamma)+"</span>";
 					if(Math.abs(lastZangle-calibratedGamma) > Math.abs(lastXangle-calibratedBeta) && Math.abs(lastZangle-calibratedGamma)>=Math.max(0.5,Math.abs(lastZangle-calibratedGamma))){
 						$("debug").innerHTML += "<span>&gt;handleOrientation() Z > X diff: "+Math.abs(lastZangle-calibratedGamma)+">"+Math.abs(lastXangle-calibratedBeta)+"</span>";
 
@@ -102,7 +102,7 @@ function handleOrientation(event) {
 				$("x-dist").innerHTML = degreeDistance;
 				if((Date.now()-lastPushTS) > pushIntervalMS && !calibrationRunning){
 					//Send push
-					$("debug").innerHTML += "<span>&gt;X diff: "+Math.abs(lastXangle-calibratedBeta)+"</span>";
+					$("debug").innerHTML += "<span>&gt;handleOrientation() X diff: "+Math.abs(lastXangle-calibratedBeta)+"</span>";
 					if(Math.abs(lastXangle-calibratedBeta) >= Math.abs(lastZangle-calibratedGamma) && Math.abs(lastXangle-calibratedBeta)>=Math.max(0.5,Math.abs(lastXangle-calibratedBeta))){
 						$("debug").innerHTML += "<span>&gt;handleOrientation() X >= Z diff: "+Math.abs(lastXangle-calibratedBeta)+">="+Math.abs(lastZangle-calibratedGamma)+"</span>";
 						if(calibratedBeta < 0){
