@@ -33,8 +33,8 @@ Follow instructions on your mobile device.
 
 iOS: Add the website to your home screen (or push notifications will not work)<br>
 <img src="add-to-home-screen-safari.jpg" width="400"><br>
-Android: Browse to web-page and you are all set up
-	NOTE! Some Android devices need the WebApp to be installed (or push notifications will not work)<br>
+Android: Browse to web-page and you are all set up<br>
+NOTE! Some Android devices need the WebApp to be installed (or push notifications will not work)<br>
 <img src="android_install_app.jpg" width="400"><br>
 
 ## Setup
