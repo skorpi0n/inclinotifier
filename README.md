@@ -27,19 +27,24 @@ See example usage below
 https://github.com/skorpi0n/inclinotifier/assets/47179304/72edbfb0-8745-43a9-b1c7-988ab3b1f38d
 
 ## Installation
-Visit https://skorpi0n.github.io/inclinotifier/ from your mobile device or simply scan this QR-code from you mobile device<br>
-<img src="qrcode_skorpi0n.github.io.png" alt="qrCode" width="400"><br>
+Visit https://skorpi0n.github.io/inclinotifier/ from your mobile device or simply scan this QR-code from you mobile device
+
+<img src="qrcode_skorpi0n.github.io.png" alt="qrCode" width="400">
+
 Follow instructions on your mobile device.
 
-iOS: Add the website to your home screen (or push notifications will not work)<br>
-<img src="add-to-home-screen-safari.jpg" width="400"><br>
+iOS: Add the website to your home screen (or push notifications will not work)
+
+<img src="add-to-home-screen-safari.jpg" width="400">
+
 Android: Browse to web-page and you are all set up
 
 NOTE! Some Android devices need the WebApp to be installed (or push notifications will not work)
 
-*(If someone can give me a screenshot of the following view, but in English, I'll appreciate it)*
+*(If someone can give me a screenshot of the following view, but in English, I would appreciate it)*
 
-<img src="android_install_app.jpg" width="400"><br>
+<img src="android_install_app.jpg" width="400">
+
 
 ## Setup
 For best experience you should change some settings to fit your needs.
