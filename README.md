@@ -62,6 +62,12 @@ You are also able to change the following settings if you would like.
 - Ability to change language (English / Swedish)
 - Ability to change units of measure (metric / imperial)
 
+
+## Translation
+Currently only English and Swedish language is supported.<br>
+I would gladly receive translations for other languages.<br>
+Download https://github.com/skorpi0n/inclinotifier/blob/gh-pages/v1.0.0-rc1/lang.js and follow instructions in the top of that file.
+
 ## FAQ
 - **How do I know the Jockey Wheel Thread Pitch?**
   - Probably you can go with the default value of 4mm
