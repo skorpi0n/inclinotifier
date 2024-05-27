@@ -34,8 +34,10 @@ function is_iOS() {
 }
 
 function is_Android(){
+	$("debug").innerHTML += "<span>&gt;isAndroid() " + navigator.platform.toLowerCase() + "</span>";
+	$("debug").innerHTML += "<span>&gt;isAndroid() " + navigator.userAgent.toLowerCase() + "</span>";
 	const ua = navigator.userAgent.toLowerCase(); + navigator.platform.toLowerCase();
-	const isAndroid = ua.indexOf("android") > -1;
+	const isAndroid = ua.indexOf("android") > -1 || ua.indexOf("samsungbrowser") > -1;
 	return isAndroid;
 }
 
