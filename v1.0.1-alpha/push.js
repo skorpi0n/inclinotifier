@@ -106,6 +106,8 @@ async function subscribeToPush() {
 	
 		let swRegistration = await navigator.serviceWorker.getRegistration();
 		let pushManager = swRegistration.pushManager;
+		console.log(swRegistration);
+		console.log(pushManager);
 		if (!isPushManagerActive(pushManager)){
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active</span>";
 			$("subscribe-notif-btn").disabled = true;
@@ -145,7 +147,7 @@ async function subscribeToPush() {
 		catch(err) {
 			$("sub-info").style.display = "block";
 			$("sub-info").innerHTML = err;
-			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;subscribeToPush() 1 "+err+"</span>";
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
 			$("subscribe-notif-btn").classList.remove("pulse");
@@ -153,7 +155,7 @@ async function subscribeToPush() {
 
 	}
 	catch(err){
-			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;subscribeToPush() 2 "+err+"</span>";
 	}
 }
 
