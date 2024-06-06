@@ -36,55 +36,55 @@ release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
 const contentToCache = [
+//	"./index.html",
+//	"./qrcode_skorpi0n.github.io.png",
+//	"./README.md",
+//	"./android_install_app.jpg",
+//	"./add-to-home-screen-safari.jpg",
+//	"./",
 	"./index.html",
-	"./qrcode_skorpi0n.github.io.png",
-	"./README.md",
-	"./android_install_app.jpg",
-	"./add-to-home-screen-safari.jpg",
-	"./v1.0.1-alpha/",
-	"./v1.0.1-alpha/index.html",
-	"./v1.0.1-alpha/styles.css",
-	"./v1.0.1-alpha/frontend.js",
-	"./v1.0.1-alpha/lang.js",
-	"./v1.0.1-alpha/orientation.js",
-	"./v1.0.1-alpha/push.js",
-	"./v1.0.1-alpha/manifest.json",
-	"./v1.0.1-alpha/serviceworker.js",
-	"./v1.0.1-alpha/images/",
-	"./v1.0.1-alpha/images/favicon-16x16.png",
-	"./v1.0.1-alpha/images/add-to-home-screen-chrome.jpg",
-	"./v1.0.1-alpha/images/favicon_120.png",
-	"./v1.0.1-alpha/images/apple-touch-icon.png",
-	"./v1.0.1-alpha/images/qrcode_skorpi0n.github.io.png",
-	"./v1.0.1-alpha/images/caravan-solid.svg",
-	"./v1.0.1-alpha/images/add-to-home-screen-safari.jpg",
-	"./v1.0.1-alpha/images/favicon-32x32.png",
-	"./v1.0.1-alpha/images/splashscreens/",
-	"./v1.0.1-alpha/images/splashscreens/ipad_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphonexsmax_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/ipadpro2_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphone6_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphoneplus_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/ipadpro1_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphone5_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphonex_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/ipadpro3_splash.png",
-	"./v1.0.1-alpha/images/splashscreens/iphonexr_splash.png",
-	"./v1.0.1-alpha/images/icons/",
-	"./v1.0.1-alpha/images/icons/favicon-16x16.png",
-	"./v1.0.1-alpha/images/icons/safari-pinned-tab.svg",
-	"./v1.0.1-alpha/images/icons/favicon.ico",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon-120x120.png",
-	"./v1.0.1-alpha/images/icons/android-chrome-192x192.png",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon.png",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon-152x152.png",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon-180x180.png",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon-76x76.png",
-	"./v1.0.1-alpha/images/icons/android-chrome-512x512.png",
-	"./v1.0.1-alpha/images/icons/site.webmanifest",
-	"./v1.0.1-alpha/images/icons/mstile-150x150.png",
-	"./v1.0.1-alpha/images/icons/apple-touch-icon-60x60.png",
-	"./v1.0.1-alpha/images/icons/favicon-32x32.png"
+	"./styles.css",
+	"./frontend.js",
+	"./lang.js",
+	"./orientation.js",
+	"./push.js",
+	"./manifest.json",
+//	"./serviceworker.js",
+	"./images/",
+	"./images/favicon-16x16.png",
+	"./images/add-to-home-screen-chrome.jpg",
+	"./images/favicon_120.png",
+	"./images/apple-touch-icon.png",
+	"./images/qrcode_skorpi0n.github.io.png",
+	"./images/caravan-solid.svg",
+	"./images/add-to-home-screen-safari.jpg",
+	"./images/favicon-32x32.png",
+	"./images/splashscreens/",
+	"./images/splashscreens/ipad_splash.png",
+	"./images/splashscreens/iphonexsmax_splash.png",
+	"./images/splashscreens/ipadpro2_splash.png",
+	"./images/splashscreens/iphone6_splash.png",
+	"./images/splashscreens/iphoneplus_splash.png",
+	"./images/splashscreens/ipadpro1_splash.png",
+	"./images/splashscreens/iphone5_splash.png",
+	"./images/splashscreens/iphonex_splash.png",
+	"./images/splashscreens/ipadpro3_splash.png",
+	"./images/splashscreens/iphonexr_splash.png",
+	"./images/icons/",
+	"./images/icons/favicon-16x16.png",
+	"./images/icons/safari-pinned-tab.svg",
+	"./images/icons/favicon.ico",
+	"./images/icons/apple-touch-icon-120x120.png",
+	"./images/icons/android-chrome-192x192.png",
+	"./images/icons/apple-touch-icon.png",
+	"./images/icons/apple-touch-icon-152x152.png",
+	"./images/icons/apple-touch-icon-180x180.png",
+	"./images/icons/apple-touch-icon-76x76.png",
+	"./images/icons/android-chrome-512x512.png",
+	"./images/icons/site.webmanifest",
+	"./images/icons/mstile-150x150.png",
+	"./images/icons/apple-touch-icon-60x60.png",
+	"./images/icons/favicon-32x32.png"
 ];
 
 /*
@@ -113,13 +113,13 @@ self.addEventListener("install", (e) => {
 	console.log("[Service Worker] Install");
 
 	e.waitUntil(
-/*
+
 		(async () => {
 			const cache = await caches.open(cacheName);
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})(),
-*/
+
 	);
 
 });
