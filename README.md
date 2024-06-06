@@ -121,6 +121,8 @@ If you like my Web App, please support my Work!
 
 ## TODO list
 
+:white_large_square: Make it work offline
+
 :white_large_square: Make caravan image-boxes better, to be able to rotate and mirror them more effectively
 
 :white_check_mark: Ability to show Jockey-wheel revolutions to turn.
