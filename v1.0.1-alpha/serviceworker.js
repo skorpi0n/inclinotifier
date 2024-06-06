@@ -42,7 +42,7 @@ const contentToCache = [
 //	"./android_install_app.jpg",
 //	"./add-to-home-screen-safari.jpg",
 	"/",
-	"/index.html",
+	"/index.html"
 /*
 	"./styles.css",
 	"./frontend.js",
