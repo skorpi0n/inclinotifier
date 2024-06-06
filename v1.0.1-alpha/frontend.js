@@ -232,12 +232,12 @@ try{
 	}
 
 	//Change add-to-home-screen image to chrome if not safari
-	if(navigator.userAgent.toLowerCase().indexOf("Safari") == -1){
-		$("add-to-home-screen").children[0].src = "images/add-to-home-screen-chrome.jpg";
-		$("debug").innerHTML += "<span>&gt;frontend.js userAgent is not Safari (" + navigator.userAgent + ")</span>";
+	if(navigator.userAgent.toLowerCase().indexOf("safari") != -1){
+		$("debug").innerHTML += "<span>&gt;frontend.js userAgent is Safari (" + navigator.userAgent + ")</span>";
 	}
 	else{
-		$("debug").innerHTML += "<span>&gt;frontend.js userAgent is Safari (" + navigator.userAgent + ")</span>";
+		$("add-to-home-screen").children[0].src = "images/add-to-home-screen-chrome.jpg";
+		$("debug").innerHTML += "<span>&gt;frontend.js userAgent is not Safari (" + navigator.userAgent + ")</span>";
 	}
 
 	//Fill select-language with available languages
