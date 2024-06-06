@@ -86,7 +86,7 @@ const appShellFiles = [
 	"./v1.0.1-alpha/images/icons/apple-touch-icon-60x60.png",
 	"./v1.0.1-alpha/images/icons/favicon-32x32.png"
 ];
-
+/*
 self.addEventListener("install", (e) => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
@@ -97,6 +97,7 @@ self.addEventListener("install", (e) => {
 		})(),
 	);
 });
+*/
 
 self.addEventListener("fetch", (e) => {
 	e.respondWith(
@@ -114,7 +115,7 @@ self.addEventListener("fetch", (e) => {
 		})(),
 	);
 });
-
+/*
 self.addEventListener("activate", (e) => {
 	e.waitUntil(
 		caches.keys().then((keyList) => {
@@ -129,3 +130,4 @@ self.addEventListener("activate", (e) => {
 		}),
 	);
 });
+*/
