@@ -122,6 +122,7 @@ async function subscribeToPush() {
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active</span>";
 		console.log(1);
 		}
+		console.log(11);
 		let subscriptionOptions = {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC_KEY
