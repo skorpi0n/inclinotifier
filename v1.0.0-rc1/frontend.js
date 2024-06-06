@@ -234,6 +234,7 @@ try{
 	}
 
 	//Change add-to-home-screen image to chrome if not safari
+	console.log(navigator.userAgent.toLowerCase().indexOf("safari"));
 	if(navigator.userAgent.toLowerCase().indexOf("safari") != -1){
 		$("debug").innerHTML += "<span>&gt;frontend.js userAgent is Safari (" + navigator.userAgent + ")</span>";
 	}
