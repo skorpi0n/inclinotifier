@@ -36,13 +36,15 @@ release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
 const contentToCache = [
+	"/",
+	"/index.html"
+];
 //	"./index.html",
 //	"./qrcode_skorpi0n.github.io.png",
 //	"./README.md",
 //	"./android_install_app.jpg",
 //	"./add-to-home-screen-safari.jpg",
-	"/",
-	"/index.html"
+
 /*
 	"./styles.css",
 	"./frontend.js",
@@ -86,7 +88,7 @@ const contentToCache = [
 	"./images/icons/apple-touch-icon-60x60.png",
 	"./images/icons/favicon-32x32.png"
 */
-];
+//];
 
 /*
 self.addEventListener("install", (event) => {
@@ -112,18 +114,17 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("install", (e) => {
 	console.log("[Service Worker] Install");
-/*
+
 	e.waitUntil(
-console.log(0);
 		(async () => {
 			const cache = await caches.open(cacheName);
 			console.log("[Service Worker] Caching all: app shell and content");
-console.log(contentToCache);
+			console.log(contentToCache);
 			await cache.addAll(contentToCache);
 		})(),
 
 	);
-*/
+
 });
 
 self.addEventListener("fetch", (e) => {
