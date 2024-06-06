@@ -115,7 +115,7 @@ self.addEventListener("fetch", (e) => {
 		})(),
 	);
 });
-/*
+
 self.addEventListener("activate", (e) => {
 	e.waitUntil(
 		caches.keys().then((keyList) => {
@@ -130,4 +130,3 @@ self.addEventListener("activate", (e) => {
 		}),
 	);
 });
-*/
