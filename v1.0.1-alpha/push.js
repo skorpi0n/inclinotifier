@@ -109,6 +109,7 @@ async function subscribeToPush() {
 		console.log(swRegistration);
 		console.log(pushManager);
 		if (!isPushManagerActive(pushManager)){
+		console.log(0);
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active</span>";
 			$("subscribe-notif-btn").disabled = true;
 			$("subscribe-notif-btn").style.display = "none";
@@ -119,6 +120,7 @@ async function subscribeToPush() {
 		}
 		else{
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active</span>";
+		console.log(1);
 		}
 		let subscriptionOptions = {
 			userVisibleOnly: true,
@@ -126,6 +128,7 @@ async function subscribeToPush() {
 		};
 
 		try {
+		console.log(2);
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
@@ -142,9 +145,10 @@ async function subscribeToPush() {
 				gotoView("orientation");
 			}
 
-			displaySubscriptionInfo(subscription);
+			//displaySubscriptionInfo(subscription);
 		}
 		catch(err) {
+		console.log(3);
 			$("sub-info").style.display = "block";
 			$("sub-info").innerHTML = err;
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() 1 "+err+"</span>";
@@ -155,6 +159,7 @@ async function subscribeToPush() {
 
 	}
 	catch(err){
+		console.log(4);
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() 2 "+err+"</span>";
 	}
 }
