@@ -90,7 +90,7 @@ const contentToCache = [
 */
 //];
 
-/*
+
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches
@@ -99,19 +99,12 @@ self.addEventListener("install", (event) => {
 			cache.addAll([
 				"/",
 				"/index.html",
-				"/style.css",
-				"/app.js",
-				"/image-list.js",
-				"/star-wars-logo.jpg",
-				"/img/img1.jpg",
-				"/img/img2.jpg",
-				"/img/img3.jpg",
 			]),
 		),
 	);
 });
-*/
 
+/*
 self.addEventListener("install", (e) => {
 	console.log("[Service Worker] Install");
 
@@ -126,6 +119,8 @@ self.addEventListener("install", (e) => {
 	);
 
 });
+*/
+
 
 self.addEventListener("fetch", (e) => {
 	e.respondWith(
