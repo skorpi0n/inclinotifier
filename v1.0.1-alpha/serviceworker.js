@@ -29,7 +29,7 @@ self.addEventListener('notificationclick', function (event) {
 			// fetch('https://your_backend_server.com/track_click?message_id=' + pushData.data.message_id);
 		});
 });
-
+/*
 release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
@@ -82,7 +82,7 @@ const appShellFiles = [
 	"./v1.0.1-alpha/images/icons/site.webmanifest",
 	"./v1.0.1-alpha/images/icons/mstile-150x150.png",
 	"./v1.0.1-alpha/images/icons/apple-touch-icon-60x60.png",
-	"./v1.0.1-alpha/images/icons/favicon-32x32.png",
+	"./v1.0.1-alpha/images/icons/favicon-32x32.png"
 ];
 
 
@@ -128,55 +128,6 @@ self.addEventListener("activate", (e) => {
 					return caches.delete(key);
 				}),
 			);
-		}),
-	);
-});
-
-
-/*
-self.addEventListener("install", (event) => {
-	event.waitUntil(
-		caches
-			.open("v1")
-			.then((cache) =>
-				cache.addAll([
-					"/",
-					"/index.html",
-					"/style.css",
-					"/app.js",
-					"/image-list.js",
-					"/star-wars-logo.jpg",
-					"/img/img1.jpg",
-					"/img/img2.jpg",
-					"/img/img3.jpg",
-				]),
-			),
-	);
-});
-
-self.addEventListener("fetch", (event) => {
-	event.respondWith(
-		caches.match(event.request).then((response) => {
-			// caches.match() always resolves
-			// but in case of success response will have value
-			if (response !== undefined) {
-				return response;
-			}
-			else {
-				return fetch(event.request)
-				.then((response) => {
-					// response may be used only once
-					// we need to save clone to put one copy in cache
-					// and serve second one
-					let responseClone = response.clone();
-			
-					caches.open("v1").then((cache) => {
-						cache.put(event.request, responseClone);
-					});
-					return response;
-				})
-				.catch(() => caches.match("/img/img1.jpg"));
-			}
 		}),
 	);
 });
