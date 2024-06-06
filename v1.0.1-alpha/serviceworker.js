@@ -119,7 +119,7 @@ console.log(0);
 			const cache = await caches.open(cacheName);
 			console.log("[Service Worker] Caching all: app shell and content");
 console.log(contentToCache);
-//			await cache.addAll(contentToCache);
+			await cache.addAll(contentToCache);
 		})(),
 
 	);
