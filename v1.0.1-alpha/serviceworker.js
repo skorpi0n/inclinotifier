@@ -4,11 +4,13 @@ self.addEventListener('push', (event) => {
 	if (!pushData || !pushData.title) {
 		console.error('Received WebPush with an empty title. Received body: ', pushData);
 	}
+/*
 	self.registration.showNotification(pushData.title, pushData)
 		.then(() => {
 			// You can save to your analytics fact that push was shown
 			// fetch('https://your_backend_server.com/track_show?message_id=' + pushData.data.message_id);
 		});
+*/
 });
 
 self.addEventListener('notificationclick', function (event) {
@@ -29,7 +31,7 @@ self.addEventListener('notificationclick', function (event) {
 			// fetch('https://your_backend_server.com/track_click?message_id=' + pushData.data.message_id);
 		});
 });
-/*
+
 release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
@@ -85,7 +87,10 @@ const appShellFiles = [
 	"./v1.0.1-alpha/images/icons/favicon-32x32.png"
 ];
 
+$("debug").innerHTML += cacheName;
+$("debug").innerHTML += JSON.stringify(appShellFiles);
 
+/*
 self.addEventListener("install", (e) => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
