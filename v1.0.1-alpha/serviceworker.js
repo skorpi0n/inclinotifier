@@ -35,7 +35,7 @@ self.addEventListener('notificationclick', function (event) {
 release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
-const appShellFiles = [
+const contentToCache = [
 	"./index.html",
 	"./qrcode_skorpi0n.github.io.png",
 	"./README.md",
