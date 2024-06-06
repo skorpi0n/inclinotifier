@@ -87,7 +87,7 @@ const appShellFiles = [
 	"./v1.0.1-alpha/images/icons/favicon-32x32.png"
 ];
 
-/*
+
 self.addEventListener("install", (event) => {
 	event.waitUntil(
 		caches
@@ -107,7 +107,8 @@ self.addEventListener("install", (event) => {
 		),
 	);
 });
-*/
+
+/*
 self.addEventListener("install", (e) => {
 	//console.log("[Service Worker] Install");
 	e.waitUntil(
@@ -118,7 +119,7 @@ self.addEventListener("install", (e) => {
 		})(),
 	);
 });
-
+*/
 
 self.addEventListener("fetch", (e) => {
 	e.respondWith(
