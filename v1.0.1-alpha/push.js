@@ -3,7 +3,7 @@ async function initServiceWorker() {
 	try{
 		let swRegistration = await navigator.serviceWorker.register("serviceworker.js")
 		let pushManager = swRegistration.pushManager;
-
+console.log(isPushManagerActive(pushManager));
 		if(!isPushManagerActive(pushManager)) {
 			$("debug").innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active</span>";
 //			$("settings-btn").classList.remove("fa-disabled");
