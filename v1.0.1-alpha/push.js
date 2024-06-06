@@ -1,7 +1,7 @@
 //Push notifications
 async function initServiceWorker() {
 	try{
-		let swRegistration = await navigator.serviceWorker.register(scriptPath + "/serviceworker.js", {scope: "./"})
+		let swRegistration = await navigator.serviceWorker.register("serviceworker.js")
 		let pushManager = swRegistration.pushManager;
 
 		if(!isPushManagerActive(pushManager)) {
