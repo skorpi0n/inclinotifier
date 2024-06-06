@@ -41,15 +41,15 @@ const contentToCache = [
 //	"./README.md",
 //	"./android_install_app.jpg",
 //	"./add-to-home-screen-safari.jpg",
-//	"./",
-	"./index.html",
+	"/",
+	"/index.html",
+/*
 	"./styles.css",
 	"./frontend.js",
 	"./lang.js",
 	"./orientation.js",
 	"./push.js",
 	"./manifest.json",
-//	"./serviceworker.js",
 	"./images/",
 	"./images/favicon-16x16.png",
 	"./images/add-to-home-screen-chrome.jpg",
@@ -85,6 +85,7 @@ const contentToCache = [
 	"./images/icons/mstile-150x150.png",
 	"./images/icons/apple-touch-icon-60x60.png",
 	"./images/icons/favicon-32x32.png"
+*/
 ];
 
 /*
