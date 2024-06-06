@@ -30,7 +30,6 @@ self.addEventListener('notificationclick', function (event) {
 		});
 });
 
-release = window.location.pathname.split("/").slice(-2, -1)[0];
 release = "v1.0.1-alpha";	//Change this whenever a update should be loaded
 
 const cacheName = "inclinotifier_" + release;
