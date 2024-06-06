@@ -1,3 +1,21 @@
+/*
+	This is the language file for Inclinotifier
+
+	If you wnat to translate to another language, please follow instructions below
+
+	Instructions
+		Append the new language to the object "langAvailable"
+			example:
+				"de": "Deutch",
+		For every key (like scan-qr-code) in the object "langData", a new language key has to be defined (like de, matching the language code specified in the object langAvailable)
+		If the phrase doesn't have adjacent numeric keys, then the phrase will be on a single line.
+		If the phrase have numeric keys (like 0, 1, 2...), the phrase will be separated in multiple lines.
+		Just try to follow how the existing languages are defined.
+
+
+	When you have translated the file, please mail it to niclas@skorpion.se
+*/
+
 langAvailable = {
 	"en": "English",
 	"sv": "Svenska",
