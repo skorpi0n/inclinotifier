@@ -594,6 +594,7 @@ try{
 		$("subscribe-notif-btn").classList.remove("pulse");
 
 		$("debug").innerHTML += "<span>&gt;frontend.js neither is_iOS() or is_android()</span>";
+		initServiceWorker();
 	}
 	$("debug").innerHTML += "<span>&gt;frontend.js was loaded to the end</span>";
 }
