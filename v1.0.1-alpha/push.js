@@ -1,9 +1,9 @@
 //Push notifications
 async function initServiceWorker() {
 	try{
-		let swRegistration = await navigator.serviceWorker.register("serviceworker.js")
+		let swRegistration = await navigator.serviceWorker.register(scriptPath + "/serviceworker.js", {scope: "./"})
 		let pushManager = swRegistration.pushManager;
-console.log(isPushManagerActive(pushManager));
+
 		if(!isPushManagerActive(pushManager)) {
 			$("debug").innerHTML += "<span>&gt;initServiceWorker() Pushmanager is not active</span>";
 //			$("settings-btn").classList.remove("fa-disabled");
@@ -106,10 +106,7 @@ async function subscribeToPush() {
 	
 		let swRegistration = await navigator.serviceWorker.getRegistration();
 		let pushManager = swRegistration.pushManager;
-		console.log(swRegistration);
-		console.log(pushManager);
 		if (!isPushManagerActive(pushManager)){
-		console.log(0);
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is not active</span>";
 			$("subscribe-notif-btn").disabled = true;
 			$("subscribe-notif-btn").style.display = "none";
@@ -120,16 +117,13 @@ async function subscribeToPush() {
 		}
 		else{
 			$("debug").innerHTML += "<span>&gt;subscribeToPush() Pushmanager is active</span>";
-		console.log(1);
 		}
-		console.log(11);
 		let subscriptionOptions = {
 			userVisibleOnly: true,
 			applicationServerKey: VAPID_PUBLIC_KEY
 		};
 
 		try {
-		console.log(2);
 			let subscription = await pushManager.subscribe(subscriptionOptions);
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
@@ -146,13 +140,12 @@ async function subscribeToPush() {
 				gotoView("orientation");
 			}
 
-			//displaySubscriptionInfo(subscription);
+			displaySubscriptionInfo(subscription);
 		}
 		catch(err) {
-		console.log(3);
 			$("sub-info").style.display = "block";
 			$("sub-info").innerHTML = err;
-			$("debug").innerHTML += "<span>&gt;subscribeToPush() 1 "+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
 			$("subscribe-notif-btn").style.display = "none";
 			$("subscribe-notif-btn").disabled = true;
 			$("subscribe-notif-btn").classList.remove("pulse");
@@ -160,18 +153,34 @@ async function subscribeToPush() {
 
 	}
 	catch(err){
-		console.log(4);
-			$("debug").innerHTML += "<span>&gt;subscribeToPush() 2 "+err+"</span>";
+			$("debug").innerHTML += "<span>&gt;subscribeToPush() "+err+"</span>";
 	}
 }
 
 function displaySubscriptionInfo(subscription) {
+/*
 	try{
 		$("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() "+JSON.stringify(subscription.toJSON())+"</span>";
 	}
 	catch(err){
 		$("debug").innerHTML += "<span>"+err+"</span>";
 	}
+*/
+    try {
+        if(subscription){
+            $("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() "+JSON.stringify(subscription.toJSON())+"</span>";
+        } else {
+            $("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() subscription is null</span>";
+            // Om du vill kan du automatiskt visa subscribe-knappen igen:
+            $("subscribe-notif-btn").style.display = "block";
+            $("subscribe-notif-btn").disabled = false;
+            $("subscribe-notif-btn").classList.add("pulse");
+			$("test-send-btn").style.display = "block";
+			$("test-send-btn").disabled = false;
+        }
+    } catch(err){
+        $("debug").innerHTML += "<span>"+err+"</span>";
+    }
 }
 
 function sendPush(title, mess) {
