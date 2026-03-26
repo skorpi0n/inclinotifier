@@ -158,14 +158,6 @@ async function subscribeToPush() {
 }
 
 function displaySubscriptionInfo(subscription) {
-/*
-	try{
-		$("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() "+JSON.stringify(subscription.toJSON())+"</span>";
-	}
-	catch(err){
-		$("debug").innerHTML += "<span>"+err+"</span>";
-	}
-*/
     try {
         if(subscription){
             $("debug").innerHTML += "<span>&gt;displaySubscriptionInfo() "+JSON.stringify(subscription.toJSON())+"</span>";
