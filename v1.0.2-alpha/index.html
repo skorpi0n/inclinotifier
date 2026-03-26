@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Inclinotifier</title>
+	<link rel="manifest" href="manifest.json"/>
+	<meta charset="UTF-8">
+	<! meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<! meta http-equiv="Pragma" content="no-cache" />
+	<! meta http-equiv="Expires" content="0" />
+	<meta name="google-site-verification" content="impbVxMXSODXUBnUtOvBDVPtiZtR_OEzL2I5q9CxliI" />
+	<meta name="description" content="Free leveling tool for your rv" />
+	<meta name="keywords" content="caravan, rv, motorhome, husvagn, husbil, wohnwagon, level" />
+	<meta name="author" content="Niclas Rådström">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+	<! link rel="manifest" href="/site.webmanifest">
+	<! link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<! meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="format-detection" content="telephone=no">
+	<! link rel="apple-touch-icon" href="images/favicon_120.png">
+	<! link rel="apple-touch-startup-image" href="images/favicon_120.png">
+
+	<meta name="apple-mobile-web-app-status-bar-style" media="(prefers-color-scheme: light)" content="light-content" />
+	<meta name="apple-mobile-web-app-status-bar-style" media="(prefers-color-scheme: dark)" content="dark-content" />
+
+	<link href="images/splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="images/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+	<! link rel="icon" type="image/png" href="images/favicon_120.png">
+
+	<link id="styles.css-no-cache" href="" rel="stylesheet">
+
+	<script src="https://use.fontawesome.com/releases/v6.5.0/js/all.js"></script>
+</head>
+<body>
+<div class="wrapper">
+	<div id="header">
+		<span id="orientation-btn" class="fa-disabled"><i class="fas fa-caravan fa-2x fa-flip-horizontal"></i></span>
+		<span id="settings-btn" class="fa-disabled"><i class="fas fa-gear fa-2x"></i></span>
+		<span id="share-qr-code-btn"><i class="fa-solid fa-qrcode fa-2x"></i></span>
+		<span id="debug-btn"><i class="fa-solid fa-code fa-2x"></i></span>
+	</div>
+
+	<div id="orientation-delay-timer"></div>
+	<div id="calibration-timer"></div>
+
+	<div id="debug" class="views"></div>
+
+	<div id="scan-qr-code" class="views" data-lang="scan-qr-code">
+		Looks like you're not on an mobile device!<br>
+		Scan this QR code to open it in your mobile device
+		<img src="images/qrcode_skorpi0n.github.io.png" alt="qrCode"><br><br>
+	</div>
+
+	<div id="share-qr-code" class="views" data-lang="share-qr-code">
+		<br>If you like this Web App, please<br><br>
+		<a href="https://www.buymeacoffee.com/skorpi0n" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a><br><br>
+		And share it by letting<br>
+		others scan this QR-code
+		<img src="images/qrcode_skorpi0n.github.io.png" alt="qrCode"><br><br>
+	</div>
+
+	<div id="not-a-valid-device" class="views"data-lang="not-a-valid-device">
+		Looks like you're neither on a iOS or Android device<br>
+		If this is incorrect, <a href="https://github.com/skorpi0n/inclinotifier/issues" target="_blank">report issue at GitHub</a>
+		with copied text from the debug view <b>(&lt;/&gt;)</b>
+	</div>
+
+	<div id="add-to-home-screen" class="views" data-lang="add-to-home-screen">
+		For Inclinotifier to work, you need to add it to your Home Screen.
+		<img src="images/add-to-home-screen-safari.jpg">
+	</div>
+
+	<div id="orientation" class="views">
+		<div id="front-view">
+			<span id="front-icon">
+				<i class="fac fa-caravan-front fa-rotate-90"></i>
+			</span>
+			<div id="front-orientation">
+				<ul>
+					<li data-lang="z-axis">Z-axis: <span id="z-axis">0</span><span>&deg;</span></li>
+					<li data-lang="z-distance">Z-distance: <span id="z-dist">0</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="side-view">
+			<span id="side-icon" class="fa-flip-horizontal">
+				<i class="fas fa-caravan fa-rotate-270"></i>
+			</span>
+			<div id="side-orientation">
+				<ul>
+					<li data-lang="x-axis">X-axis: <span id="x-axis">0</span><span>&deg;</span></li>
+					<li data-lang="x-distance">X-distance: <span id="x-dist">0</span></li>
+					<li data-lang="x-turns">X-turns: <span id="x-turns">0</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="settings" class="views">
+
+		<button id="subscribe-notif-btn" data-lang="sub-to-push" disabled>Subscribe to notifications</button>
+		<button id="test-send-btn" data-lang="send-test-push" disabled>Send test notification</button>
+		<div id="sub-info"></div>
+
+		<button id="req-orientation-perm-btn" data-lang="req-perm-for-orient" disabled>Request permission for orientation</button>
+		<div id="orientation-info"></div>
+
+		<div class="option">
+			<label for="push-interval-ms" data-lang="push-intrval">Push Interval</label><br>
+			<input type="range" min="2000" max="12000" step="1000" name="push-interval-ms" id="push-interval-ms" value=""><output></output>
+		</div>
+		<div class="option">
+			<label for="wheel-track-distance-mm" data-lang="wheel-track-dist">Wheel Track Distance</label><br>
+			<input type="range" min="1500" max="3000" step="50" name="wheel-track-distance-mm" id="wheel-track-distance-mm" value=""><output></output><span data-unit="distance"> mm</span>
+		</div>
+		<div class="option">
+			<label for="axle-to-jockey-wheel-mm" data-lang="axle-to-jockey">Axle To Jockey wheel</label><br>
+			<input type="range" min="1000" max="5000" step="100" name="axle-to-jockey-wheel-mm" id="axle-to-jockey-wheel-mm" value=""><output></output><span data-unit="distance"> mm</span>
+		</div>
+		<div class="option">
+			<label for="jockey-wheel-thread-pitch-mm" data-lang="jockey-wheel-thread-pitch-mm">Jockey wheel thread pitch</label><br>
+			<input type="range" min="2" max="6" step="0.2" name="jockey-wheel-thread-pitch-mm" id="jockey-wheel-thread-pitch-mm" value=""><output></output><span data-unit="distance"> mm</span>
+		</div>
+
+		<button id="calibrate-btn" data-lang="calibrate" disabled>Calibrate</button>
+		<div class="option">
+			<label for="calibrated-z-offset" data-lang="calibrated-offset-z">Calibrated Offset Z</label><br>
+			<input type="range" min="-5" max="5" step="0.1" name="calibrated-z-offset" id="calibrated-z-offset" value="" disabled><output></output>
+		</div>
+
+		<div class="option">
+			<label for="calibrated-x-offset" data-lang="calibrated-offset-x">Calibrated Offset X</label><br>
+			<input type="range" min="-5" max="5" step="0.1" name="calibrated-x-offset" id="calibrated-x-offset" value="" disabled><output></output>
+		</div>
+
+		<div class="option">
+			<label for="select-language" data-lang="language">Language</label><br>
+			<select name="select-language" id="select-language">
+			</select>
+		</div>
+
+		<div class="option" style="display: block">
+			<label for="unit-metric" data-lang="units">Units</label><br>
+			<input name="select-units" id="unit-metric" type="radio" value="metric"><span data-lang="metric">Metric</span>
+			<input name="select-units" id="unit-imperial" type="radio" value="imperial"><span data-lang="imperial">Imperial</span>
+		</div>
+
+		<button id="reset-btn" data-lang="reset">Reset to defaults</button>
+
+		<div id="links">
+			<a id="source-link" href="https://github.com/skorpi0n/inclinotifier" target="_blank" data-lang="visit-code-github">Visit this code at GitHub</a>
+			<a id="issue-link" href="https://github.com/skorpi0n/inclinotifier/issues" target="_blank" data-lang="report-issue-github">Report issue at GitHub</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var $ = function(id){
+		return document.getElementById(id);
+	};
+
+	//Dynamically load javascripts to prevent caching
+	ts=new Date().getTime();
+	scripts = ["push.js","orientation.js","lang.js","frontend.js"];	//"touch.js"
+	scripts.forEach(jsfile =>{
+		script = document.createElement("script");
+		script.src = jsfile+"?v=" + ts;
+		script.async = false;
+		document.head.appendChild(script)
+	});
+	document.getElementById("styles.css-no-cache").href = "styles.css?v=";// + ts;
+</script>
+
+<script src="https://kit.fontawesome.com/90764c67a5.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
