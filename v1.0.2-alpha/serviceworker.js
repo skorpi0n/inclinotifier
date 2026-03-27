@@ -3,12 +3,7 @@ const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
 // Alla filer som behövs offline
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/app.js',
-  '/main.js',
-  '/style.css',
-  '/favicon.ico',
-  '/icon.png'
+  '/index.html'
 ];
 
 // Install event – cache app shell
