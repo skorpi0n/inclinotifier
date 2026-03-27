@@ -1,4 +1,8 @@
-const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
+release = "v1.0.2-alpha";	//Change this whenever a update should be loaded
+
+const CACHE_NAME = "inclinotifier_" + release;
+
+//const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
 
 // Alla filer som behövs offline
 const urlsToCache = [
