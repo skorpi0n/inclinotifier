@@ -2,8 +2,8 @@ const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
 
 // Alla filer som behövs offline
 const urlsToCache = [
-  '/',
-  '/index.html'
+  './',
+  './index.html'
 ];
 
 // Install event – cache app shell
@@ -35,18 +35,30 @@ self.addEventListener('activate', event => {
 
 // Fetch event – serve cached files if offline
 self.addEventListener('fetch', event => {
+  $("debug").innerHTML += '[SW fetch]', event.request.url;
+  // Hantera bara GET-requests (superviktigt!)
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          // Return cached file
-          return response;
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        // Otherwise fetch from network
-        return fetch(event.request);
+
+        return fetch(event.request)
+          .then(networkResponse => {
+            // Valfritt: cacha dynamiskt
+            return caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            });
+          });
       })
       .catch(() => {
-        // Offline fallback for navigation requests
+        // Fallback endast för navigation (HTML)
         if (event.request.mode === 'navigate') {
           return caches.match('/index.html');
         }
