@@ -1,17 +1,11 @@
 
+/*
 release = "v1.0.2-alpha";	//Change this whenever a update should be loaded
 
 const CACHE_NAME = "inclinotifier_" + release;
 
 // All files needed offline
 const urlsToCache = [
-//	'/',
-//	'/index.html',
-//	'/app.js',
-//	'/main.js',
-//	'/style.css',
-//	'/favicon.ico',
-//	'/icon.png'
 	'/',
 	'/index.html',
 	'/qrcode_skorpi0n.github.io.png',
@@ -108,6 +102,7 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+*/
 
 self.addEventListener('push', (event) => {
 	// PushData keys structure standar https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
