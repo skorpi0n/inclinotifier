@@ -1,3 +1,63 @@
+const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
+
+// Alla filer som behövs offline
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/app.js',
+  '/main.js',
+  '/style.css',
+  '/favicon.ico',
+  '/icon.png'
+];
+
+// Install event – cache app shell
+self.addEventListener('install', event => {
+  console.log('[ServiceWorker] Installing and caching app shell');
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
+  );
+});
+
+// Activate event – clean up old caches
+self.addEventListener('activate', event => {
+  console.log('[ServiceWorker] Activating new service worker...');
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            console.log('[ServiceWorker] Removing old cache', key);
+            return caches.delete(key);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
+
+// Fetch event – serve cached files if offline
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          // Return cached file
+          return response;
+        }
+        // Otherwise fetch from network
+        return fetch(event.request);
+      })
+      .catch(() => {
+        // Offline fallback for navigation requests
+        if (event.request.mode === 'navigate') {
+          return caches.match('/index.html');
+        }
+      })
+  );
+});
 
 
 self.addEventListener('push', (event) => {
