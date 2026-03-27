@@ -1,47 +1,49 @@
-const CACHE_NAME = 'inclinotifier-cache-v1.0.0-rc1';
+release = "v1.0.2-alpha";	//Change this whenever a update should be loaded
+
+const CACHE_NAME = "inclinotifier_" + release;
 
 // Alla filer som behövs offline
 const urlsToCache = [
-	'/',
-	'/index.html',
-	'/styles.css',
-	'/frontend.js',
-	'/lang.js',
-	'/orientation.js',
-	'/push.js',
-	'/manifest.json',
-	'/images/favicon-16x16.png',
-	'/images/add-to-home-screen-chrome.jpg',
-	'/images/favicon_120.png',
-	'/images/apple-touch-icon.png',
-	'/images/qrcode_skorpi0n.github.io.png',
-	'/images/caravan-solid.svg',
-	'/images/add-to-home-screen-safari.jpg',
-	'/images/favicon-32x32.png',
-	'/images/splashscreens/ipad_splash.png',
-	'/images/splashscreens/iphonexsmax_splash.png',
-	'/images/splashscreens/ipadpro2_splash.png',
-	'/images/splashscreens/iphone6_splash.png',
-	'/images/splashscreens/iphoneplus_splash.png',
-	'/images/splashscreens/ipadpro1_splash.png',
-	'/images/splashscreens/iphone5_splash.png',
-	'/images/splashscreens/iphonex_splash.png',
-	'/images/splashscreens/ipadpro3_splash.png',
-	'/images/splashscreens/iphonexr_splash.png',
-	'/images/icons/favicon-16x16.png',
-	'/images/icons/safari-pinned-tab.svg',
-	'/images/icons/favicon.ico',
-	'/images/icons/apple-touch-icon-120x120.png',
-	'/images/icons/android-chrome-192x192.png',
-	'/images/icons/apple-touch-icon.png',
-	'/images/icons/apple-touch-icon-152x152.png',
-	'/images/icons/apple-touch-icon-180x180.png',
-	'/images/icons/apple-touch-icon-76x76.png',
-	'/images/icons/android-chrome-512x512.png',
-	'/images/icons/site.webmanifest',
-	'/images/icons/mstile-150x150.png',
-	'/images/icons/apple-touch-icon-60x60.png',
-	'/images/icons/favicon-32x32.png'
+	'./',
+	'./index.html',
+	'./styles.css',
+	'./frontend.js',
+	'./lang.js',
+	'./orientation.js',
+	'./push.js',
+	'./manifest.json',
+	'./images/favicon-16x16.png',
+	'./images/add-to-home-screen-chrome.jpg',
+	'./images/favicon_120.png',
+	'./images/apple-touch-icon.png',
+	'./images/qrcode_skorpi0n.github.io.png',
+	'./images/caravan-solid.svg',
+	'./images/add-to-home-screen-safari.jpg',
+	'./images/favicon-32x32.png',
+	'./images/splashscreens/ipad_splash.png',
+	'./images/splashscreens/iphonexsmax_splash.png',
+	'./images/splashscreens/ipadpro2_splash.png',
+	'./images/splashscreens/iphone6_splash.png',
+	'./images/splashscreens/iphoneplus_splash.png',
+	'./images/splashscreens/ipadpro1_splash.png',
+	'./images/splashscreens/iphone5_splash.png',
+	'./images/splashscreens/iphonex_splash.png',
+	'./images/splashscreens/ipadpro3_splash.png',
+	'./images/splashscreens/iphonexr_splash.png',
+	'./images/icons/favicon-16x16.png',
+	'./images/icons/safari-pinned-tab.svg',
+	'./images/icons/favicon.ico',
+	'./images/icons/apple-touch-icon-120x120.png',
+	'./images/icons/android-chrome-192x192.png',
+	'./images/icons/apple-touch-icon.png',
+	'./images/icons/apple-touch-icon-152x152.png',
+	'./images/icons/apple-touch-icon-180x180.png',
+	'./images/icons/apple-touch-icon-76x76.png',
+	'./images/icons/android-chrome-512x512.png',
+	'./images/icons/site.webmanifest',
+	'./images/icons/mstile-150x150.png',
+	'./images/icons/apple-touch-icon-60x60.png',
+	'./images/icons/favicon-32x32.png'
 ];
 
 // Install event – cache app shell
@@ -98,7 +100,7 @@ self.addEventListener('fetch', event => {
       .catch(() => {
         // Fallback endast för navigation (HTML)
         if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+          return caches.match('./index.html');
         }
       })
   );
