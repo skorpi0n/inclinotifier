@@ -1,4 +1,4 @@
-release = "v1.0.2-alpha";	//Change this whenever a update should be loaded
+release = "v1.1.0-rc1";	//Change this whenever a update should be loaded
 
 const CACHE_NAME = "inclinotifier_" + release;
 

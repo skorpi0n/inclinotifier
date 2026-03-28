@@ -121,7 +121,7 @@ If you like my Web App, please support my Work!
 
 ## TODO list
 
-:white_large_square: Make it work offline
+:white_check_mark: Make it work offline
 
 :white_large_square: Make caravan image-boxes better, to be able to rotate and mirror them more effectively
 
@@ -163,6 +163,9 @@ If you like my Web App, please support my Work!
 :white_large_square: Investigate what can be put in manifest.json
 
 ## <ins>Version History</ins>
+
+**MArch 28th 2025 (v1.1.0-rc1)**
+
 
 **April 23th 2024 (v1.0.0-rc1)**
 
