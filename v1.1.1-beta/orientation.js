@@ -91,8 +91,8 @@ function orientationSnapshot(event){
 			calibratedBeta = event.beta - calibratedXOffsetVal;
 		}
 		else{
-			calibratedGamma = (event.gamma - calibratedZOffsetVal) * -1;
-			calibratedBeta = (event.beta - calibratedXOffsetVal) * -1;
+			calibratedGamma = event.gamma - calibratedZOffsetVal - 180;
+			calibratedBeta = event.beta - calibratedXOffsetVal - 180;
 		}
 
 		if(calibratedBeta != null && Date.now() >= (lastXupdateTS + xzUpdateIntervalMS)){	
@@ -118,8 +118,8 @@ function handleOrientation(event) {
 			calibratedBeta = event.beta - calibratedXOffsetVal;
 		}
 		else{
-			calibratedGamma = (event.gamma - calibratedZOffsetVal) * -1;
-			calibratedBeta = (event.beta - calibratedXOffsetVal) * -1;
+			calibratedGamma = event.gamma - calibratedZOffsetVal - 180;
+			calibratedBeta = event.beta - calibratedXOffsetVal - 180;
 		}
 	
 		//X-axis beta (jockey wheel up/down)
