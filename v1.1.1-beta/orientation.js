@@ -113,13 +113,18 @@ function orientationSnapshot(event){
 function handleOrientation(event) {
 	try{
 		//Update with calibrated values
-		if(Math.abs(event.beta) <= 90){
-			calibratedGamma = event.gamma - calibratedZOffsetVal;
-			calibratedBeta = event.beta - calibratedXOffsetVal;
-		}
-		else{
+		if(event.beta > 90){
 			calibratedGamma = event.gamma - calibratedZOffsetVal - 180;
 			calibratedBeta = event.beta - calibratedXOffsetVal - 180;
+		}
+		else if(event.beta < -90){
+			calibratedGamma = event.gamma - calibratedZOffsetVal + 180;
+			calibratedBeta = event.beta - calibratedXOffsetVal + 180;
+		}
+		else{
+			calibratedGamma = event.gamma - calibratedZOffsetVal;
+			calibratedBeta = event.beta - calibratedXOffsetVal;
+
 		}
 	
 		//X-axis beta (jockey wheel up/down)
