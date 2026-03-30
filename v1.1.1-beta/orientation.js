@@ -114,11 +114,11 @@ function handleOrientation(event) {
 	try{
 		//Update with calibrated values
 		if(event.beta > 90){
-			calibratedGamma = (event.gamma - calibratedZOffsetVal + 180);
+			calibratedGamma = (event.gamma - calibratedZOffsetVal + 0) * -1;
 			calibratedBeta = (event.beta - calibratedXOffsetVal - 180) * -1;
 		}
 		else if(event.beta < -90){
-			calibratedGamma = event.gamma - calibratedZOffsetVal - 180;
+			calibratedGamma = (event.gamma - calibratedZOffsetVal - 0) * -1;
 			calibratedBeta = (event.beta - calibratedXOffsetVal + 180) * -1;
 		}
 		else{
