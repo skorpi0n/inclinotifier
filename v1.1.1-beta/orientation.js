@@ -113,7 +113,7 @@ function orientationSnapshot(event){
 function handleOrientation(event) {
 	try{
 		//Update with calibrated values
-		if(Math.abs(event.beta) <= 180){
+		if(Math.abs(event.beta) <= 90){
 			calibratedGamma = event.gamma - calibratedZOffsetVal;
 			calibratedBeta = event.beta - calibratedXOffsetVal;
 		}
