@@ -164,11 +164,11 @@ If you like my Web App, please support my Work!
 
 ## <ins>Version History</ins>
 
-**MArch 28th 2025 (v1.1.0-rc1)**
-
+**March 28th 2025 (v1.1.0-rc1)**
+Second public release with offline functionalty
 
 **April 23th 2024 (v1.0.0-rc1)**
-
+First public release
 
 **March 15th 2024 (Initial Commit)**
 First release with proof of concept.
